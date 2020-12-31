@@ -32,7 +32,6 @@ static const char *const autostart[] = {
 //  "autostart", "&", NULL,
 	NULL /* terminate */
 };
-
 /* tagging */
 static const char *tags[] = { "a", "s", "d", "f", "h", "j", "k", "l" };
 
@@ -73,11 +72,13 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd2[] = { "alacritty", NULL };
 static const char *volup[] = { "volume", "up", NULL};
 static const char *voldw[] = { "volume", "down", NULL};
 static const char *layout[] = { "layout", NULL};
 static const char *qutebrowser[] = { "qutebrowser", NULL };
 static const char *pomodoro[] = { "pomoStart", NULL };
+static const char *vimwiki[] = { "vimwiki", NULL };
 static const char *notifya[] = { "notify-send", "a", NULL};
 static const char *notifys[] = { "notify-send", "s", NULL};
 static const char *notifyd[] = { "notify-send", "d", NULL};
@@ -91,11 +92,13 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY|ControlMask,           XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_t,      spawn,          {.v = termcmd } },
+	{ Mod4Mask,                     XK_t,      spawn,          {.v = termcmd2 } },
 	{ MODKEY|ShiftMask,             XK_u,      spawn,          {.v = volup } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = voldw } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = layout } },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = pomodoro } },
 	{ MODKEY,                       XK_q,      spawn,          {.v = qutebrowser } },
+	{ MODKEY,                       XK_v,      spawn,          {.v = vimwiki } },
   { MODKEY|ControlMask,           XK_space,  focusmaster,    {0} },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_n,      focusstack,     {.i = +1 } },

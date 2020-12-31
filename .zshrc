@@ -9,34 +9,12 @@ export VISUAL="/usr/bin/nvim"
 
 # Alias
 
-# Task Warrior
-ta() {
-  task add "$@"; nohup gitTask &
+nh() {
+  nohup $1 >/dev/null 2>&1& 
 }
 
-td() {
-  task done "$@"; nohup gitTask &
-}
 
-tdel() {
-  task delete "$@"; nohup gitTask &
-}
-alias tn="task next"
-alias tw="task waiting"
 
-alias habit="task rc.data.location=~/.habit"
-alias habitCreate="task add rc.data.location=~/.habit"
-alias habitDone="task done rc.data.location=~/.habit"
-alias habitDelete="task delete rc.data.location=~/.habit"
-alias habitWait="task waiting rc.data.location=~/.habit"
-
-habitProject() {
-  task $1 $2 project:$3 rc.data.location=~/.habit
-}
-
-habitProjectW() {
-  task $1 project:$2 $3 "$@" rc.data.location=~/.habit
-}
 
 # Markmap
 alias fmap="markmap ~/vimwiki/"
@@ -49,26 +27,65 @@ Mindir() {
 }
 alias files="~/Documents/MindMaps/"
 
-# Anki
-alias ave="anki-vim English"
-alias avp="anki-vim Portuguese"
 
 # System related 
 alias cl="clear"
 alias spi="sudo pacman -S"
 alias spr="sudo pacman -R"
 alias yi="yay -S"
-alias svim="sudo -e"
-alias n="nnn"
-alias zc="nvim ~/.zshrc"
-alias sz="source ~/.zshrc"
-alias qc="$EDITOR ~/.config/qtile/config.py"
-alias spu="sudo pacman -Syu; gopreload-batch-refresh.sh"
-alias dc="nvim ~/dwm/config.h"
-alias smci="sudo rm config.h; make; sudo make install"
-alias v="nvim"
-alias st="nohup st &"
-alias reddit="ttrv --enable-media"
+alias smci="make; sudo make install"
+  # Configs
+    alias zc="$EDITOR ~/.zshrc"
+    alias sz="source ~/.zshrc"
+    alias qc="$EDITOR ~/.config/qtile/config.py"
+    alias spu="sudo pacman -Syu; gopreload-batch-refresh.sh"
+    alias dc="nvim ~/dwm/config.h"
+
+
+# Applications
+
+  # Terminal Based
+    alias n="nnn"
+    alias reddit="ttrv --enable-media"
+    alias svim="sudo -e"
+    alias v="nvim"
+    alias vimwiki="$EDITOR ~/.vimwki/index.wiki"
+    st() {
+      nh st;
+    }
+
+    # Anki
+      alias ave="anki-vim English"
+      alias avp="anki-vim Portuguese"
+
+    # Task Warrior
+      ta() {
+        task add "$@"; nh gitTask; 
+      }
+
+      td() {
+        task done "$@"; nh gitTask;
+      }
+
+      tdel() {
+        task delete "$@"; nh gitTask; 
+      }
+      alias tn="task next"
+      alias tw="task waiting"
+
+      # Tracking Habits
+        alias habit="task rc.data.location=~/.habit"
+        alias habitCreate="task add rc.data.location=~/.habit"
+        alias habitDone="task done rc.data.location=~/.habit"
+        alias habitDelete="task delete rc.data.location=~/.habit"
+        alias habitWait="task waiting rc.data.location=~/.habit"
+        habitProject() {
+          task $1 $2 project:$3 rc.data.location=~/.habit
+        }
+
+        habitProjectW() {
+          task $1 project:$2 $3 "$@" rc.data.location=~/.habit
+        }
 
 RenameExt() {
   # rename ts mp4 *.ts
@@ -239,3 +256,4 @@ echo 'To-Do'
 bindkey -v
 bindkey -M viins 'jj' vi-cmd-mode
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=180'
+eval "$(starship init zsh)"

@@ -6,8 +6,7 @@ dunst &
 nitrogen --restore &
 picom --experimental-backend &
 conky &
-xidlehook --not-when-fullscreen --not-when-audio --timer 300 'i3lock -k --timecolor=FFFFFFCC --time-align 2 -i ~/Documents/Wallpapers/Chevrolet.jpg -t -ef -n' '' &
+betterlockscreen -u ~/Documents/Wallpapers/Forest_fog_deer.jpg &
+xidlehook --not-when-fullscreen --not-when-audio --timer 300 'betterlockscreen -l' '' &
 searxStart &
-xcape -d &
-xcape -e 'Control_L=Escape' &
 
