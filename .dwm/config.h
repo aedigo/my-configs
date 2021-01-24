@@ -77,16 +77,17 @@ static const char *volup[] = { "volume", "up", NULL};
 static const char *voldw[] = { "volume", "down", NULL};
 static const char *layout[] = { "layout", NULL};
 static const char *qutebrowser[] = { "qutebrowser", NULL };
+static const char *browser[] = { "brave", NULL };
 static const char *pomodoro[] = { "pomoStart", NULL };
 static const char *vimwiki[] = { "vimwiki", NULL };
-static const char *notifya[] = { "notify-send", "a", NULL};
-static const char *notifys[] = { "notify-send", "s", NULL};
-static const char *notifyd[] = { "notify-send", "d", NULL};
-static const char *notifyf[] = { "notify-send", "f", NULL};
-static const char *notifyh[] = { "notify-send", "h", NULL};
-static const char *notifyj[] = { "notify-send", "j", NULL};
-static const char *notifyk[] = { "notify-send", "k", NULL};
-static const char *notifyl[] = { "notify-send", "l", NULL};
+static const char *notifya[] = { "notifyGroup", "a", NULL};
+static const char *notifys[] = { "notifyGroup", "s", NULL};
+static const char *notifyd[] = { "notifyGroup", "d", NULL};
+static const char *notifyf[] = { "notifyGroup", "f", NULL};
+static const char *notifyh[] = { "notifyGroup", "h", NULL};
+static const char *notifyj[] = { "notifyGroup", "j", NULL};
+static const char *notifyk[] = { "notifyGroup", "k", NULL};
+static const char *notifyl[] = { "notifyGroup", "l", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -98,6 +99,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_e,      spawn,          {.v = layout } },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = pomodoro } },
 	{ MODKEY,                       XK_q,      spawn,          {.v = qutebrowser } },
+	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
 	{ MODKEY,                       XK_v,      spawn,          {.v = vimwiki } },
   { MODKEY|ControlMask,           XK_space,  focusmaster,    {0} },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },

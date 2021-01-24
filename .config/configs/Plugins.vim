@@ -14,6 +14,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'preservim/nerdtree'
   Plug 'junegunn/limelight.vim'
   Plug 'junegunn/goyo.vim'
+  Plug 'pangloss/vim-javascript'
 call plug#end()
 
 
