@@ -12,7 +12,7 @@
 
 ## This is here so configs done via the GUI are still loaded.
 ## Remove it to not load settings done via the GUI.
-# config.load_autoconfig()
+config.load_autoconfig(False)
 
 ## Aliases for commands. The keys of the given dictionary are the
 ## aliases, while the values are the commands they map to.
@@ -1029,7 +1029,7 @@ c.content.notifications = False
 ## Duration (in milliseconds) to wait before removing finished downloads.
 ## If set to -1, downloads are never removed.
 ## Type: Int
-#c.downloads.remove_finished = 5
+c.downloads.remove_finished = 3
 
 ## Editor (and arguments) to use for the `open-editor` command. The
 ## following placeholders are defined:  * `{file}`: Filename of the file
@@ -1817,7 +1817,7 @@ c.tabs.show = 'switching'
 ## qutebrowser`.
 ## Type: Dict
 ## 'ddg': 'https://duckduckgo.com/?q={}',
-c.url.searchengines = {'DEFAULT': 'localhost/search?hl=en&q={}',  'go': 'https://www.google.com/search?hl=en&q={}', "wa": "https://wiki.archlinux.org/?search={}" }
+c.url.searchengines = {'DEFAULT': 'localhost/search?hl=en&q={}',  'go': 'https://www.google.com/search?hl=en&q={}', "wa": "https://wiki.archlinux.org/?search={}", 'wk': "https://www.wikipedia.org/w/index.php?title=Special:Search&search={}" }
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
@@ -2172,6 +2172,7 @@ config.bind('<Ctrl-i>', 'leave-mode', mode='prompt')
 # config.bind('n', 'prompt-accept no', mode='yesno')
 # config.bind('y', 'prompt-accept yes', mode='yesno')
 config.bind(',m', 'spawn mpv --force-window=immediate --pause {url}')
+config.bind(',t', 'spawm --userscript taskadd')
 
 import sys, os
 
