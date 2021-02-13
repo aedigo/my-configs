@@ -2,23 +2,21 @@
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int gappx     = 6;        /* gaps between windows */
-static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int gappx     = 0;        /* gaps between windows */
+static const unsigned int snap      = 24;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 0;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int vertpad            = 10;       /* vertical padding of bar */
-static const int sidepad            = 10;       /* horizontal padding of bar */
 static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
+static const char col_gray2[]       = "#161d6f";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
+static const char col_cyan[]        = "#f6f6f6";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -78,7 +76,8 @@ static const char *layout[] = { "layout", NULL};
 static const char *qutebrowser[] = { "qutebrowser", NULL };
 static const char *browser[] = { "brave", NULL };
 static const char *pomodoro[] = { "pomoStart", NULL };
-static const char *vimwiki[] = { "vimwiki", NULL };
+static const char *vimwiki[] = { "st", "-e", "nvim ~/.vimwiki/index.wiki", NULL };
+static const char *n[] = { "st", "-e", "nnn", NULL };
 static const char *notifya[] = { "notifyGroup", "a", NULL};
 static const char *notifys[] = { "notifyGroup", "s", NULL};
 static const char *notifyd[] = { "notifyGroup", "d", NULL};
@@ -100,6 +99,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_q,      spawn,          {.v = qutebrowser } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
 	{ MODKEY,                       XK_v,      spawn,          {.v = vimwiki } },
+	{ Mod4Mask,                     XK_n,      spawn,          {.v = n } },
   { MODKEY|ControlMask,           XK_space,  focusmaster,    {0} },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_n,      focusstack,     {.i = +1 } },

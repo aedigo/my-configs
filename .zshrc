@@ -7,57 +7,59 @@ export ZSH="/home/aedigo/.oh-my-zsh"
 export EDITOR="/usr/bin/nvim"
 export VISUAL="/usr/bin/nvim"
 
+# Variables
+superUser=doas
+browser=qutebrowser
+
 # Alias
 
 nh() {
   nohup $1 >/dev/null 2>&1& 
 }
 
-
-
-
 # Markmap
-alias fmap="markmap ~/vimwiki/"
 Markmap() {
   markmap ~/Documents/MindMaps/$1/.sources/$2.md; mv ~/Documents/MindMaps/$1/.sources/$2.html ~/Documents/MindMaps/$1/$2.html 
+}
+
+openMap() {
+  $browser ~/Documents/MindMaps/$1/$2.html 
 }
 
 Mindir() {
   mkdir ~/Documents/MindMaps/$1
 }
-alias files="~/Documents/MindMaps/"
 
+alias files="~/Documents/MindMaps/"
 
 # System related 
 alias cl="clear"
-alias spi="sudo pacman -S"
-alias spr="sudo pacman -R"
+alias spi="$superUser pacman -S"
+alias spr="$superUser pacman -R"
+alias spra="$superUser pacman -Rs"
 alias yi="yay -S"
-alias smci="make; sudo make install"
+alias smci="$superUser rm config.h; make; $superUser make install"
+alias spu="$superUser pacman -Syu; gopreload-batch-refresh.sh"
+alias pbcopy='xclip -selection clipboard'
   # Configs
     alias zc="$EDITOR ~/.zshrc"
     alias sz="source ~/.zshrc"
     alias qc="$EDITOR ~/.config/qtile/config.py"
-    alias spu="sudo pacman -Syu; gopreload-batch-refresh.sh"
-    alias dc="nvim ~/dwm/config.h"
-
+    alias dc="nvim ~/.dwm/config.def.h"
 
 # Applications
-
   # Terminal Based
     alias n="nnn"
     alias reddit="ttrv --enable-media"
-    alias svim="sudo -e"
+    alias svim="$superUser -e"
     alias v="nvim"
-    alias vimwiki="$EDITOR ~/.vimwki/index.wiki"
-    st() {
+    alias vimwiki="nvim ~/.vimwki/index.wiki"
+    std() {
       nh st;
     }
-
     # Anki
       alias ave="anki-vim English"
       alias avp="anki-vim Portuguese"
-
     # Task Warrior
       ta() {
         task add "$@"; nh gitTask; 
@@ -72,7 +74,6 @@ alias smci="make; sudo make install"
       }
       alias tn="task next"
       alias tw="task waiting"
-
       # Tracking Habits
         alias habit="task rc.data.location=~/.habit"
         alias habitCreate="task add rc.data.location=~/.habit"
@@ -99,9 +100,13 @@ alias gc="git commit -m"
 # Vim
 alias nvc="nvim ~/config/nvim/init.vim"
 
+dp() {
+  LC_ALL=C pacman -Si "$1" | awk -F'[:<=>]' '/^Depends/ {print $2}' | xargs -n1 | sort -u
+}
+
 # Changing CPU governor to performance
-alias boost="sudo cpupower frequency-set -g performance"
-alias powersave="sudo cpupower frequency-set -g powersave"
+alias boost="$superUser cpupower frequency-set -g performance"
+alias powersave="$superUser cpupower frequency-set -g powersave"
 
 # Shortcut for Translate Shell. This will translate from any language to portuguese only. -brief is to show only the translation and nothing more. To translate a phrase, put it between quotation marks.
 alias t="trans -brief en:pt-br"
@@ -122,21 +127,10 @@ alias -s html=nvim
 # Global aliases
 alias -g L="| less"
 
-#function t () {
-#if [[ -v $2 ]];
-#  then 
-#    trans --brief en:pt-br $2
-##J  else
-  #trans --brief $1:pt-br $2
-  #fi
-#}
-
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
-#ZSH_THEME="fino-time"
 ZSH_THEME="theunraveler"
 
 
@@ -255,5 +249,7 @@ echo 'To-Do'
 # Setting vim keybindgs on the terminal.
 bindkey -v
 bindkey -M viins 'jj' vi-cmd-mode
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=180'
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=980'
 eval "$(starship init zsh)"
