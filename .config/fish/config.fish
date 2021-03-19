@@ -50,3 +50,9 @@ set dangerous_colors 000000 333333 666666 ffffff ffff00 ff6600 ff0000 ff0033 330
   function tn
     task next;
   end
+
+# Qtile
+  function qc
+    $EDITOR ~/.config/qtile/config.py;
+  end
+

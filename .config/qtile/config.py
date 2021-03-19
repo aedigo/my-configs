@@ -1,162 +1,232 @@
 from typing import List  # noqa: F401
 
-from libqtile import bar, layout, widget, hook, extension
-from libqtile.config import Click, Drag, Group, Key, Screen
+from libqtile import bar, layout, widget, hook
+from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-import os
-import subprocess
+import os, subprocess
+
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser('~')
+    subprocess.Popen([home + '/.config/qtile/autostart.sh'])
 
 mod = "mod3"
-terminal = "qterminal"
-alternativeTerminal = "alacritty"
-
-backgroundColor = "#002b36"
-color = "#268bd2"
-alternativeColor = "#268bd2"
-action = "#d33682"
+mod4 = "mod4"
+terminal = "st"
+secondaryTerminal = "qterminal"
 
 keys = [
-  # Switch between windows in current stack pane
+    # Switch between windows
+    #Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
+    #Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
+    #Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
+    #Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+    Key([mod], "n", lazy.layout.next()),
+    Key([mod], "p", lazy.layout.previous()),
+    # Move windows between left/right columns or move up/down in current stack.
+    # Moving out of range in Columns layout will create new column.
+    Key([mod, "shift"], "h", lazy.layout.shuffle_left(),
+        desc="Move window to the left"),
+    Key([mod, "shift"], "l", lazy.layout.shuffle_right(),
+        desc="Move window to the right"),
+    Key([mod, "shift"], "j", lazy.layout.shuffle_down(),
+        desc="Move window down"),
+    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
 
-  Key([mod], "n", lazy.layout.up(),
-    desc="Move focus up in stack pane"),
-  Key([mod], "b", lazy.layout.down(),
-    desc="Move focus down in stack pane"),
+    # Grow windows. If current window is on the edge of screen and direction
+    # will be to screen edge - window would shrink.
+    # Key([mod, "control"], "h", lazy.layout.grow_left(),
+        # desc="Grow window to the left"),
+    # Key([mod, "control"], "l", lazy.layout.grow_right(),
+        # desc="Grow window to the right"),
+    # Key([mod, "control"], "j", lazy.layout.grow_down(),
+        # desc="Grow window down"),
+    # Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    # Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
 
-  # Move windows up or down in current stack
-  Key([mod, "shift"], "o", lazy.layout.shuffle_down(),
-    desc="Move window down in current stack "),
-  Key([mod, "shift"], "i", lazy.layout.shuffle_up(),
-    desc="Move window up in current stack "),
+    # Toggle between split and unsplit sides of stack.
+    # Split = all windows displayed
+    # Unsplit = 1 window displayed, like Max layout, but still with
+    # multiple stack panes
+    Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
+        desc="Toggle between split and unsplit sides of stack"),
+    Key([mod], "t", lazy.spawn(terminal), desc="Launch terminal"),
 
-  # Switch window focus to other pane(s) of stack
-  Key([mod], "space", lazy.layout.next(),
-    desc="Switch window focus to other pane(s) of stack"),
+    # Toggle between different layouts as defined below
+    Key([mod], "space", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([mod], "c", lazy.window.kill(), desc="Kill focused window"),
 
-  # Swap panes of split stack
-  Key([mod, "shift"], "space", lazy.layout.rotate(),
-    desc="Swap panes of split stack"),
-
-  # Toggle between split and unsplit sides of stack.
-  # Split = all windows displayed
-  # Unsplit = 1 window displayed, like Max layout, but still with
-  # multiple stack panes
-  Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
-    desc="Toggle between split and unsplit sides of stack"),
-  Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-
-  # Toggle between different layouts as defined below
-  Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-
-  Key([mod, "control"], "r", lazy.restart(), desc="Restart qtile"),
-  Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown qtile"),
-  Key([mod], "r", lazy.spawncmd(),
-    desc="Spawn a command using a prompt widget"),
-
-  # Softwares related
-  Key([mod, "control"], "c", lazy.spawn(terminal)),
-  Key([mod, "control"], "d", lazy.run_extension(extension.DmenuRun(
-    dmenu_prompt=">",
-    dmenu_font="Andika-8",
-    background="#15181a",
-    foreground="#00ff00",
-    selected_background="#079822",
-    selected_foreground="#fff",
-    dmenu_height=24,  # Only supported by some dmenu forks
-  ))),
-  Key([mod, "control"], "f", lazy.spawn("firefox")),
-  Key([mod, "control"], "q", lazy.spawn("qutebrowser")),
-  Key([mod, "control"], "w", lazy.window.kill(), desc="Kill focused window"),
-  Key([mod, "control"], "n", lazy.spawn(terminal + " -e nnn")),
-  Key([mod, "control"], "p", lazy.spawn("pomoStart")),
-  # Alternative
-  Key(['mod4'], "Return", lazy.spawn(alternativeTerminal), desc="Launch backupTerm"),
-
-  # System related
-  Key([mod, "shift"], "t", lazy.spawn("shutdown -h now")),
-  #Key([mod, "shift"], "j", lazy.spawn("amixer set Master 5%-")),
-  Key([mod, "shift"], "j", lazy.spawn("volume down")),
-  Key([mod, "shift"], "k", lazy.spawn("volume up")),
-  Key([mod, "shift"], "m", lazy.spawn("volume mute")),
-  #Key([mod, "shift"], "k", lazy.spawn("amixer set Master 5%+")),
-  Key([mod, "shift"], "x", lazy.hide_show_bar("top")),
-
-  # Scripts 
-  Key(["mod4", "control"], "l", lazy.spawn("layout")),
-  Key(["mod4", "control"], "o", lazy.spawn("pointerDefault")),
-  Key(["mod4", "control"], "p", lazy.spawn("pointer")) ,
-  Key(["mod4", "control"], "e", lazy.spawn("enableDark")),
-  Key(["mod4", "control"], "d", lazy.spawn("disableDark")),
+    Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
+    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key([mod], "r", lazy.spawncmd(),
+        desc="Spawn a command using a prompt widget"),
+    # Personal configs
+    # Terminal
+    Key([mod4], "t", lazy.spawn(secondaryTerminal)),
+    # Browsers
+    Key([mod], "q", lazy.spawn("qutebrowser")),
+    Key([mod], "x", lazy.spawn("firefox")),
+    Key([mod], "g", lazy.spawn("google-chorme")),
+    Key([mod, "shift"], "b", lazy.spawn("brave")),
+    # Dmenu/Rofi
+    Key([mod], "r", lazy.spawn("rofi -show")),
+    # Scripts
+    Key([mod, "shift"], "e", lazy.spawn("layout")),
+    Key([mod, "shift"], "u", lazy.spawn("volume up")),
+    Key([mod, "shift"], "d", lazy.spawn("volume down")),
+    Key([mod, "shift"], "p", lazy.spawn("pomodoro")),
+    Key([mod, "shift"], "c", lazy.spawn("pomodoro cancel")),
+    # File Managers
+    Key([mod4], "n", lazy.spawn(terminal + " -e nnn")),
+    # System
+    Key([mod, "shift"], "s", lazy.spawn("shutdown -h now")),
+    Key([mod, "shift"], "r", lazy.spawn("reboot")),
+    Key([mod, "control"], "t", lazy.spawn("getHours")),
+    # Lock
+    Key([mod, "control"], 'l', lazy.spawn("betterlockscreen -l dim")),
 ]
 
 groups = [Group(i) for i in "asdfhjkl"]
 
 for i in groups:
-  keys.extend([
-    # To switch between groups/workspaces
-    Key([mod], i.name, lazy.group[i.name].toscreen(),
-      desc="Switch to group {}".format(i.name)),
+    keys.extend([
+        # mod1 + letter of group = switch to group
+        Key([mod], i.name, lazy.group[i.name].toscreen(),
+            desc="Switch to group {}".format(i.name)),
 
-    # This will make the window move and not drag the user with it
-    Key(["mod4"], i.name, lazy.window.togroup(i.name),
-      desc="move focused window to group {}".format(i.name)),
-
+        #Key([mod4], i.name, lazy.window.togroup(i.name, switch_group=True),
+        #    desc="Switch to & move focused window to group {}".format(i.name)),
+        # mod1 + shift + letter of group = move focused window to group
+        Key([mod4], i.name, lazy.window.togroup(i.name),
+             desc="move focused window to group {}".format(i.name)),
     ])
 
 layouts = [
-  layout.Max(),
-  layout.Tile( 
-    border_focus = color, 
-    border_normal = backgroundColor, 
-    border_width = 3, 
-    margin = 0,
-    expand = True,
-  ),
+    layout.Tile(
+        border_width=0,
+        margin=4,
+    ),
+    layout.Max(),
 ]
 
 widget_defaults = dict(
-  font='Iosevka',
-  fontsize=16,
-  padding=10,
-  background = backgroundColor,
+    font='FantasqueSansMono Nerd Font',
+    fontsize=14,
+    padding=3,
 )
-
 extension_defaults = widget_defaults.copy()
 
+bgc='282828'
 screens = [
     Screen(
-        top=bar.Bar(
+        bottom=bar.Bar(
             [
-               widget.GroupBox(
-                    borderwidth = 0,
-                    highlight_method = 'block',
-                    highlight_color = [color, backgroundColor],
-                    disable_drag = True,
+                widget.Sep(
+                    background=bgc,
+                    foreground=bgc,
+                    linewidth=2,
                 ),
-                widget.Prompt(),
-                widget.Spacer(),
-                widget.Sep( 
-                    linewidth = 5, 
-                    foreground = backgroundColor,
+                widget.GroupBox(
+                    active='a89984',
+                    background=bgc,
+                    disable_drag=True,
+                    highlight_color='fbf1c7',
+                    highlight_method='line',
+                    inactive='fb4934',
                 ),
-                widget.Systray(
-                    padding = 5,
+                widget.Spacer(
+                    background=bgc,
+                ),
+               #  widget.OpenWeather(
+                    # app_key='2d6602a071d92529af1939b0152f5aba',
+                    # cityid='São Vicente, BR',
+                # ),
+                widget.Memory(
+                    background=bgc,
+                    format='{MemFree}M',
                 ),
                 widget.Sep(
-                    linewidth = 15,
-                    foreground = backgroundColor,
+                    background=bgc,
+                    foreground=bgc,
+                    linewidth=8,
+                ),
+                widget.Systray(
+                    background=bgc,
+                ),
+                widget.Sep(
+                    background=bgc,
+                    foreground=bgc,
+                    linewidth=8,
+                ),
+                widget.Clock(
+                    background=bgc,
+                    format='%m/%d %a %I:%M'
+                ),
+                widget.Sep(
+                    background=bgc,
+                    foreground=bgc,
+                    linewidth=8,
                 ),
                 widget.QuickExit(
-                    background = action,
-                    foreground = backgroundColor,
-                    default_text = 'Off',
-                    countdown_format = "[ {} ]"
+                    background=bgc,
                 ),
             ],
             24,
         ),
     ),
+    Screen(
+        top=bar.Bar(
+            [
+                widget.GroupBox(
+                    active='a89984',
+                    background=bgc,
+                    disable_drag=True,
+                    highlight_color='fbf1c7',
+                    highlight_method='line',
+                    inactive='fb4934',
+                ),
+                widget.Spacer(
+                    background=bgc,
+                ),
+               #  widget.OpenWeather(
+                    # app_key='2d6602a071d92529af1939b0152f5aba',
+                    # cityid='São Vicente, BR',
+                # ),
+                widget.Memory(
+                    background=bgc,
+                    format='{MemFree}M',
+                ),
+                widget.Sep(
+                    background=bgc,
+                    foreground=bgc,
+                    linewidth=8,
+                ),
+                widget.Systray(
+                    background=bgc,
+                ),
+                widget.Sep(
+                    background=bgc,
+                    foreground=bgc,
+                    linewidth=8,
+                ),
+                widget.Clock(
+                    background=bgc,
+                    format='%m/%d %a %I:%M'
+                ),
+                widget.Sep(
+                    background=bgc,
+                    foreground=bgc,
+                    linewidth=8,
+                ),
+                widget.QuickExit(
+                    background=bgc,
+                ),
+            ],
+            24,
+        ),
+    ),
+
 ]
 
 # Drag floating layouts.
@@ -176,20 +246,14 @@ bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
-    {'wmclass': 'confirm'},
-    {'wmclass': 'dialog'},
-    {'wmclass': 'download'},
-    {'wmclass': 'error'},
-    {'wmclass': 'file_progress'},
-    {'wmclass': 'notification'},
-    {'wmclass': 'splash'},
-    {'wmclass': 'toolbar'},
-    {'wmclass': 'confirmreset'},  # gitk
-    {'wmclass': 'makebranch'},  # gitk
-    {'wmclass': 'maketag'},  # gitk
-    {'wname': 'branchdialog'},  # gitk
-    {'wname': 'pinentry'},  # GPG key password entry
-    {'wmclass': 'ssh-askpass'},  # ssh-askpass
+    *layout.Floating.default_float_rules,
+    Match(wm_class='confirmreset'),  # gitk
+    Match(wm_class='makebranch'),  # gitk
+    Match(wm_class='maketag'),  # gitk
+    Match(wm_class='ssh-askpass'),  # ssh-askpass
+    Match(wm_class='steam'),  # ssh-askpass
+    Match(title='branchdialog'),  # gitk
+    Match(title='pinentry'),  # GPG key password entry
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
@@ -203,13 +267,3 @@ focus_on_window_activation = "smart"
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
-# Startup script
-@hook.subscribe.startup_once
-def autostart():
-    home = os.path.expanduser('~/.config/qtile/autostart.sh')
-    subprocess.call([home])
-
-@hook.subscribe.startup
-def startup():
-    top.show(False)
-

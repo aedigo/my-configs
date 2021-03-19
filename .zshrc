@@ -19,15 +19,15 @@ nh() {
 
 # Markmap
 Markmap() {
-  markmap ~/Documents/MindMaps/$1/.sources/$2.md; mv ~/Documents/MindMaps/$1/.sources/$2.html ~/Documents/MindMaps/$1/$2.html 
+  markmap ~/Documents/Mindmaps/$1/.sources/$2.md; mv ~/Documents/Mindmaps/$1/.sources/$2.html ~/Documents/Mindmaps/$1/$2.html 
 }
 
 openMap() {
-  $browser ~/Documents/MindMaps/$1/$2.html 
+  $browser ~/Documents/Mindmaps/$1/$2.html 
 }
 
 Mindir() {
-  mkdir ~/Documents/MindMaps/$1
+  mkdir ~/Documents/Mindmaps/$1
 }
 
 alias files="~/Documents/MindMaps/"
