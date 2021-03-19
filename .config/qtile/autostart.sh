@@ -6,4 +6,4 @@ xmodmap ~/.Xmodmap &
 nitrogen --restore &
 xcape -e "Control_L=Escape" &
 flashfocus &
-
+picom --experimental-backend &

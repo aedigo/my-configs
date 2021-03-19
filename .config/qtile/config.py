@@ -21,6 +21,9 @@ def kick_to_next_screen(qtile, direction=1):
 	if othergroup:
 		qtile.moveToGroup(othergroup)
 
+def latest_group(qtile):
+    qtile.current_screen.set_group(qtile.current_screen.previous_group)
+
 mod = "mod3"
 mod4 = "mod4"
 terminal = "st"
@@ -43,6 +46,7 @@ keys = [
         desc="Spawn a command using a prompt widget"),
     Key([mod], "o", lazy.function(kick_to_next_screen)),
     Key([mod, "shift"], "o", lazy.function(kick_to_next_screen, -1)),
+    Key([mod], "b", lazy.function(latest_group)),
     # Personal configs
     # Terminal
     Key([mod4], "t", lazy.spawn(secondaryTerminal)),
