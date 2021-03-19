@@ -7,8 +7,8 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'mattn/emmet-vim'
-  Plug 'lifepillar/vim-solarized8'
   Plug 'editorconfig/editorconfig-vim'
+  Plug 'morhetz/gruvbox'
 call plug#end()
 
 

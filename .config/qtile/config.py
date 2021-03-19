@@ -11,56 +11,38 @@ def autostart():
     home = os.path.expanduser('~')
     subprocess.Popen([home + '/.config/qtile/autostart.sh'])
 
+def kick_to_next_screen(qtile, direction=1):
+	other_scr_index = (qtile.screens.index(qtile.currentScreen) + direction) % len(qtile.screens)
+	othergroup = None
+	for group in qtile.cmd_groups().values():
+		if group['screen'] == other_scr_index:
+			othergroup = group['name']
+			break
+	if othergroup:
+		qtile.moveToGroup(othergroup)
+
 mod = "mod3"
 mod4 = "mod4"
 terminal = "st"
 secondaryTerminal = "qterminal"
 
 keys = [
-    # Switch between windows
-    #Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
-    #Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
-    #Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
-    #Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "n", lazy.layout.next()),
     Key([mod], "p", lazy.layout.previous()),
-    # Move windows between left/right columns or move up/down in current stack.
-    # Moving out of range in Columns layout will create new column.
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(),
         desc="Move window to the left"),
     Key([mod, "shift"], "l", lazy.layout.shuffle_right(),
         desc="Move window to the right"),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(),
-        desc="Move window down"),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
-
-    # Grow windows. If current window is on the edge of screen and direction
-    # will be to screen edge - window would shrink.
-    # Key([mod, "control"], "h", lazy.layout.grow_left(),
-        # desc="Grow window to the left"),
-    # Key([mod, "control"], "l", lazy.layout.grow_right(),
-        # desc="Grow window to the right"),
-    # Key([mod, "control"], "j", lazy.layout.grow_down(),
-        # desc="Grow window down"),
-    # Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
-    # Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-    Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
-        desc="Toggle between split and unsplit sides of stack"),
     Key([mod], "t", lazy.spawn(terminal), desc="Launch terminal"),
-
-    # Toggle between different layouts as defined below
     Key([mod], "space", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "c", lazy.window.kill(), desc="Kill focused window"),
-
+    Key([mod], 'period', lazy.next_screen(), desc='Next monitor'),
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
+    Key([mod], "o", lazy.function(kick_to_next_screen)),
+    Key([mod, "shift"], "o", lazy.function(kick_to_next_screen, -1)),
     # Personal configs
     # Terminal
     Key([mod4], "t", lazy.spawn(secondaryTerminal)),
@@ -69,6 +51,8 @@ keys = [
     Key([mod], "x", lazy.spawn("firefox")),
     Key([mod], "g", lazy.spawn("google-chorme")),
     Key([mod, "shift"], "b", lazy.spawn("brave")),
+    # Vim
+    Key([mod], "v", lazy.spawn(terminal + ' -e nvim /home/aedigo/.vimwiki/index.md')),
     # Dmenu/Rofi
     Key([mod], "r", lazy.spawn("rofi -show")),
     # Scripts
@@ -100,6 +84,7 @@ for i in groups:
         # mod1 + shift + letter of group = move focused window to group
         Key([mod4], i.name, lazy.window.togroup(i.name),
              desc="move focused window to group {}".format(i.name)),
+
     ])
 
 layouts = [
@@ -117,11 +102,8 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-bgc='282828'
-screens = [
-    Screen(
-        bottom=bar.Bar(
-            [
+def widgets():
+    widgetLists = [
                 widget.Sep(
                     background=bgc,
                     foreground=bgc,
@@ -171,59 +153,23 @@ screens = [
                 widget.QuickExit(
                     background=bgc,
                 ),
-            ],
-            24,
+            ]
+    return widgetLists;
+
+bgc='282828'
+screens = [
+    Screen(
+        bottom=bar.Bar(
+            widgets()
+            ,
+           30
         ),
     ),
     Screen(
         top=bar.Bar(
-            [
-                widget.GroupBox(
-                    active='a89984',
-                    background=bgc,
-                    disable_drag=True,
-                    highlight_color='fbf1c7',
-                    highlight_method='line',
-                    inactive='fb4934',
-                ),
-                widget.Spacer(
-                    background=bgc,
-                ),
-               #  widget.OpenWeather(
-                    # app_key='2d6602a071d92529af1939b0152f5aba',
-                    # cityid='São Vicente, BR',
-                # ),
-                widget.Memory(
-                    background=bgc,
-                    format='{MemFree}M',
-                ),
-                widget.Sep(
-                    background=bgc,
-                    foreground=bgc,
-                    linewidth=8,
-                ),
-                widget.Systray(
-                    background=bgc,
-                ),
-                widget.Sep(
-                    background=bgc,
-                    foreground=bgc,
-                    linewidth=8,
-                ),
-                widget.Clock(
-                    background=bgc,
-                    format='%m/%d %a %I:%M'
-                ),
-                widget.Sep(
-                    background=bgc,
-                    foreground=bgc,
-                    linewidth=8,
-                ),
-                widget.QuickExit(
-                    background=bgc,
-                ),
-            ],
-            24,
+            widgets()
+            ,
+            30
         ),
     ),
 
@@ -231,11 +177,11 @@ screens = [
 
 # Drag floating layouts.
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
+    Drag([mod4], "Button1", lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
+    Drag([mod4], "Button3", lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front())
+    Click([mod4], "Button2", lazy.window.bring_to_front())
 ]
 
 dgroups_key_binder = None
