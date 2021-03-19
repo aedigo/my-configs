@@ -483,7 +483,7 @@ config.load_autoconfig(False)
 ## `colors.webpage.darkmode.threshold.background` to 205.  - "With
 ## selective inversion of everything": Combines the two variants   above.
 ## Type: Bool
-# c.colors.webpage.darkmode.enabled = False
+c.colors.webpage.darkmode.enabled = True
 
 ## Render all colors as grayscale. This only has an effect when
 ## `colors.webpage.darkmode.algorithm` is set to `lightness-hsl` or
@@ -533,7 +533,10 @@ config.load_autoconfig(False)
 
 ## Force `prefers-color-scheme: dark` colors for websites.
 ## Type: Bool
-# c.colors.webpage.prefers_color_scheme_dark = False
+## c.colors.webpage.prefers_color_scheme_dark = True
+
+## Possible values are: auto, light and dark.
+c.colors.webpage.preferred_color_scheme = 'dark'
 
 ## Number of commands to save in the command history. 0: no history / -1:
 ## unlimited
@@ -2176,5 +2179,5 @@ config.bind(',t', 'spawm --userscript taskadd')
 
 import sys, os
 
-sys.path.append(os.path.join(sys.path[0], "~/.config/qutebrowser/themes/solenized"))
-config.source("themes/solenized/qutebrowser.py") 
+#sys.path.append(os.path.join(sys.path[0], "~/.config/qutebrowser/themes/solenized"))
+#config.source("themes/solenized/qutebrowser.py") 
