@@ -15,6 +15,7 @@ function notification() {
   then
     playSound pomo-end "time" 3
     zenity --warning --text="Good job! Now take some rest." &
+    sleep 8 && bash ~/.bin/lock.sh 
   fi
 }
 
