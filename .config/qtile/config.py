@@ -11,16 +11,6 @@ def autostart():
     home = os.path.expanduser('~')
     subprocess.Popen([home + '/.config/qtile/autostart.sh'])
 
-def kick_to_next_screen(qtile, direction=1):
-	other_scr_index = (qtile.screens.index(qtile.currentScreen) + direction) % len(qtile.screens)
-	othergroup = None
-	for group in qtile.cmd_groups().values():
-		if group['screen'] == other_scr_index:
-			othergroup = group['name']
-			break
-	if othergroup:
-		qtile.moveToGroup(othergroup)
-
 def latest_group(qtile):
     qtile.current_screen.set_group(qtile.current_screen.previous_group)
 
@@ -44,8 +34,6 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
-    Key([mod], "o", lazy.function(kick_to_next_screen)),
-    Key([mod, "shift"], "o", lazy.function(kick_to_next_screen, -1)),
     Key([mod], "b", lazy.function(latest_group)),
     # Personal configs
     # Terminal
@@ -68,11 +56,11 @@ keys = [
     # File Managers
     Key([mod4], "n", lazy.spawn(terminal + " -e nnn")),
     # System
-    Key([mod, "shift"], "s", lazy.spawn("shutdown -h now")),
+    Key([mod, "shift"], "s", lazy.spawn("shutboot shut")),
     Key([mod, "shift"], "r", lazy.spawn("reboot")),
     Key([mod, "control"], "t", lazy.spawn("getHours")),
     # Lock
-    Key([mod, "control"], 'l', lazy.spawn("betterlockscreen -l dim")),
+    Key([mod, "control"], 'l', lazy.spawn("lockIt")),
 ]
 
 groups = [Group(i) for i in "asdfhjkl"]
@@ -94,7 +82,7 @@ for i in groups:
 layouts = [
     layout.Tile(
         border_width=0,
-        margin=4,
+        margin=2,
     ),
     layout.Max(),
 ]
@@ -130,7 +118,7 @@ def widgets():
                 # ),
                 widget.Memory(
                     background=bgc,
-                    format='{MemFree}M',
+                    format='{MemUsed}M',
                 ),
                 widget.Sep(
                     background=bgc,
@@ -147,7 +135,7 @@ def widgets():
                 ),
                 widget.Clock(
                     background=bgc,
-                    format='%m/%d %a %I:%M'
+                    format='%m/%d %a %H:%M'
                 ),
                 widget.Sep(
                     background=bgc,
@@ -156,6 +144,12 @@ def widgets():
                 ),
                 widget.QuickExit(
                     background=bgc,
+                    default_text='Off',
+                ),
+                widget.Sep(
+                    background=bgc,
+                    foreground=bgc,
+                    linewidth=3,
                 ),
             ]
     return widgetLists;
@@ -166,7 +160,7 @@ screens = [
         bottom=bar.Bar(
             widgets()
             ,
-           30
+           20
         ),
     ),
     Screen(
