@@ -2,13 +2,14 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Path to your oh-my-zsh installation.
 export ZSH="/home/aedigo/.oh-my-zsh"
+export PATH=/home/aedigo/.local/bin:$PATH
 
 # Editor
 export EDITOR="/usr/bin/nvim"
 export VISUAL="/usr/bin/nvim"
 
 # Variables
-superUser=doas
+superUser=sudo
 browser=qutebrowser
 
 # Alias
@@ -27,7 +28,7 @@ openMap() {
 }
 
 Mindir() {
-  mkdir ~/Documents/Mindmaps/$1
+  mkdir -p ~/Documents/Mindmaps/$1/.sources 
 }
 
 alias files="~/Documents/MindMaps/"
@@ -39,10 +40,13 @@ alias spr="$superUser pacman -R"
 alias spra="$superUser pacman -Rs"
 alias yi="yay -S"
 alias smci="$superUser rm config.h; make; $superUser make install"
-alias spu="$superUser pacman -Syu; gopreload-batch-refresh.sh"
+alias spu="$superUser pacman -Syu;"
 alias pbcopy='xclip -selection clipboard'
+srm() {
+  $superUser rm -r $1;
+}
   # Configs
-    alias zc="$EDITOR ~/.zshrc"
+    alias sc="$EDITOR ~/.zshrc"
     alias sz="source ~/.zshrc"
     alias qc="$EDITOR ~/.config/qtile/config.py"
     alias dc="nvim ~/.dwm/config.def.h"
@@ -87,6 +91,8 @@ alias pbcopy='xclip -selection clipboard'
         habitProjectW() {
           task $1 project:$2 $3 "$@" rc.data.location=~/.habit
         }
+      # Manage Usb Devices
+      alias bm="bashmount"
 
 RenameExt() {
   # rename ts mp4 *.ts
@@ -98,7 +104,7 @@ alias ga="git add"
 alias gc="git commit -m"
 
 # Vim
-alias nvc="nvim ~/config/nvim/init.vim"
+alias nvc="nvim /home/aedigo/.config/nvim/"
 
 dp() {
   LC_ALL=C pacman -Si "$1" | awk -F'[:<=>]' '/^Depends/ {print $2}' | xargs -n1 | sort -u
@@ -108,6 +114,12 @@ dp() {
 alias boost="$superUser cpupower frequency-set -g performance"
 alias powersave="$superUser cpupower frequency-set -g powersave"
 
+# Python
+alias tps="python2 -m py_compile ~/.config/qtile/config.py"
+
+# Copy file names trought the terminal using: ls <filename>(Not required) | fName
+alias fName='xclip -selection clipboard'
+
 # Shortcut for Translate Shell. This will translate from any language to portuguese only. -brief is to show only the translation and nothing more. To translate a phrase, put it between quotation marks.
 alias t="trans -brief en:pt-br"
 alias tb="trans -brief pt-br:en"
@@ -116,8 +128,10 @@ translate() {
 }
 
 # Youtube-dl
-alias ytdw="youtube-dl -f 22"
 alias ytvf="youtube-dl -F"
+ytdw() {
+  youtube-dl $@ 
+}
 
 # Suffix aliases
 alias -s txt=nvim
@@ -245,11 +259,10 @@ zinit light zdharma/fast-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 
-echo 'To-Do'
 # Setting vim keybindgs on the terminal.
 bindkey -v
 bindkey -M viins 'jj' vi-cmd-mode
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=980'
-eval "$(starship init zsh)"
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+  exec startx
+fi
