@@ -64,6 +64,7 @@ srm() {
     # Anki
       alias ave="anki-vim English"
       alias avp="anki-vim Portuguese"
+      alias avm="anki-vim Math"
     # Task Warrior
       ta() {
         task add "$@"; nh gitTask; 
