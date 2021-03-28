@@ -1,7 +1,8 @@
 #!/bin/bash
 redshift &
 safeeyes &
-nm-applet &
+# I don't need to change or deal with the internet, so there's no need to have the applet
+# nm-applet &
 xmodmap ~/.Xmodmap &
 nitrogen --restore &
 xcape -e "Control_L=Escape" &
