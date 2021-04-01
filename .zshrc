@@ -40,7 +40,7 @@ alias spr="$superUser pacman -R"
 alias spra="$superUser pacman -Rs"
 alias yi="yay -S"
 alias smci="$superUser rm config.h; make; $superUser make install"
-alias spu="$superUser pacman -Syu;"
+alias spu="$superUser pacman -Syu; gopreload-batch-refresh.sh"
 alias pbcopy='xclip -selection clipboard'
 srm() {
   $superUser rm -r $1;
@@ -119,7 +119,10 @@ alias powersave="$superUser cpupower frequency-set -g powersave"
 alias tps="python2 -m py_compile ~/.config/qtile/config.py"
 
 # Copy file names trought the terminal using: ls <filename>(Not required) | fName
-alias fName='xclip -selection clipboard'
+# alias fName='xclip -selection clipboard'
+fName() {
+  ls $1 | xclip -selection clipboard
+}
 
 # Shortcut for Translate Shell. This will translate from any language to portuguese only. -brief is to show only the translation and nothing more. To translate a phrase, put it between quotation marks.
 alias t="trans -brief en:pt-br"
