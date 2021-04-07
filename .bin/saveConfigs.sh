@@ -51,8 +51,12 @@ case $1 in
     copy ~/.bin ~/.my-configs/
     save
     ;;
+  zsh)
+    copy ~/.zshrc ~/.my-configs/
+    save
+    ;;
   *)
-  notify-send 'Not found!'
+    notify-send 'Not found!'
   ;;
 esac
 
