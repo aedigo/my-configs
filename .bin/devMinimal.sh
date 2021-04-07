@@ -8,7 +8,7 @@ dir() {
 dir sass/partials
 dir public/css
 
-files() {
+file() {
   if [[ $1 = 'partials' ]]
   then
     touch sass/partials/_$2.scss
@@ -17,10 +17,10 @@ files() {
   fi
 }
 
-files 'partials' 'base'
-files 'partials' 'layout'
-files 'partials' 'components'
-files '' 'main'
+file 'partials' 'base'
+file 'partials' 'layout'
+file 'partials' 'components'
+file '' 'main'
 
 write() {
   echo $1 >> sass/main.scss
