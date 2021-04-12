@@ -5,7 +5,7 @@ safeeyes &
 # nm-applet &
 xmodmap ~/.Xmodmap &
 # nitrogen --restore &
-# hsetroot -solid "#1d2021" &
+hsetroot -solid "#1d2021" &
 xcape -e "Control_L=Escape" &
 flashfocus &
 picom --experimental-backend &
