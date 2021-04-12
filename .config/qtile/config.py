@@ -57,7 +57,7 @@ keys = [
     Key([mod4], "n", lazy.spawn(terminal + " -e nnn")),
     # System
     Key([mod, "shift"], "s", lazy.spawn("shutboot shut")),
-    Key([mod, "shift"], "r", lazy.spawn("reboot")),
+    Key([mod, "shift"], "p", lazy.spawn("reboot")),
     Key([mod, "control"], "t", lazy.spawn("getHours")),
     # Lock
     Key([mod, "control"], 'l', lazy.spawn("lockIt")),
@@ -154,7 +154,7 @@ def widgets():
             ]
     return widgetLists;
 
-bgc='282828'
+bgc='1d2021'
 screens = [
     Screen(
         bottom=bar.Bar(
