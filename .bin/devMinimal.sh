@@ -5,15 +5,15 @@
 dir() {
   mkdir -p $1
 }
-dir sass/partials
+dir src/sass/partials
 dir public/css
 
 file() {
   if [[ $1 = 'partials' ]]
   then
-    touch sass/partials/_$2.scss
+    touch src/sass/partials/_$2.scss
   else
-    touch sass/$2.scss
+    touch src/sass/$2.scss
   fi
 }
 
@@ -23,11 +23,11 @@ file 'partials' 'components'
 file '' 'main'
 
 write() {
-  echo $1 >> sass/main.scss
+  echo $1 >> src/sass/main.scss
 }
 
-write '@use "partials/base"'
-write '@use "partials/layout"'
-write '@use "partials/components"'
+write '@use "partials/base";'
+write '@use "partials/layout";'
+write '@use "partials/components";'
 
 
