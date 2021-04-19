@@ -57,7 +57,7 @@ keys = [
     Key([mod4], "n", lazy.spawn(terminal + " -e nnn")),
     # System
     Key([mod, "shift"], "s", lazy.spawn("shutboot shut")),
-    Key([mod, "shift"], "p", lazy.spawn("reboot")),
+    Key([mod4, "shift"], "p", lazy.spawn("reboot")),
     Key([mod, "control"], "t", lazy.spawn("getHours")),
     # Lock
     Key([mod, "control"], 'l', lazy.spawn("lockIt")),
@@ -145,6 +145,7 @@ def widgets():
                 widget.QuickExit(
                     background=bgc,
                     default_text='Off',
+                    countdown_format='{}',
                 ),
                 widget.Sep(
                     background=bgc,
