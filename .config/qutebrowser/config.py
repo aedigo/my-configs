@@ -894,7 +894,7 @@ c.content.geolocation = False
 ##   - true
 ##   - false
 ##   - ask
-c.content.notifications = False
+c.content.notifications.enabled = False
 
 ## Allow pdf.js to view PDF files in the browser. Note that the files can
 ## still be downloaded by clicking the download button in the pdf.js
@@ -2176,11 +2176,6 @@ config.bind('<Ctrl-i>', 'leave-mode', mode='prompt')
 # config.bind('y', 'prompt-accept yes', mode='yesno')
 config.bind(',m', 'spawn mpv --force-window=immediate --pause {url}')
 config.bind(',t', 'spawm --userscript taskadd')
-
-import sys, os
-
-#sys.path.append(os.path.join(sys.path[0], "~/.config/qutebrowser/themes/solenized"))
-#config.source("themes/solenized/qutebrowser.py") 
 
 # base16-qutebrowser (https://github.com/theova/base16-qutebrowser)
 # Base16 qutebrowser template by theova and Daniel Mulford
