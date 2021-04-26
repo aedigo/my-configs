@@ -81,7 +81,9 @@ for i in groups:
 
 layouts = [
     layout.Tile(
-        border_width=0,
+        border_width=1,
+        border_focus="#fbf1c7",
+        border_normal="#fb4934",
         margin=2,
     ),
     layout.Max(),
@@ -155,10 +157,10 @@ def widgets():
             ]
     return widgetLists;
 
-bgc='1d2021'
+bgc='282828'
 screens = [
     Screen(
-        bottom=bar.Bar(
+        top=bar.Bar(
             widgets()
             ,
            20

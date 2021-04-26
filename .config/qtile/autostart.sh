@@ -1,20 +1,16 @@
 #!/bin/bash
-nh() {
-  nohup "$@" >/dev/null 2>&1& 
-}
-
-nh redshift
-nh safeeyes 
+redshift &
+safeeyes &
 # I don't need to change or deal with the internet, so there's no need to have the applet
 # nm-applet &
-nh xmodmap ~/.Xmodmap 
+xmodmap ~/.Xmodmap &
 # nitrogen --restore &
-nh hsetroot -solid "#1d2021" 
-nh xcape -e "Control_L=Escape"
-nh flashfocus 
-nh picom --experimental-backend 
-nh pacmd set-card-profile 0 output:analog-stereo+input:analog-stereo
-nh startServer 
-nh pcmanfm -d 
-nh xfce4-power-manager 
+hsetroot -solid "#282828" &
+xcape -e "Control_L=Escape" &
+flashfocus &
+picom --experimental-backend &
+pacmd set-card-profile 0 output:analog-stereo+input:analog-stereo &
+startServer &
+pcmanfm -d &
+xfce4-power-manager &
 # searxStart &
