@@ -13,4 +13,5 @@ pacmd set-card-profile 0 output:analog-stereo+input:analog-stereo &
 startServer &
 pcmanfm -d &
 xfce4-power-manager &
+guake &
 # searxStart &

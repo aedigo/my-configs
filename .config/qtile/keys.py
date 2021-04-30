@@ -54,6 +54,9 @@ keys = [
     Key([mod, "control"], "t", lazy.spawn("getHours")),
     # Lock
     Key([mod, "control"], 'l', lazy.spawn("lockIt")),
+
+    # Terminal Based Apps
+    Key([mod, "shift"], "r", lazy.spawn(terminal + " -e ttrv")),
 ]
 
 # Drag floating layouts.
