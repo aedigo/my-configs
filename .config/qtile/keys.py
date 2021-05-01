@@ -44,8 +44,10 @@ keys = [
     Key([mod, "shift"], "e", lazy.spawn("layout")),
     Key([mod, "shift"], "u", lazy.spawn("volume up")),
     Key([mod, "shift"], "d", lazy.spawn("volume down")),
+    # Key([mod, "shift"], "p", lazy.spawn("pomodoro")),
+    # Key([mod, "shift"], "c", lazy.spawn("pomodoro cancel")),
     Key([mod, "shift"], "p", lazy.spawn("pomodoro")),
-    Key([mod, "shift"], "c", lazy.spawn("pomodoro cancel")),
+    Key([mod, "shift"], "c", lazy.spawn("pomoCancel")),
     # File Managers
     Key([mod4], "n", lazy.spawn(terminal + " -e nnn")),
     # System

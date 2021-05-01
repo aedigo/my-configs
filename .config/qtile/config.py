@@ -34,7 +34,7 @@ layouts = [
     layout.Tile(
         border_width=1,
         border_focus="#fbf1c7",
-        border_normal="#fb4934",
+        border_normal="#282828",
         margin=2,
     ),
     layout.Max(),
@@ -50,26 +50,17 @@ extension_defaults = widget_defaults.copy()
 
 def widgets():
     widgetLists = [
-                widget.Sep(
-                    background=bgc,
-                    foreground=bgc,
-                    linewidth=2,
-                ),
                 widget.GroupBox(
                     active='a89984',
                     background=bgc,
                     disable_drag=True,
                     highlight_color='fbf1c7',
                     highlight_method='line',
-                    inactive='fb4934',
+                    inactive='282828',
                 ),
                 widget.Spacer(
                     background=bgc,
                 ),
-               #  widget.OpenWeather(
-                    # app_key='2d6602a071d92529af1939b0152f5aba',
-                    # cityid='São Vicente, BR',
-                # ),
                 widget.Memory(
                     background=bgc,
                     format='{MemUsed}M',
@@ -100,11 +91,6 @@ def widgets():
                     background=bgc,
                     default_text='Off',
                     countdown_format='{}',
-                ),
-                widget.Sep(
-                    background=bgc,
-                    foreground=bgc,
-                    linewidth=3,
                 ),
             ]
     return widgetLists;

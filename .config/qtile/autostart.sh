@@ -14,4 +14,4 @@ startServer &
 pcmanfm -d &
 # xfce4-power-manager &
 guake &
-# searxStart &
+searxStart &
