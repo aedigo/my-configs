@@ -45,6 +45,7 @@ widget_defaults = dict(
     fontsize=14,
     padding=3,
 )
+
 extension_defaults = widget_defaults.copy()
 
 def widgets():
@@ -127,14 +128,17 @@ screens = [
 
 ]
 
-
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 main = None  # WARNING: this is deprecated and will be removed soon
 follow_mouse_focus = False
 bring_front_click = False
 cursor_warp = False
-floating_layout = layout.Floating(float_rules=[
+floating_layout = layout.Floating(
+        border_width=0,
+        max_border_width=0,
+        fullscreen_border_width=0,
+    float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     *layout.Floating.default_float_rules,
     Match(wm_class='confirmreset'),  # gitk
