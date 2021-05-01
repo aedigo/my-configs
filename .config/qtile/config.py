@@ -4,7 +4,7 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from keys import keys, mouse
-import os, subprocess
+import os, subprocess, numpy
 
 @hook.subscribe.startup_once
 def autostart():
@@ -14,27 +14,27 @@ def autostart():
 mod = "mod3"
 mod4 = "mod4"
 
+colors = [
+    '#282828',
+    'fbf1c7',
+    'a89984',
+]
+
 groups = [Group(i) for i in "asdfhjkl"]
 
 for i in groups:
     keys.extend([
-        # mod1 + letter of group = switch to group
         Key([mod], i.name, lazy.group[i.name].toscreen(),
             desc="Switch to group {}".format(i.name)),
-
-        #Key([mod4], i.name, lazy.window.togroup(i.name, switch_group=True),
-        #    desc="Switch to & move focused window to group {}".format(i.name)),
-        # mod1 + shift + letter of group = move focused window to group
         Key([mod4], i.name, lazy.window.togroup(i.name),
              desc="move focused window to group {}".format(i.name)),
-
     ])
 
 layouts = [
     layout.Tile(
         border_width=1,
-        border_focus="#fbf1c7",
-        border_normal="#282828",
+        border_focus=colors[1],
+        border_normal=colors[0],
         margin=2,
     ),
     layout.Max(),
@@ -42,7 +42,7 @@ layouts = [
 
 widget_defaults = dict(
     font='FantasqueSansMono Nerd Font',
-    fontsize=14,
+    fontsize=12,
     padding=3,
 )
 
@@ -51,51 +51,50 @@ extension_defaults = widget_defaults.copy()
 def widgets():
     widgetLists = [
                 widget.GroupBox(
-                    active='a89984',
-                    background=bgc,
+                    active=colors[2],
+                    background=colors[0],
                     disable_drag=True,
-                    highlight_color='fbf1c7',
+                    highlight_color=colors[1],
                     highlight_method='line',
-                    inactive='282828',
+                    inactive=colors[0],
                 ),
                 widget.Spacer(
-                    background=bgc,
+                    background=colors[0],
                 ),
                 widget.Memory(
-                    background=bgc,
+                    background=colors[0],
                     format='{MemUsed}M',
                 ),
                 widget.Sep(
-                    background=bgc,
-                    foreground=bgc,
+                    background=colors[0],
+                    foreground=colors[0],
                     linewidth=8,
                 ),
                 widget.Systray(
-                    background=bgc,
+                    background=colors[0],
                 ),
                 widget.Sep(
-                    background=bgc,
-                    foreground=bgc,
+                    background=colors[0],
+                    foreground=colors[0],
                     linewidth=8,
                 ),
                 widget.Clock(
-                    background=bgc,
+                    background=colors[0],
                     format='%m/%d %a %H:%M'
                 ),
                 widget.Sep(
-                    background=bgc,
-                    foreground=bgc,
+                    background=colors[0],
+                    foreground=colors[0],
                     linewidth=8,
                 ),
                 widget.QuickExit(
-                    background=bgc,
+                    background=colors[0],
                     default_text='Off',
                     countdown_format='{}',
                 ),
             ]
     return widgetLists;
 
-bgc='282828'
 screens = [
     Screen(
         top=bar.Bar(
@@ -104,14 +103,6 @@ screens = [
            20
         ),
     ),
-    Screen(
-        top=bar.Bar(
-            widgets()
-            ,
-            30
-        ),
-    ),
-
 ]
 
 dgroups_key_binder = None
@@ -125,27 +116,18 @@ floating_layout = layout.Floating(
         max_border_width=0,
         fullscreen_border_width=0,
     float_rules=[
-    # Run the utility of `xprop` to see the wm class and name of an X client.
     *layout.Floating.default_float_rules,
-    Match(wm_class='confirmreset'),  # gitk
-    Match(wm_class='makebranch'),  # gitk
-    Match(wm_class='maketag'),  # gitk
-    Match(wm_class='ssh-askpass'),  # ssh-askpass
-    Match(wm_class='steam'),  # ssh-askpass
-    Match(wm_class='guake'),  # ssh-askpass
-    Match(wm_class='feh'),  # ssh-askpass
-    Match(title='branchdialog'),  # gitk
-    Match(title='pinentry'),  # GPG key password entry
+    Match(wm_class='confirmreset'), 
+    Match(wm_class='makebranch'),  
+    Match(wm_class='maketag'), 
+    Match(wm_class='ssh-askpass'),
+    Match(wm_class='steam'),  
+    Match(wm_class='guake'), 
+    Match(wm_class='feh'),  
+    Match(title='branchdialog'),
+    Match(title='pinentry'), 
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
 wmname = "LG3D"
