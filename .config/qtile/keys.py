@@ -1,66 +1,159 @@
-from libqtile.config import Click, Drag, Key 
+from libqtile.config import EzClick, EzDrag, EzKey
 from libqtile.lazy import lazy
 
-mod = "mod3"
-mod4 = "mod4"
+EzKey.modifier_keys = {
+   'M': 'mod3',
+   'A': 'mod4',
+   'S': 'shift',
+   'C': 'control',
+}
 
 terminal = "st"
-secondaryTerminal = "qterminal"
+secondaryTerminal = "st"
 
 def latest_group(qtile):
-    qtile.current_screen.set_group(qtile.current_screen.previous_group)
+  qtile.current_screen.set_group(qtile.current_screen.previous_group)
 
 keys = [
     # Windows
-    Key([mod], "n", lazy.layout.next()),
-    Key([mod], "p", lazy.layout.previous()),
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left()),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right()),
-    Key([mod], "space", lazy.next_layout()),
-    Key([mod], "c", lazy.window.kill()),
+    EzKey(
+      'M-n',
+      lazy.layout.next()
+    ),
 
-    # System 
-    Key([mod, "control"], "r", lazy.restart()),
-    Key([mod, "control"], "q", lazy.shutdown()),
-    Key([mod4, "shift"], "p", lazy.spawn("reboot")),
+    EzKey(
+      'M-p',
+      lazy.layout.previous()
+    ),
+
+    EzKey(
+      'M-S-h',
+      lazy.layout.swap_left()
+    ),
+
+    EzKey(
+      'M-S-l',
+      lazy.layout.swap_right()
+    ),
+
+    EzKey(
+      'M-S-j',
+      lazy.layout.shuffle_down()
+    ),
+
+    EzKey(
+      'M-S-k',
+       lazy.layout.shuffle_up()
+    ),
+
+    EzKey(
+      'M-i',
+      lazy.layout.grow()
+    ),
+
+    EzKey(
+      'M-o',
+      lazy.layout.shrink()
+    ),
+
+    EzKey(
+      'M-c',
+      lazy.window.kill()
+    ),
+
+    # System
+    EzKey(
+      'M-C-r',
+      lazy.restart()
+    ),
+
+    EzKey(
+      'M-C-q',
+      lazy.shutdown()
+    ),
+
+    EzKey(
+      'M-S-p',
+      lazy.spawn('reboot')
+    ),
 
     # Custom functionalities
-    Key([mod], "b", lazy.function(latest_group)),
+    EzKey(
+      'M-b',
+      lazy.function(latest_group)
+    ),
 
     # Terminal
-    Key([mod], "t", lazy.spawn(terminal)),
-    Key([mod4], "t", lazy.spawn(secondaryTerminal)),
+    EzKey(
+      'M-t',
+      lazy.spawn(terminal)
+    ),
+
+    EzKey(
+      'A-t',
+      lazy.spawn(secondaryTerminal)
+    ),
 
     # Browsers
-    Key([mod], "q", lazy.spawn("qutebrowser")),
-    Key([mod], "x", lazy.spawn("firefox")),
-    Key([mod, 'control'], "d", lazy.spawn("firefox-developer-edition")),
-    Key([mod], "g", lazy.spawn("google-chorme")),
-    Key([mod, "shift"], "b", lazy.spawn("brave")),
+    EzKey(
+      'M-w',
+      lazy.spawn('qutebrowser')
+    ),
 
     # Dmenu/Rofi
-    Key([mod], "r", lazy.spawn("rofi -show")),
+    EzKey(
+      'M-r',
+      lazy.spawn('rofi -show')
+    ),
 
     # Scripts
-    Key([mod, "shift"], "e", lazy.spawn("layout")),
-    Key([mod, "shift"], "u", lazy.spawn("volume up")),
-    Key([mod, "shift"], "d", lazy.spawn("volume down")),
-    Key([mod, "shift"], "p", lazy.spawn("pomodoro")),
-    Key([mod, "shift"], "c", lazy.spawn("pomoCancel")),
-    Key([mod, "control"], "t", lazy.spawn("getHours")),
-    Key([mod, "control"], 'l', lazy.spawn("lockIt")),
+    EzKey(
+      'M-S-e',
+      lazy.spawn('layout')
+    ),
+
+    EzKey(
+      'M-S-u',
+      lazy.spawn('volume up')
+    ),
+
+    EzKey(
+      'M-S-d',
+      lazy.spawn('volume down')
+    ),
+
+    EzKey(
+      'M-S-e',
+      lazy.spawn('getHours')
+    ),
+
+    EzKey(
+      'M-S-e',
+      lazy.spawn('lockIt')
+    ),
 
     # Terminal Based Apps
-    Key([mod, "shift"], "r", lazy.spawn(terminal + " -e ttrv")),
-    Key([mod4], "n", lazy.spawn(terminal + " -e nnn")),
-    Key([mod], "v", lazy.spawn(terminal + ' -e nvim /home/aedigo/.vimwiki/index.md')),
+    EzKey(
+      'M-S-r',
+      lazy.spawn(terminal + " -e ttrv")
+    ),
+
+    EzKey(
+      'A-n',
+      lazy.spawn(terminal + " -e nnn")
+    ),
+
+    EzKey(
+      'M-v',
+      lazy.spawn(terminal + ' -e nvim /home/aedigo/.vimwiki/index.md')
+    ),
 ]
 
 mouse = [
-    Drag([mod4], "Button1", lazy.window.set_position_floating(),
+    EzDrag('M-1', lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
-    Drag([mod4], "Button3", lazy.window.set_size_floating(),
+    EzDrag('M-3', lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
-    Click([mod4], "Button2", lazy.window.bring_to_front())
+    EzClick('M-2', lazy.window.bring_to_front())
 ]
 
