@@ -7,17 +7,14 @@ from keys import keys, mouse
 from groups import groups
 from widgets import widgets
 import os, subprocess, numpy
+from colors import colors
 
 @hook.subscribe.startup_once
 def autostart():
   home = os.path.expanduser('~')
   subprocess.Popen([home + '/.config/qtile/autostart.sh'])
 
-colors = [
-  '282828',
-  'fbf1c7',
-  'a89984',
-]
+colors = colors()
 
 layouts = [
   layout.MonadTall(

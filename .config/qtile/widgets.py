@@ -1,10 +1,8 @@
 from libqtile import widget
+from libqtile.log_utils import logger
+from colors import colors
 
-colors = [
-  '282828',
-  'fbf1c7',
-  'a89984',
-]
+colors = colors()
 
 widget_defaults = dict(
     font='FantasqueSansMono Nerd Font',
