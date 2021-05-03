@@ -5,8 +5,6 @@
 dir() {
   mkdir -p $1
 }
-dir src/sass/partials
-dir public/css
 
 file() {
   if [[ $1 = 'partials' ]]
@@ -17,17 +15,43 @@ file() {
   fi
 }
 
+pkgs() {
+  yarn add -D $1
+}
+
+# Fix erros
+write() {
+  if [[ $1 = 'sass' ]] 
+  then
+    echo $2 >> src/sass/main.scss
+
+  else if [[ $1 = 'other' ]] 
+  then
+    echo $2 >> $3
+  fi
+}
+
+dir src/sass/partials
+dir public/css
+
 file 'partials' 'base'
 file 'partials' 'layout'
 file 'partials' 'components'
 file '' 'main'
 
-write() {
-  echo $1 >> src/sass/main.scss
-}
+git clone https://gist.github.com/DavidWells/18e73022e723037a50d6 src/sass/partials/
 
-write '@use "partials/base";'
-write '@use "partials/layout";'
-write '@use "partials/components";'
+# This will write some basic imports
+write 'sass', '@use "partials/base";'
+write 'sass', '@use "partials/layout";'
+write 'sass', '@use "partials/components";'
 
+yarn init -y
 
+# This will install some basic packages that I always use.
+pkgs 'browser-sync 
+      sass'
+
+write 'other', '"scripts": {
+  sass: "sass src/sass/main.scss public/css/style.css"  
+}'
