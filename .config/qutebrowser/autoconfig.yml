@@ -6,18 +6,5 @@
 
 config_version: 2
 settings:
-  bindings.commands:
-    global:
-      normal:
-        ',d': config-cycle content.user_stylesheets ~/.config/qutebrowser/themes/css/gruvbox/gruvbox-all-sites.css
-          ""
-        ',g': greasemonkey-reload
-        ',i': zoom-in
-        ',m': spawn mpv --force-window=immediate --pause {url}
-        ',o': zoom-out
-        ',t': spawm --userscript taskadd
-        cd: download-clear
-      prompt:
-        <Ctrl+i>: leave-mode
   content.user_stylesheets:
     global: ~/.config/qutebrowser/themes/css/gruvbox/gruvbox-all-sites.css

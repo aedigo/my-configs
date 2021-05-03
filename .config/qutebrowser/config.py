@@ -1075,7 +1075,7 @@ c.downloads.remove_finished = 3
 ## either a float value with a "pt" suffix, or an integer value with a
 ## "px" suffix.
 ## Type: String
-# c.fonts.default_size = '10pt'
+## c.fonts.default_size = '16pt'
 
 ## Font used for the downloadbar.
 ## Type: Font
@@ -1143,7 +1143,7 @@ c.downloads.remove_finished = 3
 
 ## Default font size (in pixels) for regular text.
 ## Type: Int
-# c.fonts.web.size.default = 16
+c.fonts.web.size.default = 16
 
 ## Default font size (in pixels) for fixed-pitch text.
 ## Type: Int
@@ -2176,6 +2176,7 @@ config.bind('<Ctrl-i>', 'leave-mode', mode='prompt')
 # config.bind('y', 'prompt-accept yes', mode='yesno')
 config.bind(',m', 'spawn mpv --force-window=immediate --pause {url}')
 config.bind(',t', 'spawm --userscript taskadd')
+config.bind(',d','config-cycle content.user_stylesheets ~/.config/qutebrowser/themes/css/gruvbox/gruvbox-all-sites.css ""')
 
 # base16-qutebrowser (https://github.com/theova/base16-qutebrowser)
 # Base16 qutebrowser template by theova and Daniel Mulford
