@@ -28,6 +28,7 @@ layouts = [
     single_border_width=0,
     single_margin=0,
   ),
+  layout.Max(),
 ]
 
 screens = [

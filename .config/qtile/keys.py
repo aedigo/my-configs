@@ -22,6 +22,11 @@ keys = [
     ),
 
     EzKey(
+      'M-<space>',
+      lazy.next_layout()
+    ),
+
+    EzKey(
       'M-p',
       lazy.layout.previous()
     ),
@@ -123,12 +128,12 @@ keys = [
     ),
 
     EzKey(
-      'M-S-e',
+      'M-C-t',
       lazy.spawn('getHours')
     ),
 
     EzKey(
-      'M-S-e',
+      'M-C-l',
       lazy.spawn('lockIt')
     ),
 
