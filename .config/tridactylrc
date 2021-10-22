@@ -102,8 +102,8 @@ bind k scrollline -3
 " set searchurls.julia https://www.google.com/search?q=site:http://docs.julialang.org/en/v1%20
 " 
 set searchurls.go https://www.google.com/search?q=
-set searchurls.s https://localhost/search?q=
-set searchurls.aw https://wiki.archlinux.org/search?q=
+set searchurls.s localhost/search?q=
+set searchurls.aw https://wiki.archlinux.org/?searchq=
 " "
 " " Misc settings
 " "
