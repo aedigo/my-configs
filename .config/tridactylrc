@@ -1,60 +1,9 @@
-" " bovine3dom's dogfood
-"
-" " Every line in this file is commented out because in general they're all bad ideas.
-" " If anything in here was a good idea, it would be default behaviour in Tridactyl.
-" " It's just a collection of interesting ideas that happen to also be bovine3dom's
-" " RC file
-" 
-" " WARNING: This file defines and runs a command called fixamo_quiet. If you
-" " also have a malicious addon that operates on `<all_urls>` installed this
-" " will allow it to steal your firefox account credentials!
-" "
-" " With those credentials, an attacker can read anything in your sync account,
-" " publish addons to the AMO, etc, etc.
-" "
-" " Without this command a malicious addon can steal credentials from any site
-" " that you visit that is not in the restrictedDomains list.
-" "
-" " You should comment out the fixamo lines unless you are entirely sure that
-" " they are what you want.
-" "
-" " The advantage of running the command is that you can use the tridactyl
-" " interface on addons.mozilla.org and other restricted sites.
-" 
-" " Provided only as an example.
-" " Do not install/run without reading through as you may be surprised by some
-" " of the settings.
-" 
-" " May require the latest beta builds.
-" 
-" " Uncomment the lines you want to keep then move this file to 
-" " $XDG_CONFIG_DIR/tridactyl/tridactylrc (that's
-" " ~/.config/tridactyl/tridactylrc to mere mortals) or ~/.tridactylrc and
-" " install the native messenger (:installnative in Tridactyl). Run :source to
-" " get it in the browser, or just restart.
-" 
-" " If you're bovine3dom run sed 's|^" ||' .tridactylrc > ~/.config/tridactyl/tridactylrc
-" 
-" 
-" "
-" " Binds
-" "
-" 
-" " Comment toggler for Reddit, Hacker News and Lobste.rs
-" bind ;c hint -Jc [class*="expand"],[class="togg"],[class="comment_folder"]
-" 
-" " GitHub pull request checkout command to clipboard (only works if you're a collaborator or above)
-" bind yp composite js document.getElementById("clone-help-step-1").textContent.replace("git checkout -b", "git checkout -B").replace("git pull ", "git fetch ") + "git reset --hard " + document.getElementById("clone-help-step-1").textContent.split(" ")[3].replace("-","/") | yank
-" 
-" " Git{Hub,Lab} git clone via SSH yank
-" bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git") | clipboard yank
-" 
-" " As above but execute it and open terminal in folder
-" bind ,g js let uri = document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git"); tri.native.run("cd ~/projects; git clone " + uri + "; cd \"$(basename \"" + uri + "\" .git)\"; st")
-bind J tabnext
-bind K tabprev
-bind j scrollline 3
-bind k scrollline -3
+" My bindings
+    bind J tabnext
+    bind K tabprev
+    bind j scrollline 30
+    bind k scrollline -3
+    bind <C-s> source ~/.config/tridactyl/tridactylrc
 " 
 " 
 " " make d take you to the left (I find it much less confusing)
@@ -101,9 +50,17 @@ bind k scrollline -3
 " " Julia docs' built in search is bad
 " set searchurls.julia https://www.google.com/search?q=site:http://docs.julialang.org/en/v1%20
 " 
-set searchurls.go https://www.google.com/search?q=
-set searchurls.s localhost/search?q=
-set searchurls.aw https://wiki.archlinux.org/?searchq=
+  set searchurls.go https://www.google.com/search?q=
+  set searchurls.s http://localhost/search?q=
+  set searchurls.aw https://wiki.archlinux.org/?searchq=
+  set searchurls.yt https://www.youtube.com/search?q=
+  set searchurls.wk https://www.wikipedia.org/w/index.php?title=Special:Search&search=
+  set searchurls.swk https://simple.wikipedia.org/wiki/
+  set searchurls.mdn https://simple.wikipedia.org/wiki/
+  set searchurls.mdn https://developer.mozilla.org/en-US/search?q=
+
+
+  
 " "
 " " Misc settings
 " "
