@@ -17,3 +17,5 @@ let g:user_emmet_leader_key='<C-E>'
 let g:vimwiki_list = [{'path': '~/.vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 
+set clipboard+=unnamedplus
+
