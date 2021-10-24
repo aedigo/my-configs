@@ -22,8 +22,10 @@ keys = [
     Key([mod], 'o', lazy.layout.shrink()),
     Key([mod], 'c', lazy.window.kill()),
 
+
+
     # Notification
-    Key(['control'], 'space', lazy.spawn('dunstctl close')),
+    Key(['shift'], 'space', lazy.spawn('dunstctl close')),
 
     # System
     Key([mod, 'control'], 'r', lazy.restart()),
