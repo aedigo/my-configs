@@ -15,16 +15,21 @@ function save() {
 }
 
 case $1 in
+  trida)
+    copy ~/.config/tridactyl/tridactylrc ~/.my-configs/.config
+    save
+    ;;
   qtile)
     copy ~/.config/qtile ~/.my-configs/.config
     save
     ;;
   nvim)
-    copy ~/.config/nvim ~/.my-configs/.config
+    copy ~/.config/nvim/configs ~/.my-configs/.config/nvim/configs
+    copy ~/.config/nvim/init.vim ~/.my-configs/.config/nvim/
     save
     ;;
   picom)
-    copy ~/.config/nvim ~/.my-configs/.config
+    copy ~/.config/picom ~/.my-configs/.config
     save
     ;;
   st)
@@ -53,6 +58,7 @@ case $1 in
     ;;
   zsh)
     copy ~/.zshrc ~/.my-configs/
+    copy ~/.oh-my-zsh/aliases.zsh ~/.my-configs/.oh-my-zsh/
     save
     ;;
   *)

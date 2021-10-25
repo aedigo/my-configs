@@ -1,4 +1,4 @@
 #!/bin/bash 
 date=$(date "+%T")
-notify-send.sh --replace-file=/tmp/date "$date" --expire-time=1500
+notify-send.py "$date" -t 1500
 

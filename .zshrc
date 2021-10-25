@@ -1,3 +1,7 @@
+export NNN_BMS='d:~/Documents;u:/home/user/Cam Uploads;D:~/Downloads/'
+export NNN_SSHFS="sshfs -o follow_symlinks"        # make sshfs follow symlinks on the remote
+export NNN_COLORS="2136"                           # use a different color for each context
+export NNN_TRASH=1                                 # trash (needs trash-cli) instead of delete
 export ZSH="/home/aedigo/.oh-my-zsh"
 export PATH=/home/aedigo/.local/bin:$PATH
 export MOZ_X11_EGL=1
@@ -8,56 +12,16 @@ export VIMTO_COLOR_NORMAL_BACKGROUND=#f1fbc7
 export EDITOR="/usr/bin/nvim"
 export VISUAL="/usr/bin/nvim"
 
-alias pth='patch -p1 <'
-
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#ZSH_THEME="theunraveler"
 ZSH_THEME="zhann"
 
-# Uncomment the following line to use case-sensitive completion.
 CASE_SENSITIVE="false"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 plugins=(zsh-vi-mode git pip command-not-found zsh-autosuggestions fast-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
