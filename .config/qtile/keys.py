@@ -22,8 +22,6 @@ keys = [
     Key([mod], 'o', lazy.layout.shrink()),
     Key([mod], 'c', lazy.window.kill()),
 
-
-
     # Notification
     Key(['shift'], 'space', lazy.spawn('dunstctl close')),
 
@@ -31,6 +29,7 @@ keys = [
     Key([mod, 'control'], 'r', lazy.restart()),
     Key([mod, 'control'], 'q', lazy.shutdown()),
     Key([alt, 'shift'], 'p', lazy.spawn('reboot')),
+    Key([alt, 'shift'], 'l', lazy.spawn('lock-screen')),
 
     # Custom functionalities
     Key([mod], 'b', lazy.function(latest_group)),
