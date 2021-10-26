@@ -6,12 +6,16 @@ function setLayout() {
   xmodmap ~/.Xmodmap
 }
 
+notify() {
+  notify-send.py -u low -a 'keyboard-layout' --replaces-process 'key-layout' -i /usr/share/icons/Adwaita/32x32/legacy/preferences-desktop-keyboard-shortcuts.png $1 
+}
+
 if [[ $usbkdb = 'br' ]]
 then 
   setLayout br nodeadkeys &
-  notify-send.py "nodeadkeys" -t 800
+  notify 'nodeadkeys'
 else
   setLayout br &
-  notify-send.py "br" -t 800
+  notify 'br'
 fi
 

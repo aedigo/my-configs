@@ -59,6 +59,7 @@ case $1 in
   zsh)
     copy ~/.zshrc ~/.my-configs/
     copy ~/.oh-my-zsh/aliases.zsh ~/.my-configs/.oh-my-zsh/
+    copy ~/.oh-my-zsh/themes/zhann.zsh-theme ~/.my-configs/.oh-my-zsh/
     save
     ;;
   *)

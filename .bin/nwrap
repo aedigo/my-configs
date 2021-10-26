@@ -5,6 +5,9 @@
 
 export NNN_BMS="D:$HOME/Downloads;v:$HOME/Videos"
 export NNN_COLORS="5236"
+export NNN_SSHFS="sshfs -o follow_symlinks"        # make sshfs follow symlinks on the remote
+export NNN_TRASH=1                                 # trash (needs trash-cli) instead of delete
+
 alias nsel="cat ${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection | tr '\0' '\n'"
 
 # To use a CLI opener, specify the `-c` option to `nnn`
