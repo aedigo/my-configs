@@ -1071,7 +1071,7 @@ c.downloads.remove_finished = 3
 ## font setting, it's replaced with the fonts listed here. If set to an
 ## empty value, a system-specific monospace default is used.
 ## Type: List of Font, or Font
-# c.fonts.default_family = []
+c.fonts.default_family = ['FantasqueSansMono Nerd Font']
 
 ## Default font size to use. Whenever "default_size" is used in a font
 ## setting, it's replaced with the size listed here. Valid values are
@@ -1823,7 +1823,7 @@ c.tabs.show = 'switching'
 ## qutebrowser`.
 ## Type: Dict
 ## 'ddg': 'https://duckduckgo.com/?q={}',
-c.url.searchengines = {'DEFAULT': 'localhost/search?hl=en&q={}',  'go': 'https://www.google.com/search?hl=en&q={}', "wa": "https://wiki.archlinux.org/?search={}", 'wk': "https://www.wikipedia.org/w/index.php?title=Special:Search&search={}", 'mdn': "https://developer.mozilla.org/en-US/search?q={}", 'swk': 'https://simple.wikipedia.org/wiki/{}'}
+c.url.searchengines = {'DEFAULT': 'localhost/search?hl=en&q={}',  'go': 'https://www.google.com/search?hl=en&q={}', "aw": "https://wiki.archlinux.org/?search={}", 'wk': "https://www.wikipedia.org/w/index.php?title=Special:Search&search={}", 'mdn': "https://developer.mozilla.org/en-US/search?q={}", 'swk': 'https://simple.wikipedia.org/wiki/{}'}
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
@@ -1872,6 +1872,7 @@ c.url.start_pages = ['localhost']
 # config.bind("'", 'enter-mode jump_mark')
 config.bind(',i', 'zoom-in')
 config.bind(',o', 'zoom-out')
+config.bind(',s', 'config-source')
 # config.bind('.', 'repeat-command')
 # config.bind('/', 'set-cmd-text /')
 # config.bind(':', 'set-cmd-text :')
