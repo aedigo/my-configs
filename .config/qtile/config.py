@@ -37,7 +37,7 @@ screens = [
 
 follow_mouse_focus = False
 bring_front_click = False
-cursor_warp = False
+cursor_warp = True
 floating_layout = layout.Floating(
     border_width=0,
     max_border_width=0,

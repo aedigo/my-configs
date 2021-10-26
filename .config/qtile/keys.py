@@ -4,7 +4,7 @@ from modkey import mod, alt
 
 term = "st"
 alt_term = "st"
-browser = 'firefox'
+browser = 'qutebrowser'
 
 def latest_group(qtile):
   qtile.current_screen.set_group(qtile.current_screen.previous_group)
@@ -61,7 +61,7 @@ keys = [
 
     # Terminal Based Apps
     Key([mod, 'shift'], 'r', lazy.spawn(term + " -e ttrv")),
-    Key([alt], 'n', lazy.spawn(term + " -e nnn -e")),
+    Key([alt], 'n', lazy.spawn(term + " -e n")),
     Key([mod], 'v', lazy.spawn(term + ' -e nvim /home/aedigo/.vimwiki/index.md')),
     Key([mod, 'shift'], 't', lazy.spawn(term + ' -e gotop')),
 ]
