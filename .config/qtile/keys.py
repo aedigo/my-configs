@@ -40,7 +40,10 @@ keys = [
 
     # Applications
     Key([mod], 'w', lazy.spawn(browser)),
-    Key([mod, 'shift'], 'w', lazy.spawn('whatsapp-nativefier')),
+    KeyChord([mod, 'shift'], 'w', [
+        Key([], 'o', lazy.spawn('whatsapp-nativefier')),
+        Key([], 'c', lazy.spawn('killall WhatsApp')),
+      ]),
     Key([mod], 'r', lazy.spawn('dmenu_history -h 20')),
     Key([alt], 'p', lazy.spawn('ph type --prog dmenu')),
 
@@ -62,7 +65,7 @@ keys = [
     Key([mod, 'shift'], 'r', lazy.spawn(term + " -e ttrv")),
     Key([alt], 'n', lazy.spawn(term + " -e n")),
     Key([mod], 'v', lazy.spawn(term + ' -e nvim /home/aedigo/.vimwiki/index.md')),
-    Key([mod, 'shift'], 't', lazy.spawn(term + ' -e gotop')),
+    Key([mod, 'shift'], 't', lazy.spawn(term + ' -e bpytop')),
 ]
 
 mouse = [
