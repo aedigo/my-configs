@@ -169,9 +169,9 @@ bar {
     position top
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command bumblebee-status -m disk:root cpu \
+    status_command bumblebee-status -m disk:root disk:home cpu \
 		memory date time \
-		-p root.path=/ time.format="%H:%M CW %V" date.format="%a, %b %d" \
+		-p root.path=/ home.path=/home/ root.format="{left}" home.format="{left}" time.format="%H:%M" date.format="%a, %b %d" \
 		-t gruvbox
 
     colors {
