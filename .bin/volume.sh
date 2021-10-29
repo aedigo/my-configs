@@ -1,18 +1,20 @@
 #!/bin/bash
 
-if [ "$1" == "inc" ]; then
-  pamixer --allow-boost -i 5 
+if [ "$1" == "up" ]; then
+  pactl set-sink-volume @DEFAULT_SINK@ +5%
 fi
 
-if [ "$1" == "dec" ]; then
-  pamixer --allow-boost -d 5 
+if [ "$1" == "down" ]; then
+  pactl set-sink-volume @DEFAULT_SINK@ -5%
 fi
 
 if [ "$1" == "mute" ]; then
-  pamixer -m
+  pactl set-sink-mute @DEFAULT_SINK@ toggle
 fi
 
-VOLUME=$(pamixer --get-volume)
+VOLUME=$(pactl list sinks | grep '^[[:space:]]Volume:' | \
+    head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,'
+)
 echo $VOLUME
 MUTE=$(echo $AMIXER | grep -o '\[off\]' | tail -n 1)
 if [ "$VOLUME" -le 20 ]; then
