@@ -15,6 +15,10 @@ function save() {
 }
 
 case $1 in
+  sway)
+    copy ~/.config/sway/ ~/.my-configs/.config
+    save
+    ;;
   trida)
     copy ~/.config/tridactyl/tridactylrc ~/.my-configs/.config
     save
