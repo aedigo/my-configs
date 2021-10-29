@@ -22,16 +22,6 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 # This will start my script
 exec --no-startup-id bash ~/.config/sway/autostart.sh
-### Output configuration
-#
-# Default wallpaper (more resolutions are available in @datadir@/backgrounds/sway/)
-# output * bg @datadir@/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
 
 ### Idle configuration
 #
@@ -72,6 +62,8 @@ input * {
 }
 
 input <identifier> xkb_model "pc101"
+
+# scrachpad
     # Start a terminal
     bindsym $mod+t exec $term
 
@@ -120,7 +112,6 @@ input <identifier> xkb_model "pc101"
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
-    bindsym Control+t 'guake-toggle'
 
     # Move the focused window with the same, but add Shift
     bindsym $mod+Control+$left move left
@@ -167,7 +158,6 @@ input <identifier> xkb_model "pc101"
     # Make the current focus fullscreen
     bindsym $mod+space fullscreen
 
-for_window [instance="guake"] floating enable
 default_border pixel 2
 client.focused          #282828 #ffffff #282828 #282828
 
@@ -179,7 +169,10 @@ bar {
     position top
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%m-%d %I:%M %p'; do sleep 1; done
+    status_command bumblebee-status -m disk:root cpu \
+		memory date time \
+		-p root.path=/ time.format="%H:%M CW %V" date.format="%a, %b %d" \
+		-t gruvbox
 
     colors {
         statusline #ffffff

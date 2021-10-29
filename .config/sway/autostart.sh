@@ -7,3 +7,5 @@ gammastep -O 2000
 # This will autostart searx
 searxStart &
 whatsapp-nativefier &
+python ~/.i3-alternating-layout/alternating_layouts.py &
+
