@@ -56,9 +56,9 @@ exec --no-startup-id bash ~/.config/sway/autostart.sh
 #
 #
 input * {
-    xkb_layout "br"
+    xkb_layout "br(nodeadkeys), br"
     xkb_variant 'nodeadkeys'
-    xkb_options 'caps:escape'
+    xkb_options 'grp:rwin_toggle, lv3:ralt_alt'
 }
 
 input <identifier> xkb_model "pc101"
@@ -66,6 +66,7 @@ input <identifier> xkb_model "pc101"
 # scrachpad
     # Start a terminal
     bindsym $mod+t exec $term
+    bindcode 108+d exec $term
 
     # Kill focused window
     bindsym $mod+c kill
