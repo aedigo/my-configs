@@ -5,8 +5,8 @@
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
-set $alt Mod1
-set $mod Mod4
+set $alt Mod4
+set $mod Mod1
 # Home row direction keys, like vim
 set $left H
 set $down J
@@ -66,7 +66,6 @@ input <identifier> xkb_model "pc101"
 # scrachpad
     # Start a terminal
     bindsym $mod+t exec $term
-    bindcode 108+d exec $term
 
     # Kill focused window
     bindsym $mod+c kill
