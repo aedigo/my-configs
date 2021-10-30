@@ -5,13 +5,13 @@
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
-set $alt Mod4
-set $mod Mod1
+set $alt Mod1
+set $mod Mod4
 # Home row direction keys, like vim
-set $left H
-set $down J
-set $up K
-set $right L
+set $left p
+set $down o
+set $up i
+set $right n
 
 # Your preferred terminal emulator
 set $term 'st'
@@ -58,7 +58,7 @@ exec --no-startup-id bash ~/.config/sway/autostart.sh
 input * {
     xkb_layout "br(nodeadkeys), br"
     xkb_variant 'nodeadkeys'
-    xkb_options 'grp:rwin_toggle, lv3:ralt_alt'
+    xkb_options 'grp:rwin_toggle, lv3:ralt_alt, shift:both_shiftlock'
 }
 
 input <identifier> xkb_model "pc101"
@@ -90,6 +90,7 @@ input <identifier> xkb_model "pc101"
 # Moving around:
 #
 
+
 # apps
     bindsym $mod+w exec 'qutebrowser'
     bindsym $mod+Shift+space exec 'dunstctl close'
@@ -101,11 +102,9 @@ input <identifier> xkb_model "pc101"
 # layout
     exec home/aedigo/.i3-alternating-layout/alternating_layouts.py
     # Move your focus around
-    bindsym $mod+Shift+$left focus left
     bindsym $mod+p focus left
-    bindsym $mod+Shift+$down focus down
-    bindsym $mod+Shift+$up focus up
-    bindsym $mod+Shift+$right focus right
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
     bindsym $mod+n focus right
     # Or use $mod+[up|down|left|right]
     bindsym $mod+Left focus left
@@ -153,7 +152,7 @@ input <identifier> xkb_model "pc101"
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
 #    bindsym $mod+b splith
-    bindsym $mod+v splitv
+#    bindsym $mod+v splitv
 
     # Make the current focus fullscreen
     bindsym $mod+space fullscreen

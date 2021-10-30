@@ -6,6 +6,7 @@ safeeyes &
 gammastep -O 2000
 # This will autostart searx
 searxStart &
+dunst &
 whatsapp-nativefier &
-python ~/.i3-alternating-layout/alternating_layouts.py &
+main-layout &
 
