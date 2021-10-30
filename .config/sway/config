@@ -4,24 +4,21 @@
 
 ### Variables
 #
-# Logo key. Use Mod1 for Alt.
 set $alt Mod1
 set $mod Mod4
-# Home row direction keys, like vim
 set $left p
 set $down o
 set $up i
 set $right n
-
-# Your preferred terminal emulator
 set $term 'st'
-# Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
 set $menu dmenu_path | dmenu | xargs swaymsg exec --
+
+include ~/.config/sway/config.d/*.conf
 
 # This will start my script
 exec --no-startup-id bash ~/.config/sway/autostart.sh
+
+font pango:FantasqueSansMono Nerd Font 12
 
 ### Idle configuration
 #
@@ -50,116 +47,10 @@ exec --no-startup-id bash ~/.config/sway/autostart.sh
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
-### Key bindings
-#
-# Basics:
-#
-#
-input * {
-    xkb_layout "br(nodeadkeys), br"
-    xkb_variant 'nodeadkeys'
-    xkb_options 'grp:rwin_toggle, lv3:ralt_alt, shift:both_shiftlock'
-}
-
-input <identifier> xkb_model "pc101"
-
-# scrachpad
-    # Start a terminal
-    bindsym $mod+t exec $term
-
-    # Kill focused window
-    bindsym $mod+c kill
-
-    # Start your launcher
-    bindsym $mod+r exec $menu
-    bindsym $alt+r exec $menu
-    bindsym $mod+b workspace back_and_forth
-    # Drag floating windows by holding down $mod and left mouse button.
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
-    floating_modifier $mod normal
-
-    # Reload the configuration file
-    bindsym $mod+Shift+r reload
-
-    # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-#
-# Moving around:
-#
-
-
-# apps
-    bindsym $mod+w exec 'qutebrowser'
-    bindsym $mod+Shift+space exec 'dunstctl close'
-    bindsym $mod+shift+p exec 'pymor -p 20 -l 3'
-
-# scripts
-    bindsym $mod+Shift+u exec 'volume up'
-    bindsym $mod+Shift+d exec 'volume down'
-# layout
-    exec home/aedigo/.i3-alternating-layout/alternating_layouts.py
-    # Move your focus around
-    bindsym $mod+p focus left
-    bindsym $mod+$down focus down
-    bindsym $mod+$up focus up
-    bindsym $mod+n focus right
-    # Or use $mod+[up|down|left|right]
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
-
-    # Move the focused window with the same, but add Shift
-    bindsym $mod+Control+$left move left
-    bindsym $mod+Control+$down move down
-    bindsym $mod+Control+$up move up
-    bindsym $mod+Control+$right move right
-    # Ditto, with arrow keys
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
-#
-# Workspaces:
-#
-    # Switch to workspace
-    bindsym $mod+a workspace number 1:a
-    bindsym $mod+s workspace number 2:s
-    bindsym $mod+d workspace number 3:d
-    bindsym $mod+f workspace number 4:f
-    bindsym $mod+h workspace number 5:h
-    bindsym $mod+j workspace number 6:j
-    bindsym $mod+k workspace number 7:k
-    bindsym $mod+l workspace number 8:l
-    # Move focused container to workspace
-    bindsym $alt+a move container to workspace number 1:a
-    bindsym $alt+s move container to workspace number 2:s
-    bindsym $alt+d move container to workspace number 3:d
-    bindsym $alt+f move container to workspace number 4:f
-    bindsym $alt+h move container to workspace number 5:h
-    bindsym $alt+j move container to workspace number 6:j
-    bindsym $alt+k move container to workspace number 7:k
-    bindsym $alt+l move container to workspace number 8:l
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
-#
-# Layout stuff:
-#
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-#    bindsym $mod+b splith
-#    bindsym $mod+v splitv
-
-    # Make the current focus fullscreen
-    bindsym $mod+space fullscreen
-
 default_border pixel 2
 client.focused          #282828 #ffffff #282828 #282828
 
+floating_modifier $mod normal
 #
 # Status Bar:
 #
