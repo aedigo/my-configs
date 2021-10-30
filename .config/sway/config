@@ -16,7 +16,7 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 include ~/.config/sway/config.d/*.conf
 
 # This will start my script
-exec --no-startup-id bash ~/.config/sway/autostart.sh
+exec --no-startup-id ~/.config/sway/autostart.sh
 
 font pango:FantasqueSansMono Nerd Font 12
 
@@ -47,29 +47,11 @@ font pango:FantasqueSansMono Nerd Font 12
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
-default_border pixel 2
+default_border pixel
 client.focused          #282828 #ffffff #282828 #282828
+hide_edge_borders smart
 
 floating_modifier $mod normal
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command bumblebee-status -m disk:root disk:home cpu \
-		memory date time \
-		-p root.path=/ home.path=/home/ root.format="{left}" home.format="{left}" time.format="%H:%M" date.format="%a, %b %d" \
-		-t gruvbox
-
-    colors {
-        statusline #ffffff
-        background #282828
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
 
 include @sysconfdir@/sway/config.d/*
  
