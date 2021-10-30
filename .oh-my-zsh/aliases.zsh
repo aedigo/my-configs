@@ -4,6 +4,12 @@ browser=qutebrowser
 # Global aliases
 alias -g l="| less"
 
+# qutebrowser
+alias qutec='$EDITOR ~/.config/qutebrowser/config.py'
+
+# sway
+alias swac='$EDITOR ~/.config/sway/config'
+
 alias tvb='mpv --ytdl-format=22 $1'
 alias tvm='mpv --ytdl-format=18 $1'
 # arch
@@ -15,6 +21,8 @@ alias carch='sudo pacman -Rs $(pacman -Qtdq)'
 alias search='pacman -Ss'
 alias orphans='pacman -Qtdq'
 alias removeOrphans='sudo pacman -Rns $(pacman -Qtdq)'
+alias sss='sudo systemctl start'
+alias sse='sudo systemctl enable'
 
 # pipewire
 alias ef='xinit /usr/bin/easyeffects -- :1 vt$XDG_VTNR'
@@ -29,7 +37,11 @@ alias steamApp='xinit /usr/bin/steam -- :1 vt$XDG_VTNR'
 # qtile
 alias qtest='pytest ~/.config/qtile/config.py -s'
 alias qc='$EDITOR ~/.config/qtile/config.py'
+alias qck='$EDITOR ~/.config/qtile/keys.py'
 alias qs='$EDITOR ~/.config/qtile/autostart.sh'
+
+# dunst
+alias duc='$EDITOR ~/.config/dunst/dunstrc'
 
 # yarn
 alias ya='yarn add'
@@ -68,14 +80,15 @@ alias vimwiki='nvim ~/.vimwki/index.wiki'
 alias ave='anki-vim English'
 alias avp='anki-vim Portuguese'
 alias avm='anki-vim Math'
+alias avt='anki-vim Tech'
 
 # task warrior
 alias tn='task next'
 alias tw='task waiting'
 
 # translate shell
-alias t="trans -brief en:pt-br"
-alias tb="trans -brief pt-br:en"
+alias t="trans -sp -brief en:pt-br"
+alias tb="trans -p -brief pt-br:en"
 alias ytvf="youtube-dl -F"
 
 # youtube-dl

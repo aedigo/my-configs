@@ -36,6 +36,6 @@ bindkey -M viins 'jk' vi-cmd-mode '^ ' autosuggest-accept
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=980'
 if [ -z "${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
-  exec startx
+  # exec startx
 fi
 
