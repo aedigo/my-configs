@@ -18,9 +18,9 @@ exec --no-startup-id ~/.config/sway/autostart.sh
 font pango:FantasqueSansMono Nerd Font 12
 
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 282828 -l'
+         timeout 60 'swaylock -f -c 000000' \
+         timeout 300 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaylock -f -c 282828 -l safeeyes -d' \ after-resume 'safeeyes -e'
 
 default_border pixel
 client.focused          #282828 #ffffff #282828 #282828
@@ -30,6 +30,8 @@ client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 floating_modifier $mod normal
 hide_edge_borders smart
+for_window [class="."] inhibit_idle fullscreen
+for_window [app_id="."] inhibit_idle fullscreen
 
 include @sysconfdir@/sway/config.d/*
  
