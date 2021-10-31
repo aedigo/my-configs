@@ -7,6 +7,7 @@ set $down o
 set $up i
 set $right n
 set $term 'st'
+set $altTerm 'alacritty'
 set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 include ~/.config/sway/config.d/*.conf
