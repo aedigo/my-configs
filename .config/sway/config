@@ -20,7 +20,7 @@ font pango:FantasqueSansMono Nerd Font 12
 exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
+         before-sleep 'swaylock -f -c 282828 -l'
 
 default_border pixel
 client.focused          #282828 #ffffff #282828 #282828
