@@ -8,7 +8,8 @@ set $up i
 set $right n
 set $term 'st'
 set $altTerm 'alacritty'
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu 'dmenu_history -h 25'
+set $bg #282828
 
 include ~/.config/sway/config.d/*.conf
 
@@ -24,14 +25,11 @@ exec swayidle -w \
 
 default_border pixel
 client.focused          #282828 #ffffff #282828 #282828
-client.focused_inactive #000000 #282828 #ffffff #484e50   #5f676a
-client.unfocused        #282828 #282828 #888888 #292d2e   #222222
-client.urgent           #2f343a #900000 #ffffff #900000   #900000
-client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+client.focused_inactive $bg     #282828 #ffffff $bg   $bg
+client.unfocused        $bg     #282828 $bg     $bg   $bg
 floating_modifier $mod normal
 hide_edge_borders smart
 for_window [class="."] inhibit_idle fullscreen
 for_window [app_id="."] inhibit_idle fullscreen
 
 include @sysconfdir@/sway/config.d/*
- 
