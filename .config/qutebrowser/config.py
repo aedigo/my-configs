@@ -759,7 +759,7 @@ c.content.geolocation = False
 ## between 5.12 and 5.14 (inclusive), changing the value exposed to
 ## JavaScript requires a restart.
 ## Type: FormatString
-# c.content.headers.user_agent = 'Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko) {qt_key}/{qt_version} {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version}'
+c.content.headers.user_agent = 'Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko) {qt_key}/{qt_version} {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version}'
 
 ## Enable host blocking.
 ## Type: Bool
@@ -1823,11 +1823,11 @@ c.tabs.show = 'switching'
 ## qutebrowser`.
 ## Type: Dict
 ## 'ddg': 'https://duckduckgo.com/?q={}',
-c.url.searchengines = {'DEFAULT': 'localhost/search?hl=en&q={}',  'go': 'https://www.google.com/search?hl=en&q={}', "aw": "https://wiki.archlinux.org/?search={}", 'wk': "https://www.wikipedia.org/w/index.php?title=Special:Search&search={}", 'mdn': "https://developer.mozilla.org/en-US/search?q={}", 'swk': 'https://simple.wikipedia.org/wiki/{}'}
+c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}',  'go': 'https://www.google.com/search?hl=en&q={}', "aw": "https://wiki.archlinux.org/?search={}", 'wk': "https://www.wikipedia.org/w/index.php?title=Special:Search&search={}", 'mdn': "https://developer.mozilla.org/en-US/search?q={}", 'swk': 'https://simple.wikipedia.org/wiki/{}'}
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
-c.url.start_pages = ['localhost']
+c.url.start_pages = ['https://duckduckgo.com']
 
 ## URL parameters to strip with `:yank url`.
 ## Type: List of String
