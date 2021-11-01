@@ -19,9 +19,9 @@ exec --no-startup-id ~/.config/sway/autostart.sh
 font pango:FantasqueSansMono Nerd Font 12
 
 exec swayidle -w \
-         timeout 60 'swaylock -f -c 000000' \
-         timeout 300 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 282828 -l safeeyes -d' \ after-resume 'safeeyes -e'
+         timeout 300 'swaylock -f -c 282828' \
+         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaylock -f -c 282828 -l' 
 
 default_border pixel
 client.focused          #282828 #ffffff #282828 #282828
