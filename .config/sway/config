@@ -27,6 +27,7 @@ exec swayidle -w \
          before-sleep 'swaylock -f -c 282828 -l' 
 
 default_border pixel 1
+default_floating_border pixel 5
 client.focused          $fg     $fg     $fg     $fg   $fg
 client.focused_inactive $bg     $fg     $bg     $bg   $bg
 client.unfocused        $bg     $bg     $bg     $bg   $bg
