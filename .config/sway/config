@@ -13,6 +13,7 @@ set $menu "bemenu-run -H 25 --fb '#282828' --tb '#282828' --tf '#fbf1c7' --ff '#
 set $bg #282828
 set $fg #fbf1c7
 
+seat * hide_cursor 3000
 include ~/.config/sway/config.d/*.conf
 
 # This will start my script
