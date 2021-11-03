@@ -1823,11 +1823,11 @@ c.tabs.show = 'switching'
 ## qutebrowser`.
 ## Type: Dict
 ## 'ddg': 'https://duckduckgo.com/?q={}',
-c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}',  'go': 'https://www.google.com/search?hl=en&q={}', "aw": "https://wiki.archlinux.org/?search={}", 'wk': "https://www.wikipedia.org/w/index.php?title=Special:Search&search={}", 'mdn': "https://developer.mozilla.org/en-US/search?q={}", 'swk': 'https://simple.wikipedia.org/wiki/{}'}
+c.url.searchengines = {'DEFAULT': 'search.brave.com/search?q={}',  'go': 'https://www.google.com/search?hl=en&q={}', "aw": "https://wiki.archlinux.org/?search={}", 'wk': "https://www.wikipedia.org/w/index.php?title=Special:Search&search={}", 'mdn': "https://developer.mozilla.org/en-US/search?q={}", 'swk': 'https://simple.wikipedia.org/wiki/{}'}
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
-c.url.start_pages = ['https://duckduckgo.com']
+c.url.start_pages = ['search.brave.com']
 
 ## URL parameters to strip with `:yank url`.
 ## Type: List of String
@@ -1961,7 +1961,7 @@ config.bind(',s', 'config-source')
 # config.bind('`', 'enter-mode set_mark')
 # config.bind('ad', 'download-cancel')
 # config.bind('b', 'set-cmd-text -s :quickmark-load')
-config.bind('cd', 'download-clear')
+config.bind(',c', 'download-clear')
 # config.bind('co', 'tab-only')
 # config.bind('d', 'tab-close')
 # config.bind('f', 'hint')
@@ -1975,7 +1975,7 @@ config.bind('cd', 'download-clear')
 # config.bind('g^', 'tab-focus 1')
 # config.bind('ga', 'open -t')
 # config.bind('gb', 'set-cmd-text -s :bookmark-load')
-# config.bind('gd', 'download')
+config.bind('gd', 'download')
 # config.bind('gf', 'view-source')
 # config.bind('gg', 'scroll-to-perc 0')
 # config.bind('gi', 'hint inputs --first')
