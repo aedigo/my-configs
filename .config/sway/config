@@ -8,7 +8,7 @@ set $up i
 set $right n
 set $term 'st'
 set $altTerm 'alacritty'
-set $menu "bemenu-run -H 25 --fb '#282828' --tb '#282828' --tf '#fbf1c7' --ff '#fbf1c7' --nb '#282828' -i"
+set $menu "rofi -show run"
 
 set $bg #282828
 set $fg #fbf1c7
@@ -23,9 +23,15 @@ exec autotiling
 font pango:FantasqueSansMono Nerd Font 12
 
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 282828' \
-         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         timeout 300 'swaylock -f -c 282828; safeeyes -d' \
+         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on; safeeyes -e"' \
          before-sleep 'swaylock -f -c 282828 -l' 
+
+exec swayidle -w \
+        timeout 100 'safeeyes -d' resume 'safeeyes -e'
+
+exec swayidle -w \
+        timeout 1800 'systemctl hibernate'
 
 default_border pixel 1
 default_floating_border pixel 5
@@ -33,6 +39,7 @@ client.focused          $fg     $fg     $fg     $fg   $fg
 client.focused_inactive $bg     $fg     $bg     $bg   $bg
 client.unfocused        $bg     $bg     $bg     $bg   $bg
 floating_modifier $mod normal
+bindsym $mod+Control+space floating toggle
 hide_edge_borders smart
 for_window [class="."] inhibit_idle fullscreen
 for_window [app_id="."] inhibit_idle fullscreen
