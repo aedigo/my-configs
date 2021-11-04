@@ -9,6 +9,8 @@ alias qutec='$EDITOR ~/.config/qutebrowser/config.py'
 
 # sway
 alias swac='$EDITOR ~/.config/sway/config'
+alias swaco='$EDITOR ~/.config/sway/config.d/'
+alias getId='swaymsg -t get_tree'
 
 alias tvb='mpv --ytdl-format=22 $1'
 alias tvm='mpv --ytdl-format=18 $1'
