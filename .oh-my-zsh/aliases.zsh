@@ -12,8 +12,6 @@ alias swac='$EDITOR ~/.config/sway/config'
 alias swaco='$EDITOR ~/.config/sway/config.d/'
 alias getId='swaymsg -t get_tree'
 
-alias tvb='mpv --ytdl-format=22 $1'
-alias tvm='mpv --ytdl-format=18 $1'
 # arch
 alias spi='sudo pacman -S'
 alias spr='sudo pacman -R'
@@ -25,9 +23,6 @@ alias orphans='pacman -Qtdq'
 alias removeOrphans='sudo pacman -Rns $(pacman -Qtdq)'
 alias sss='sudo systemctl start'
 alias sse='sudo systemctl enable'
-
-# pipewire
-alias ef='xinit /usr/bin/easyeffects -- :1 vt$XDG_VTNR'
 
 # python
 alias pyi='sudo pip install'
