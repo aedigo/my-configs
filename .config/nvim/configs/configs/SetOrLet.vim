@@ -4,6 +4,8 @@ set expandtab
 set smartindent
 set autoindent
 set smartindent
+set ignorecase
+set smartcase
 filetype indent on
 let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-html', 'coc-css', 'coc-prettier']
 set number relativenumber
