@@ -6,8 +6,8 @@ set $left p
 set $down o
 set $up i
 set $right n
-set $term 'st'
-set $altTerm 'alacritty'
+set $term 'alacritty'
+set $altTerm 'st'
 set $menu "rofi -show run"
 
 set $bg #282828
@@ -34,7 +34,6 @@ exec swayidle -w \
         timeout 1800 'systemctl hibernate'
 
 default_border pixel 1
-default_floating_border pixel 5
 client.focused          $fg     $fg     $fg     $fg   $fg
 client.focused_inactive $bg     $fg     $bg     $bg   $bg
 client.unfocused        $bg     $bg     $bg     $bg   $bg
