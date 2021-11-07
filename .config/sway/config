@@ -7,11 +7,10 @@ set $down o
 set $up i
 set $right n
 set $term 'alacritty'
-set $altTerm 'st'
 set $menu "rofi -show run"
-
 set $bg #282828
 set $fg #fbf1c7
+set $opacity 0.8
 
 seat * hide_cursor 3000
 include ~/.config/sway/config.d/*.conf
@@ -19,6 +18,7 @@ include ~/.config/sway/config.d/*.conf
 # This will start my script
 exec ~/.config/sway/autostart.sh
 exec autotiling
+exec dunst
 
 font pango:FantasqueSansMono Nerd Font 12
 
@@ -38,10 +38,7 @@ client.focused          $fg     $fg     $fg     $fg   $fg
 client.focused_inactive $bg     $fg     $bg     $bg   $bg
 client.unfocused        $bg     $bg     $bg     $bg   $bg
 floating_modifier $mod normal
-bindsym $mod+Control+space floating toggle
 hide_edge_borders smart
-for_window [class="."] inhibit_idle fullscreen
-for_window [app_id="."] inhibit_idle fullscreen
 smart_gaps on
 gaps inner 20
 smart_borders on
