@@ -4,6 +4,9 @@ browser=qutebrowser
 # Global aliases
 alias -g l="| less"
 
+# git
+alias gc='git clone'
+
 # qutebrowser
 alias qutec='$EDITOR ~/.config/qutebrowser/config.py'
 
@@ -23,6 +26,7 @@ alias orphans='pacman -Qtdq'
 alias removeOrphans='sudo pacman -Rns $(pacman -Qtdq)'
 alias sss='sudo systemctl start'
 alias sse='sudo systemctl enable'
+alias sgmc='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 # python
 alias pyi='sudo pip install'
