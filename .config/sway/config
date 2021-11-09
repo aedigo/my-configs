@@ -2,10 +2,12 @@
 #
 set $alt Mod1
 set $mod Mod4
-set $left p
-set $down o
-set $up i
-set $right n
+set $left h
+set $down j
+set $up k
+set $right l
+set $sft Shift
+set $ctrl Control
 set $term 'alacritty'
 set $menu "rofi -show run"
 set $bg #282828
