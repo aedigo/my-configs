@@ -10,10 +10,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'editorconfig/editorconfig-vim'
   Plug 'morhetz/gruvbox'
   Plug 'romainl/vim-cool'
-  Plug 'preservim/nerdtree'
-  Plug 'ryanoasis/vim-devicons'
   Plug 'tridactyl/vim-tridactyl'
-  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 call plug#end()
 
 

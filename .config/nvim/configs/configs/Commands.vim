@@ -12,6 +12,7 @@ inoremap [ []<left>
 inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
+nnoremap rm :call delete(expand('%')) \| bdelete!<CR>
 
 " This has to do with nerdtree
 nnoremap <leader>n :NERDTreeFocus<CR>
