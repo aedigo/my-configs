@@ -42,7 +42,7 @@ client.unfocused        $bg     $bg     $bg     $bg   $bg
 floating_modifier $mod normal
 hide_edge_borders smart
 smart_gaps on
-gaps inner 20
+gaps outer 6
 smart_borders on
 
 include @sysconfdir@/sway/config.d/*
