@@ -13,6 +13,7 @@ set $menu "rofi -show run"
 set $bg #282828
 set $fg #fbf1c7
 set $opacity 0.8
+set $resize 5
 
 # Will hide the cursor after 3 seconds
 seat * hide_cursor 3000
