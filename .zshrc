@@ -9,8 +9,8 @@ export VIMTO_COLOR_NORMAL_TEXT=#282828
 export VIMTO_COLOR_NORMAL_BACKGROUND=#f1fbc7
 
 # Editor
-export EDITOR="/usr/bin/nvim"
-export VISUAL="/usr/bin/nvim"
+export EDITOR="/usr/bin/emacs"
+export VISUAL="/usr/bin/emacs"
 
 ZSH_THEME="zhann"
 

@@ -27,6 +27,7 @@ alias removeOrphans='sudo pacman -Rns $(pacman -Qtdq)'
 alias sss='sudo systemctl start'
 alias sse='sudo systemctl enable'
 alias sgmc='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias lsm="exa -al --color=always --group-directories-first"
 
 # python
 alias pyi='sudo pip install'
