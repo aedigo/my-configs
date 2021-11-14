@@ -12,9 +12,7 @@ if [ "$1" == "mute" ]; then
   pactl set-sink-mute @DEFAULT_SINK@ toggle
 fi
 
-VOLUME=$(pactl list sinks | grep '^[[:space:]]Volume:' | \
-    head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,'
-)
+VOLUME=$(pamixer --get-volume)
 echo $VOLUME
 MUTE=$(echo $AMIXER | grep -o '\[off\]' | tail -n 1)
 if [ "$VOLUME" -le 20 ]; then

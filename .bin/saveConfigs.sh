@@ -66,6 +66,10 @@ case $1 in
     copy ~/.oh-my-zsh/themes/zhann.zsh-theme ~/.my-configs/.oh-my-zsh/
     save
     ;;
+  dual)
+    copy ~/.dual-function-keys.yaml ~/.my-configs/
+    save
+    ;;
   *)
     notify-send 'Not found!'
   ;;
