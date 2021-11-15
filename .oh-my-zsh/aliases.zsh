@@ -4,15 +4,17 @@ browser=qutebrowser
 # Global aliases
 alias -g l="| less"
 
+# starshippage
+alias upship='sh -c "$(curl -fsSL https://starship.rs/install.sh)"'
 # git
 alias gc='git clone'
 
 # qutebrowser
-alias qutec='$EDITOR ~/.config/qutebrowser/config.py'
+alias qutec='nvim ~/.config/qutebrowser/config.py'
 
 # sway
-alias swac='$EDITOR ~/.config/sway/config'
-alias swaco='$EDITOR ~/.config/sway/config.d/'
+alias swac='nvim ~/.config/sway/config'
+alias swaco='nvim ~/.config/sway/config.d/'
 alias getId='swaymsg -t get_tree'
 
 # arch
@@ -38,12 +40,12 @@ alias steamApp='xinit /usr/bin/steam -- :1 vt$XDG_VTNR'
 
 # qtile
 alias qtest='pytest ~/.config/qtile/config.py -s'
-alias qc='$EDITOR ~/.config/qtile/config.py'
-alias qck='$EDITOR ~/.config/qtile/keys.py'
-alias qs='$EDITOR ~/.config/qtile/autostart.sh'
+alias qc='nvim ~/.config/qtile/config.py'
+alias qck='nvim ~/.config/qtile/keys.py'
+alias qs='nvim ~/.config/qtile/autostart.sh'
 
 # dunst
-alias duc='$EDITOR ~/.config/dunst/dunstrc'
+alias duc='nvim ~/.config/dunst/dunstrc'
 
 # yarn
 alias ya='yarn add'
@@ -62,9 +64,9 @@ alias pbcopy='xclip -selection clipboard'
 alias fds='firefox-developer-edition --search '
 
 # zsh
-alias sc='$EDITOR ~/.zshrc'
+alias sc='nvim ~/.zshrc'
 alias sz='source ~/.zshrc'
-alias sca='$EDITOR ~/.oh-my-zsh/aliases.zsh'
+alias sca='nvim ~/.oh-my-zsh/aliases.zsh'
 
 # cpupower
 alias boost="sudo cpupower frequency-set -g performance"
