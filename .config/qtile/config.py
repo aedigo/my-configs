@@ -1,5 +1,5 @@
 from libqtile import bar, layout, widget, hook
-from libqtile.config import Match, Screen, ScratchPad, DropDown, Key
+from libqtile.config import Match, Screen
 from libqtile.lazy import lazy
 from keys import keys
 from groups import groups
