@@ -2,11 +2,9 @@
 redshift &
 safeeyes &
 xmodmap ~/.Xmodmap &
-hsetroot -solid "#282828" &
-xcape &
-xcape -e "Control_L=Escape;Alt_L=Return" &
+hsetroot -solid "#282a36" &
 #startServer &
-#xfce4-power-manager &
+xfce4-power-manager &
 guake &
 searxStart &
 whatsapp-nativefier &

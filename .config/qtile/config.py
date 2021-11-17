@@ -1,11 +1,11 @@
 from libqtile import bar, layout, widget, hook
-from libqtile.config import Match, Screen
+from libqtile.config import Match, Screen, ScratchPad, DropDown, Key
 from libqtile.lazy import lazy
 from keys import keys
 from groups import groups
 from widgets import widgets
 from colors import colors
-import os, subprocess, numpy
+import os, subprocess
 
 @hook.subscribe.startup_once
 def autostart():
@@ -37,7 +37,7 @@ screens = [
 
 follow_mouse_focus = False
 bring_front_click = False
-cursor_warp = True
+cursor_warp = False
 floating_layout = layout.Floating(
     border_width=0,
     max_border_width=0,

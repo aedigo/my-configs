@@ -2,8 +2,8 @@ from libqtile.config import Click, Drag, Key, KeyChord
 from libqtile.lazy import lazy
 from modkey import mod, alt
 
-term = "st"
-alt_term = "st"
+term = "alacritty"
+alt_term = "alacritty"
 browser = 'qutebrowser'
 
 def latest_group(qtile):
@@ -50,8 +50,8 @@ keys = [
     # Scripts
     Key([mod, 'shift'], 'e', lazy.spawn('layout')),
     Key([alt, 'shift'], 's', lazy.spawn('scrot -p -q 100 /home/aedigo/Documents/Pictures/%Y-%m-%d-%T-screenshot.png')),
-    Key([mod, 'shift'], 'u', lazy.spawn('volume inc')),
-    Key([mod, 'shift'], 'd', lazy.spawn('volume dec')),
+    Key([mod, 'shift'], 'u', lazy.spawn('volume up')),
+    Key([mod, 'shift'], 'd', lazy.spawn('volume down')),
     Key([mod, 'shift'], 'm', lazy.spawn('volume mute')),
     Key([mod, 'control'], 't', lazy.spawn('getHours')),
     Key([mod, 'control'], 'l', lazy.spawn('lockIt')),
