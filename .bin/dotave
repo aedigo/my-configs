@@ -1,7 +1,0 @@
-#!/bin/bash
-
-dir1=~/.my-configs/.config/qtile
-dir2=~/.config/qtile/
-
-list=$(find "$dir1" "$dir2" "$dir2" -printf '%P\n' | sort | uniq -u)
-echo "$list" | xargs -d' ' -n 1| grep "^node_modules"
