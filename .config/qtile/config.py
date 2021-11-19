@@ -99,7 +99,7 @@ for i in groups:
 
 groups.append(
     ScratchPad("scratchpad", [
-        DropDown("term", "alacritty -t scratch", opacity=0.8),
+        DropDown("term", "alacritty -t scratch", opacity=0.6, height=0.7),
         ]),
 )
 
