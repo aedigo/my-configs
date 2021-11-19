@@ -1,9 +1,17 @@
+#+TITLE: Qtile config
+#+PROPERTY: header-args :tangle config.py
+#+STARTUP: overview
+
+* Imports
+#+begin_src python
 from libqtile.config import Click, Drag, Key, KeyChord, Match, Screen, ScratchPad, DropDown, Group
 from libqtile import bar, layout, widget, hook
 import os, subprocess
 from libqtile.lazy import lazy
 from typing import List  # noqa: F401
-
+#+end_src
+* Variables
+#+begin_src python
 mod = 'mod3'
 altMod = 'mod4'
 term = 'alacritty'
@@ -17,10 +25,14 @@ dracula = [
     'a89984',
     ]
 colors = dracula
-
+#+end_src
+* Functions
+#+begin_src python
 def latest_group(qtile):
   qtile.current_screen.set_group(qtile.current_screen.previous_group)
-
+#+end_src
+* Keybindings
+#+begin_src python
 keys = [
     # Window Management
     Key([mod], 'n', lazy.layout.next()),
@@ -81,7 +93,9 @@ keys = [
     Key([mod], 'v', lazy.spawn(term + ' -e nvim /home/aedigo/.vimwiki/index.md')),
     Key([mod, sft], 't', lazy.spawn(term + ' -e bpytop')),
 ]
-
+#+end_src
+* Groups
+#+begin_src python
 groups = [Group(i) for i in "asdfhjkl"]
 for i in groups:
     keys.extend([
@@ -97,7 +111,9 @@ groups.append(
         DropDown("term", "alacritty -t scratch", opacity=0.8),
         ]),
 )
-
+#+end_src
+* Layouts
+#+begin_src python
 layouts = [
   layout.MonadTall(
     border_width=1,
@@ -109,7 +125,9 @@ layouts = [
   ),
   layout.Max(),
 ]
-
+#+end_src
+* Widgets
+#+begin_src python
 def open_calendar():
   subprocess.Popen(['calendarPy'])
 
@@ -165,7 +183,9 @@ widget_defaults = dict(
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
-
+#+end_src
+* Screens
+#+begin_src python
 screens = [
   Screen(
     top=bar.Bar(
@@ -174,7 +194,9 @@ screens = [
     ),
   ),
 ]
-
+#+end_src
+* Mouse
+#+begin_src python
 # Drag floating layouts.
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(),
@@ -183,7 +205,9 @@ mouse = [
          start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front())
 ]
-
+#+end_src
+* Attributes
+#+begin_src python
 follow_mouse_focus = True
 auto_fullscreen = True
 focus_on_window_activation = "smart"
@@ -192,7 +216,9 @@ reconfigure_screens = True
 bring_front_click = False
 cursor_warp = False
 wmname = "LG3D"
-
+#+end_src
+* Floating
+#+begin_src python
 floating_layout = layout.Floating(
     border_width=0,
     max_border_width=0,
@@ -203,7 +229,9 @@ floating_layout = layout.Floating(
       Match(wm_class='pavucontrol'),
       Match(wm_class='whatsapp-nativefier-d40211'),
       ])
-
+#+end_src
+* Hooks
+#+begin_src python
 @hook.subscribe.startup_once
 def autostart():
   home = os.path.expanduser('~')
@@ -212,3 +240,4 @@ def autostart():
 @hook.subscribe.startup
 def startup():
     top.show(False)
+#+end_src
