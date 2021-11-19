@@ -1,0 +1,11 @@
+#+TITLE: Dotave
+#+PROPERTY: header-args :tangle dotave.py
+#+STARTUP: fold
+
+* Imports
+#+begin_src python
+def go(num):
+    return 1 + num
+
+go(2)
+#+end_src

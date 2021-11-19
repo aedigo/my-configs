@@ -14,9 +14,13 @@ function save() {
   cd $dir;
 }
 
-case $1 in
+function delete() {
+  rm -rf ~/.my-configs/"$1"
+}
+
+case "$1" in
   sway)
-    copy ~/.config/sway/ ~/.my-configs/.config
+    delete .config/sway && copy ~/.config/sway/ ~/.my-configs/.config
     save
     ;;
   trida)
@@ -24,7 +28,7 @@ case $1 in
     save
     ;;
   qtile)
-    copy ~/.config/qtile ~/.my-configs/.config
+    delete .config/qtile && copy ~/.config/qtile ~/.my-configs/.config
     save
     ;;
   nvim)
@@ -45,11 +49,11 @@ case $1 in
     save
     ;;
   qutebrowser)
-    copy ~/.config/qutebrowser ~/.my-configs/.config
+    delete .config/qutebrowser && copy ~/.config/qutebrowser ~/.my-configs/.config
     save
     ;;
   dunst)
-    copy ~/.config/dunst ~/.my-configs/.config
+    delete .config/dunst && copy ~/.config/dunst ~/.my-configs/.config
     save
     ;;
   rofi)
@@ -57,7 +61,7 @@ case $1 in
     save
     ;;
   bin)
-    copy ~/.bin ~/.my-configs/
+    delete .bin && copy ~/.bin ~/.my-configs/
     save
     ;;
   zsh)
