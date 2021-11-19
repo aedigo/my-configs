@@ -37,7 +37,12 @@ keys = [
     Key([mod], 'i', lazy.layout.grow()),
     Key([mod], 'o', lazy.layout.shrink()),
     Key([mod], 'c', lazy.window.kill()),
+
+    # Qtile
     Key([mod], 'x', lazy.hide_show_bar("top")),
+    Key([mod, ctrl], "r", lazy.restart()),
+    Key([mod, ctrl], "c", lazy.reload_config()),
+
     # Notification
     Key([sft], 'space', lazy.spawn('dunstctl close')),
 
@@ -45,8 +50,6 @@ keys = [
     Key([mod, ctrl], 'q', lazy.shutdown()),
     Key([altMod, sft], 'p', lazy.spawn('reboot')),
     Key([altMod, sft], 'l', lazy.spawn('lock-screen')),
-    Key([mod, ctrl], "r", lazy.restart()),
-    Key([mod, ctrl], "c", lazy.reload_config()),
 
     # Terminal
     Key([mod], 't', lazy.spawn(term)),
@@ -60,7 +63,6 @@ keys = [
       ]),
     Key([mod], 'r', lazy.spawn('dmenu_history -h 20')),
 
-    Key([mod], 'b', lazy.function(latest_group)),
     # Scripts
     Key([mod, sft], 'e', lazy.spawn('layout')),
     Key([altMod, sft], 's', lazy.spawn('scrot -p -q 100 /home/aedigo/Documents/Pictures/%Y-%m-%d-%T-screenshot.png')),
@@ -80,6 +82,9 @@ keys = [
     Key([altMod], 'n', lazy.spawn(term + " -e n")),
     Key([mod], 'v', lazy.spawn(term + ' -e nvim /home/aedigo/.vimwiki/index.md')),
     Key([mod, sft], 't', lazy.spawn(term + ' -e bpytop')),
+
+    # Others
+    Key([mod], 'b', lazy.function(latest_group)),
 ]
 
 groups = [Group(i) for i in "asdfhjkl"]
