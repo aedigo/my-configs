@@ -1,25 +1,16 @@
 #+TITLE: Qtile config
 #+PROPERTY: header-args :tangle config.py
+#+STARTUP: overview
 
 * Imports
 #+begin_src python
-from libqtile.config import Click, Drag, Key, KeyChord, Match, Screen, Group, ScratchPad, DropDown
-from libqtile.lazy import lazy
+from libqtile.config import Click, Drag, Key, KeyChord, Match, Screen, ScratchPad, DropDown, Group
 from libqtile import bar, layout, widget, hook
 import os, subprocess
-#+end_src
-
-* Functions
-#+begin_src python
-def latest_group(qtile):
-  qtile.current_screen.set_group(qtile.current_screen.previous_group)
-
-def colors():
-  colors = dracula
-  return colors
+from libqtile.lazy import lazy
+from typing import List  # noqa: F401
 #+end_src
 * Variables
-These are all the variable that are use in this config.
 #+begin_src python
 mod = 'mod3'
 altMod = 'mod4'
@@ -33,27 +24,110 @@ dracula = [
     'f8f8f2',
     'a89984',
     ]
-groups = [
-    Group('a'),
-    Group('s'),
-    Group('d'),
-    Group('f'),
-    Group('h'),
-    Group('j'),
-    Group('k'),
-    Group('l'),
-]
-colors = colors()
+colors = dracula
 #+end_src
+* Functions
+#+begin_src python
+def latest_group(qtile):
+  qtile.current_screen.set_group(qtile.current_screen.previous_group)
+#+end_src
+* Keybindings
+#+begin_src python
+keys = [
+    # Window Management
+    Key([mod], 'n', lazy.layout.next()),
+    Key([mod], 'space', lazy.next_layout()),
+    Key([mod], 'p', lazy.layout.previous()),
+    Key([mod, ctrl], 'h', lazy.layout.swap_left()),
+    Key([mod, ctrl], 'l', lazy.layout.swap_right()),
+    Key([mod, ctrl], 'j', lazy.layout.shuffle_down()),
+    Key([mod, ctrl], 'k', lazy.layout.shuffle_up()),
+    Key([mod, sft], 'h', lazy.layout.left()),
+    Key([mod, sft], 'l', lazy.layout.right()),
+    Key([mod, sft], 'j', lazy.layout.down()),
+    Key([mod, sft], 'k', lazy.layout.up()),
+    Key([mod], 'i', lazy.layout.grow()),
+    Key([mod], 'o', lazy.layout.shrink()),
+    Key([mod], 'c', lazy.window.kill()),
+    Key([mod], 'x', lazy.hide_show_bar("top")),
+    # Notification
+    Key([sft], 'space', lazy.spawn('dunstctl close')),
 
+    # System
+    Key([mod, ctrl], 'q', lazy.shutdown()),
+    Key([altMod, sft], 'p', lazy.spawn('reboot')),
+    Key([altMod, sft], 'l', lazy.spawn('lock-screen')),
+    Key([mod, ctrl], "r", lazy.restart()),
+    Key([mod, ctrl], "c", lazy.reload_config()),
+
+    # Terminal
+    Key([mod], 't', lazy.spawn(term)),
+    Key([altMod], 't', lazy.spawn(alt_term)),
+
+    # Applications
+    Key([mod], 'w', lazy.spawn(browser)),
+    KeyChord([mod, sft], 'w', [
+        Key([], 'o', lazy.spawn('whatsapp-nativefier')),
+        Key([], 'c', lazy.spawn('killall WhatsApp')),
+      ]),
+    Key([mod], 'r', lazy.spawn('dmenu_history -h 20')),
+
+    Key([mod], 'b', lazy.function(latest_group)),
+    # Scripts
+    Key([mod, sft], 'e', lazy.spawn('layout')),
+    Key([altMod, sft], 's', lazy.spawn('scrot -p -q 100 /home/aedigo/Documents/Pictures/%Y-%m-%d-%T-screenshot.png')),
+    Key([mod, sft], 'u', lazy.spawn('volume up')),
+    Key([mod, sft], 'd', lazy.spawn('volume down')),
+    Key([mod, sft], 'm', lazy.spawn('volume mute')),
+    Key([mod, ctrl], 't', lazy.spawn('getHours')),
+    Key([mod, ctrl], 'l', lazy.spawn('lockIt')),
+    KeyChord([mod, sft], 'p', [
+            Key([], 's', lazy.spawn('pymor -p 20')),
+            Key([], 'c', lazy.spawn('pymor -c')),
+            Key([], 'r', lazy.spawn('pymor -p 20 -l 3')),
+        ]),
+
+    # Terminal Based Apps
+    Key([mod, sft], 'r', lazy.spawn(term + " -e ttrv")),
+    Key([altMod], 'n', lazy.spawn(term + " -e n")),
+    Key([mod], 'v', lazy.spawn(term + ' -e nvim /home/aedigo/.vimwiki/index.md')),
+    Key([mod, sft], 't', lazy.spawn(term + ' -e bpytop')),
+]
+#+end_src
+* Groups
+#+begin_src python
+groups = [Group(i) for i in "asdfhjkl"]
+for i in groups:
+    keys.extend([
+        Key([mod], i.name, lazy.group[i.name].toscreen(),
+          desc="Switch to group {}".format(i.name)),
+        Key([altMod], i.name, lazy.window.togroup(i.name),
+          desc="move focused window to group {}".format(i.name)),
+        Key([mod], 'u', lazy.group["scratchpad"].dropdown_toggle('term')),
+    ])
+
+groups.append(
+    ScratchPad("scratchpad", [
+        DropDown("term", "alacritty -t scratch", opacity=0.8),
+        ]),
+)
+#+end_src
+* Layouts
+#+begin_src python
+layouts = [
+  layout.MonadTall(
+    border_width=1,
+    border_focus=colors[1],
+    border_normal=colors[0],
+    margin=2,
+    single_border_width=0,
+    single_margin=0,
+  ),
+  layout.Max(),
+]
+#+end_src
 * Widgets
 #+begin_src python
-widget_defaults = dict(
-  font='FantasqueSansMono Nerd Font',
-)
-
-extension_defaults = widget_defaults.copy()
-
 def open_calendar():
   subprocess.Popen(['calendarPy'])
 
@@ -102,31 +176,14 @@ def widgets():
     ),
   ]
   return widgetLists;
-#+end_src
 
-* Hooks
-#+begin_src python
-@hook.subscribe.startup_once
-def autostart():
-  home = os.path.expanduser('~')
-  subprocess.Popen([home + '/.config/qtile/autostart.sh'])
+widget_defaults = dict(
+    font='sans',
+    fontsize=12,
+    padding=3,
+)
+extension_defaults = widget_defaults.copy()
 #+end_src
-
-* Layouts
-#+begin_src python
-layouts = [
-  layout.MonadTall(
-    border_width=1,
-    border_focus=colors[1],
-    border_normal=colors[0],
-    margin=2,
-    single_border_width=0,
-    single_margin=0,
-  ),
-  layout.Max(),
-]
-#+end_src
-
 * Screens
 #+begin_src python
 screens = [
@@ -138,134 +195,49 @@ screens = [
   ),
 ]
 #+end_src
-
-* Attributes
-Some of the Qtile default attributes.
+* Mouse
 #+begin_src python
-follow_mouse_focus = False
-bring_front_click = False
-cursor_warp = False
+# Drag floating layouts.
+mouse = [
+    Drag([mod], "Button1", lazy.window.set_position_floating(),
+         start=lazy.window.get_position()),
+    Drag([mod], "Button3", lazy.window.set_size_floating(),
+         start=lazy.window.get_size()),
+    Click([mod], "Button2", lazy.window.bring_to_front())
+]
+#+end_src
+* Attributes
+#+begin_src python
+follow_mouse_focus = True
 auto_fullscreen = True
 focus_on_window_activation = "smart"
+auto_minimize = True
+reconfigure_screens = True
+bring_front_click = False
+cursor_warp = False
+wmname = "LG3D"
 #+end_src
-
 * Floating
-All my floating configs.
-#+begin_src
+#+begin_src python
 floating_layout = layout.Floating(
     border_width=0,
     max_border_width=0,
     fullscreen_border_width=0,
     float_rules=[
-      ,*layout.Floating.default_float_rules,
-      Match(wm_class='confirmreset'),
-      Match(wm_class='makebranch'),
-      Match(wm_class='maketag'),
-      Match(wm_class='ssh-askpass'),
       Match(wm_class='steam'),
-      Match(wm_class='guake'),
-      Match(wm_class='feh'),
-      Match(wm_class='pavucontrolh'),
-      Match(title='branchdialog'),
-      Match(title='pinentry'),
+      Match(wm_class='pavucontrol'),
+      Match(wm_class='pavucontrol'),
+      Match(wm_class='whatsapp-nativefier-d40211'),
       ])
-
-mouse = [
-    Drag([altMod], 'Button1', lazy.window.set_position_floating(),
-         start=lazy.window.get_position()),
-    Drag([altMod], 'Button3', lazy.window.set_size_floating(),
-         start=lazy.window.get_size()),
-    Click([altMod], 'Button2', lazy.window.bring_to_front())
-]
 #+end_src
-
-* Keybidings
-The key bindings were all inspired by vim.
+* Hooks
 #+begin_src python
+@hook.subscribe.startup_once
+def autostart():
+  home = os.path.expanduser('~')
+  subprocess.Popen([home + '/.config/qtile/autostart.sh'])
 
-keys = [
-    # Window Management
-    Key([mod], 'n', lazy.layout.next()),
-    Key([mod], 'space', lazy.next_layout()),
-    Key([mod], 'p', lazy.layout.previous()),
-    Key([mod, ctrl], 'h', lazy.layout.swap_left()),
-    Key([mod, ctrl], 'l', lazy.layout.swap_right()),
-    Key([mod, ctrl], 'j', lazy.layout.shuffle_down()),
-    Key([mod, ctrl], 'k', lazy.layout.shuffle_up()),
-    Key([mod, sft], 'h', lazy.layout.left()),
-    Key([mod, sft], 'l', lazy.layout.right()),
-    Key([mod, sft], 'j', lazy.layout.down()),
-    Key([mod, sft], 'k', lazy.layout.up()),
-    Key([mod], 'i', lazy.layout.grow()),
-    Key([mod], 'o', lazy.layout.shrink()),
-    Key([mod], 'c', lazy.window.kill()),
-
-    # Notification
-    Key([sft], 'space', lazy.spawn('dunstctl close')),
-
-    # System
-    Key([mod, ctrl], 'q', lazy.shutdown()),
-    Key([altMod, sft], 'p', lazy.spawn('reboot')),
-    Key([altMod, sft], 'l', lazy.spawn('lock-screen')),
-    Key([mod, sft], "r", lazy.reload_config()),
-
-    # Custom functionalities
-    Key([mod], 'b', lazy.function(latest_group)),
-
-    # Terminal
-    Key([mod], 't', lazy.spawn(term)),
-    Key([altMod], 't', lazy.spawn(alt_term)),
-
-    # Applications
-    Key([mod], 'w', lazy.spawn(browser)),
-    KeyChord([mod, sft], 'w', [
-        Key([], 'o', lazy.spawn('whatsapp-nativefier')),
-        Key([], 'c', lazy.spawn('killall WhatsApp')),
-      ]),
-    Key([mod], 'r', lazy.spawn('dmenu_history -h 20')),
-
-    # Scripts
-    Key([mod, sft], 'e', lazy.spawn('layout')),
-    Key([altMod, sft], 's', lazy.spawn('scrot -p -q 100 /home/aedigo/Documents/Pictures/%Y-%m-%d-%T-screenshot.png')),
-    Key([mod, sft], 'u', lazy.spawn('volume up')),
-    Key([mod, sft], 'd', lazy.spawn('volume down')),
-    Key([mod, sft], 'm', lazy.spawn('volume mute')),
-    Key([mod, ctrl], 't', lazy.spawn('getHours')),
-    Key([mod, ctrl], 'l', lazy.spawn('lockIt')),
-    KeyChord([mod, sft], 'p', [
-            Key([], 's', lazy.spawn('pymor -p 20')),
-            Key([], 'c', lazy.spawn('pymor -c')),
-            Key([], 'r', lazy.spawn('pymor -p 20 -l 3')),
-        ]),
-
-    # Terminal Based Apps
-    Key([mod, sft], 'r', lazy.spawn(term + " -e ttrv")),
-    Key([altMod], 'n', lazy.spawn(term + " -e n")),
-    Key([mod], 'v', lazy.spawn(term + ' -e nvim /home/aedigo/.vimwiki/index.md')),
-    Key([mod, sft], 't', lazy.spawn(term + ' -e bpytop')),
-]
-#+end_src
-
-* Groups
-#+begin_src python
-for i in groups:
-    keys.extend([
-        Key([mod], i.name, lazy.group[i.name].toscreen(),
-          desc="Switch to group {}".format(i.name)),
-        Key([altMod], i.name, lazy.window.togroup(i.name),
-          desc="move focused window to group {}".format(i.name)),
-        Key([mod], 'u', lazy.group["scratchpad"].dropdown_toggle('term')),
-    ])
-
-groups.append(
-    ScratchPad("scratchpad", [
-        DropDown("term", "alacritty -t scratch", opacity=0.8),
-        ]),
-)
-#+end_src
-
-* For java apps
-Well..
-#+begin_src python
-wmname = "LG3D"
+@hook.subscribe.startup
+def startup():
+    top.show(False)
 #+end_src
