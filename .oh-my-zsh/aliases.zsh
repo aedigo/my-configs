@@ -17,15 +17,15 @@ alias swac='nvim ~/.config/sway/config'
 alias swaco='nvim ~/.config/sway/config.d/'
 alias getId='swaymsg -t get_tree'
 
+# aura
+alias ai='sudo aura --color always -S'
+alias ar='sudo aura --color always -R'
+alias ao='aura -O --color always'
+alias aou='sudo aura -O -j --color always'
+alias au='sudo aura --color always -Syu; gopreload-batch-refresh.sh'
+
 # arch
-alias spi='sudo pacman -S'
-alias spr='sudo pacman -R'
-alias spra='sudo pacman -Rs'
-alias spu='sudo pacman -Syu; gopreload-batch-refresh.sh'
-alias carch='sudo pacman -Rs $(pacman -Qtdq)'
 alias search='pacman -Ss'
-alias orphans='pacman -Qtdq'
-alias removeOrphans='sudo pacman -Rns $(pacman -Qtdq)'
 alias sss='sudo systemctl start'
 alias sse='sudo systemctl enable'
 alias sgmc='sudo grub-mkconfig -o /boot/grub/grub.cfg'

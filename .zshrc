@@ -3,6 +3,7 @@ export LC_CTYPE=en_US.UTF-8
 export NNN_SSHFS="sshfs -o follow_symlinks"        # make sshfs follow symlinks on the remote
 export NNN_COLORS="2136"                           # use a different color for each context
 export NNN_TRASH=1                                 # trash (needs trash-cli) instead of delete
+export MANPAGER='sh -c "col -bx | bat -l man -p"'
 export ZSH="/home/aedigo/.oh-my-zsh"
 export PATH=/home/aedigo/.local/bin:$PATH
 export MOZ_X11_EGL=1
@@ -37,7 +38,7 @@ bindkey -M viins 'jk' vi-cmd-mode '^ ' autosuggest-accept
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=980'
 if [ -z "${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
-   exec sway-custom
+   startx qtile start
 fi
 
 if [ "$TERM" = "linux" ]; then
@@ -62,4 +63,5 @@ if [ "$TERM" = "linux" ]; then
 	clear
 fi
 
+[[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx -- vt1 &> /dev/null
 eval "$(starship init zsh)"
