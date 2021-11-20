@@ -133,6 +133,28 @@ def widgets():
     widget.Spacer(
         background=colors[0],
     ),
+    widget.GenPollText(
+      update_interval=1,
+      func=lambda:subprocess.check_output("/home/aedigo/.bin/home_size").decode("utf-8"),
+      background=colors[0],
+      foreground=colors[1],
+    ),
+    widget.GenPollText(
+      update_interval=1,
+      func=lambda:subprocess.check_output("/home/aedigo/.bin/root_size").decode("utf-8"),
+      background=colors[0],
+      foreground=colors[1],
+    ),
+    widget.Sep(
+      background=colors[0],
+      foreground=colors[0],
+      linewidth=0,
+    ),
+    widget.CPU(
+      format='{load_percent}%',
+      background=colors[0],
+      foreground=colors[1],
+    ),
     widget.Sep(
       background=colors[0],
       foreground=colors[0],
@@ -204,7 +226,6 @@ floating_layout = layout.Floating(
     fullscreen_border_width=0,
     float_rules=[
       Match(wm_class='steam'),
-      Match(wm_class='pavucontrol'),
       Match(wm_class='pavucontrol'),
       Match(wm_class='whatsapp-nativefier-d40211'),
       ])
