@@ -32,8 +32,8 @@ alias sgmc='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias lsm="exa -al --color=always --group-directories-first"
 
 # python
-alias pyi='sudo pip install'
-alias pyr='sudo pip uninstall'
+alias pyi='pip install'
+alias pyr='pip uninstall'
 
 # steam
 alias steamApp='xinit /usr/bin/steam -- :1 vt$XDG_VTNR'
