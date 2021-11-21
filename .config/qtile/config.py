@@ -61,7 +61,7 @@ keys = [
         Key([], 'o', lazy.spawn('whatsapp-nativefier')),
         Key([], 'c', lazy.spawn('killall WhatsApp')),
       ]),
-    Key([mod], 'r', lazy.spawn('dmenu_history -h 20')),
+    Key([mod], 'r', lazy.spawn("dmenu_history -f -i -dim 0.3 -sb '#282a36' -nb '#44475a' -sf '#f8f8f2' -nf '#8be9fd' -fn FantasqueSansMono-12:light")),
 
     # Scripts
     Key([mod, sft], 'e', lazy.spawn('layout')),
@@ -99,7 +99,7 @@ for i in groups:
 
 groups.append(
     ScratchPad("scratchpad", [
-        DropDown("term", "alacritty -t scratch", opacity=0.6, height=0.7),
+        DropDown("term", "alacritty -t scratch", opacity=0.8, height=0.7),
         ]),
 )
 
@@ -225,7 +225,7 @@ floating_layout = layout.Floating(
     max_border_width=0,
     fullscreen_border_width=0,
     float_rules=[
-      Match(wm_class='steam'),
+      Match(wm_class='Steam'),
       Match(wm_class='pavucontrol'),
       Match(wm_class='whatsapp-nativefier-d40211'),
       ])

@@ -33,6 +33,7 @@ def latest_group(qtile):
   qtile.current_screen.set_group(qtile.current_screen.previous_group)
 #+end_src
 * Keybindings
+The dmenu_history is a script that sort by the recently used apps. I use the aur dmenu2 package.
 #+begin_src python
 keys = [
     # Window Management
@@ -74,7 +75,7 @@ keys = [
         Key([], 'o', lazy.spawn('whatsapp-nativefier')),
         Key([], 'c', lazy.spawn('killall WhatsApp')),
       ]),
-    Key([mod], 'r', lazy.spawn('dmenu_history -h 20')),
+    Key([mod], 'r', lazy.spawn("dmenu_history -f -i -dim 0.3 -sb '#282a36' -nb '#44475a' -sf '#f8f8f2' -nf '#8be9fd' -fn FantasqueSansMono-12:light")),
 
     # Scripts
     Key([mod, sft], 'e', lazy.spawn('layout')),
@@ -114,7 +115,7 @@ for i in groups:
 
 groups.append(
     ScratchPad("scratchpad", [
-        DropDown("term", "alacritty -t scratch", opacity=0.6, height=0.7),
+        DropDown("term", "alacritty -t scratch", opacity=0.8, height=0.7),
         ]),
 )
 #+end_src
@@ -252,7 +253,7 @@ floating_layout = layout.Floating(
     max_border_width=0,
     fullscreen_border_width=0,
     float_rules=[
-      Match(wm_class='steam'),
+      Match(wm_class='Steam'),
       Match(wm_class='pavucontrol'),
       Match(wm_class='whatsapp-nativefier-d40211'),
       ])
