@@ -19,12 +19,17 @@ if [ "$VOLUME" -le 20 ]; then
     ICON=audio-volume-low
 else if [ "$VOLUME" -le 60 ]; then
          ICON=audio-volume-medium
-     else 
+     else
          ICON=audio-volume-high
      fi
 fi
 if [ "$MUTE" == "[off]" ]; then
     ICON=audio-volume-muted
-fi 
+fi
 
-notify-send.py --replaces-process "volume-popup" -u low -a 'volume' $VOLUME% -i /usr/share/icons/Adwaita/32x32/legacy/$ICON.png
+notify-send.sh $VOLUME% \
+  --replace-file=/tmp/volumenotification \
+  -u low \
+  -a 'volume' \
+  -i /usr/share/icons/Adwaita/32x32/legacy/$ICON.png
+

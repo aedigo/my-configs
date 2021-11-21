@@ -32,8 +32,7 @@ case "$1" in
     save
     ;;
   nvim)
-    copy ~/.config/nvim/configs ~/.my-configs/.config/nvim/configs
-    copy ~/.config/nvim/init.vim ~/.my-configs/.config/nvim/
+    delete .config/nvim && copy ~/.config/nvim/configs ~/.my-configs/.config/nvim/ && copy ~/.config/nvim/init.vim ~/.my-configs/.config/nvim/
     save
     ;;
   picom)
