@@ -33,7 +33,7 @@ def latest_group(qtile):
   qtile.current_screen.set_group(qtile.current_screen.previous_group)
 #+end_src
 * Keybindings
-The [[https://tools.suckless.org/dmenu/scripts/dmenu_run_with_command_history/][dmenu_history]] is a script that sort by the recently used apps. I use the aur dmenu2 package.
+The [[https://tools.suckless.org/dmenu/scripts/dmenu_run_with_command_history/][dmenu_history]] is a script that sort by the recently used apps. I use the aur [[https://aur.archlinux.org/packages/dmenu2/][dmenu2]] package.
 #+begin_src python
 keys = [
     # Window Management
