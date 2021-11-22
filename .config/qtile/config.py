@@ -212,7 +212,7 @@ mouse = [
 ]
 
 follow_mouse_focus = True
-auto_fullscreen = True
+auto_fullscreen = False
 focus_on_window_activation = "smart"
 auto_minimize = True
 reconfigure_screens = True
