@@ -1,14 +1,12 @@
 call plug#begin('~/.config/nvim/plugged')
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'preservim/nerdcommenter'
-  Plug 'morhetz/gruvbox'
-  Plug 'vimwiki/vimwiki'
-  Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+  Plug 'preservim/nerdcommenter'
+  Plug 'Mofiqul/dracula.nvim'
+  Plug 'vimwiki/vimwiki'
   Plug 'mattn/emmet-vim'
   Plug 'editorconfig/editorconfig-vim'
-  Plug 'morhetz/gruvbox'
 call plug#end()
 
 
