@@ -1,58 +1,38 @@
 fish_vi_key_bindings
 set -gx EDITOR nvim
-set dangerous_colors 000000 333333 666666 ffffff ffff00 ff6600 ff0000 ff0033 3300ff 0000ff 00ffff 00ff00
+set -U fish_greeting ""
+ # Start X at login
+if status is-login
+    if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
+        exec startx /usr/bin/qtile start
+    end
+end
+# aliases
 
-# Pacman
-  function spi
-    sudo pacman -S $argv;
-  end
+# aura
+alias ai='sudo aura -S'
+alias aia='sudo aura -A'
+alias ar='sudo aura -R'
+alias ao='aura -O'
+alias aor='aura -O -j'
+alias au='sudo aura -Syu'
 
-  function spr
-    sudo pacman -Rs $argv;
-  end
+# builtin
+alias cl='clear'
+alias ls='exa'
 
-  function spu
-    sudo pacman -Syu;
-  end
+# vim
+alias v='nvim'
+abbr -a sv sudo -e
+alias vim='nvim'
 
-# System 
-  function cl
-    clear;
-  end
+# fish
+alias sc='$EDITOR ~/.config/fish/config.fish'
 
-# Dwm
-  function dc
-    $EDITOR ~/.config/arco-dwm/config.def.h;
-  end
+# de/wm
+#
+# qtile
+alias qc='emacs ~/.config/qtile/README.org'
 
-  function smci
-    cd ~/.config/arco-dwm; sudo rm config.h; sudo make clean install;
-  end
-
-# Fish
-  function sc
-    $EDITOR ~/.config/fish/config.fish;
-  end
-
-# Task Warrior
-  function ta
-    task add $argv;
-  end
-
-  function td
-    task done $argv;
-  end
-
-  function tdel
-    task delete $argv;
-  end
-
-  function tn
-    task next;
-  end
-
-# Qtile
-  function qc
-    $EDITOR ~/.config/qtile/config.py;
-  end
-
+# arch
+alias gm='sudo grub-mkconfig -o /boot/grub/grub.cfg'
