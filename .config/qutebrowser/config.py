@@ -12,7 +12,6 @@
 
 ## This is here so configs done via the GUI are still loaded.
 ## Remove it to not load settings done via the GUI.
-config.load_autoconfig(False)
 import dracula.draw
 
 # Load existing settings made via :set
@@ -467,7 +466,7 @@ dracula.draw.blood(c, {
 ## Background color for webpages if unset (or empty to use the theme's
 ## color).
 ## Type: QtColor
-# c.colors.webpage.bg = 'white'
+c.colors.webpage.bg = 'black'
 
 ## Which algorithm to use for modifying how colors are rendered with
 ## darkmode.
@@ -494,7 +493,7 @@ dracula.draw.blood(c, {
 ## `colors.webpage.darkmode.threshold.background` to 205.  - "With
 ## selective inversion of everything": Combines the two variants   above.
 ## Type: Bool
-c.colors.webpage.darkmode.enabled = False
+c.colors.webpage.darkmode.enabled = True
 
 ## Render all colors as grayscale. This only has an effect when
 ## `colors.webpage.darkmode.algorithm` is set to `lightness-hsl` or
@@ -981,14 +980,7 @@ c.content.notifications.enabled = False
 
 ## List of user stylesheet filenames to use.
 ## Type: List of File, or File
-c.content.user_stylesheets = [
-        '/home/aedigo/.config/qutebrowser/themes/darculized/darculized-all-sites.css',
-        '/home/aedigo/.config/qutebrowser/themes/darculized/darculized-github.css',
-        '/home/aedigo/.config/qutebrowser/themes/darculized/darculized-google.com.css',
-        '/home/aedigo/.config/qutebrowser/themes/darculized/darculized-reddit.com.css',
-        '/home/aedigo/.config/qutebrowser/themes/darculized/darculized-stackexchange.com.css',
-        '/home/aedigo/.config/qutebrowser/themes/darculized/darculized-mediawiki.org.css',
-        ]
+c.content.user_stylesheets = []
 
 c.content.blocking.method = 'adblock'
 c.content.blocking.adblock.lists = []
@@ -2198,7 +2190,7 @@ config.bind('<Ctrl-i>', 'leave-mode', mode='prompt')
 # config.bind('Y', 'prompt-accept --save yes', mode='yesno')
 # config.bind('n', 'prompt-accept no', mode='yesno')
 # config.bind('y', 'prompt-accept yes', mode='yesno')
-config.bind(',m', 'spawn mpv --gpu-context=wayland --force-window=immediate --pause {url}')
+config.bind(',m', 'spawn mpv --force-window=immediate --pause {url}')
 config.bind(',a', 'spawn mpv --force-window=immediate --pause {url} --no-video')
 config.bind(',t', 'spawm --userscript taskadd')
 config.bind('td', 'config-cycle colors.webpage.darkmode.enabled ;; restart')
