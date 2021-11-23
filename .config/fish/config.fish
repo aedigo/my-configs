@@ -23,6 +23,7 @@ alias ls='exa'
 
 # vim
 alias v='nvim'
+alias vi='nvim'
 abbr -a sv sudo -e
 alias vim='nvim'
 
