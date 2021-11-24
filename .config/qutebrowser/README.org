@@ -20,7 +20,7 @@ dracula.draw.blood(c, {
 #+end_src
 
 * Browser preferrences
-For a better adblock experience download the Brave adblock using *sudo pacman -S python-adblock*. Not all yt videos will have ads blocked, some ads will pass trought. Using mpv as youtube player is better option. See the keybidings bellow for a how to do it. You have to download youtube-dl for this to work. Another options for youtube dl is yt-dlp, which in my experience, is better.
+For a better adblock experience download the Brave adblock using *sudo pacman -S python-adblock*. Not all Youtube videos will have ads blocked, some ads will still appear. Using mpv as Youtube player is a better option. See the keybindings bellow for a how to do it. You'll have to download *youtube-dl* for this to work. An alternative for *youtube-dl* is *yt-dlp* which, in my experience, is better. To use it as your *youtube-dl* alternative, what I did was to create an alias to /usr/bin/ with *youtube-dl* as the name, since, for me, was not working.
 #+begin_src python
 # Background color for webpages if unset (or empty to use the theme's color).
 c.colors.webpage.bg = 'black'
