@@ -9,6 +9,10 @@ if status is-login
 end
 # aliases
 
+# translate-shell
+alias t="trans -sp -brief en:pt-br"
+alias tb="trans -p -brief pt-br:en"
+
 # aura
 alias ai='sudo aura -S'
 alias aia='sudo aura -A'
@@ -20,6 +24,7 @@ alias au='sudo aura -Syu'
 # builtin
 alias cl='clear'
 alias ls='exa'
+alias srm='sudo rm -rf'
 
 # vim
 alias v='nvim'
