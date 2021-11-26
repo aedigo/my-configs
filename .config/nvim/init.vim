@@ -9,12 +9,12 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'kyazdani42/nvim-web-devicons'
 call plug#end()
 
-
 " this is for lualine. Its the default configuration 
 lua << END
 require'lualine'.setup()
 END
 
+set autochdir
 
 " this make so that after folded, quiting and reopening, will still have the lines folded
 " all my sets
@@ -48,12 +48,10 @@ colorscheme dracula
 nnoremap ,html :-1read $HOME/.config/nvim/snippets/html.snippet<CR>14jf>a
 nnoremap ,mdc :-1read $HOME/.config/nvim/snippets/mdc.snippet<CR>2f-a<Space>
 
-
 " this will let me go back/foward or delete a buffer
 map gn :bn<cr>
 map gp :bp<cr>
 map gd :bd<cr>
-
 
 " this will auto complete the signs
 inoremap " ""<left>
@@ -64,28 +62,17 @@ inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
-
 " copy to clipboard
 vnoremap  <leader>y  "+y
 nnoremap  <leader>Y  "+yg_
 nnoremap  <leader>y  "+y
 nnoremap  <leader>yy  "+yy
 
-
 " paste from clipboard
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
-
-" for folding
-augroup vimrc
-  au BufReadPre * setlocal foldmethod=indent
-  au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
-augroup END
-au BufWinLeave ?* mkview
-au BufWinEnter ?* silent loadview
-  
 
 filetype indent on
 
