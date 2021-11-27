@@ -8,12 +8,14 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'nvim-lualine/lualine.nvim'
   Plug 'kyazdani42/nvim-web-devicons'
 call plug#end()
-
 " this is for lualine. Its the default configuration 
 lua << END
 require'lualine'.setup()
 END
 
+" With this when I, for example, open a file without being inside the
+" directory of the file it will, basically, cd to that directory so I, now,
+" have an easy acess to those files.
 set autochdir
 
 " this make so that after folded, quiting and reopening, will still have the lines folded
@@ -31,6 +33,7 @@ set nonu nornu
 set number relativenumber
 set wildignorecase
 set wildignore=\*.git/\node_modules/
+set foldmethod=expr
 
 " all my lets
 let g:coc_global_extensions = [ 'coc-json', 'coc-git', 'coc-html', 'coc-css', 'coc-prettier' ]
@@ -61,18 +64,13 @@ inoremap [ []<left>
 inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
-
 " copy to clipboard
-vnoremap  <leader>y  "+y
-nnoremap  <leader>Y  "+yg_
-nnoremap  <leader>y  "+y
-nnoremap  <leader>yy  "+yy
+nnoremap yy  "+yy
+nnoremap y  "+y
 
 " paste from clipboard
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
+nnoremap p "+p
+nnoremap P "+P
 
 filetype indent on
 
@@ -104,4 +102,7 @@ inoremap <C-A> <C-O>^<C-g>u
 inoremap <expr> <C-B> getline('.')=~'^\s*$'&&col('.')>
 			\strlen(getline('.'))?"0\<Lt>C-D>\<Lt>Esc>kJs":"\<Lt>Left>"
 inoremap <expr> <C-E> col('.')>strlen(getline('.'))<bar><bar>pumvisible()?"\<Lt>C-E>":"\<Lt>End>"
+
+au BufWinLeave *.c mkview
+au BufWinEnter *.c silent! loadview
 
