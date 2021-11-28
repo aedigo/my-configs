@@ -1,5 +1,6 @@
 fish_vi_key_bindings
 set -gx EDITOR nvim
+set -x MANPAGER 'sh -c "col -bx | bat -l man -p"' 
 set -U fish_greeting ""
  # Start X at login
 if status is-login
@@ -10,21 +11,28 @@ end
 # aliases
 
 # translate-shell
-alias t="trans -sp -brief en:pt-br"
-alias tb="trans -p -brief pt-br:en"
+alias t='trans -sp -brief en:pt-br'
+alias tb='trans -p -brief pt-br:en'
 
-# aura
-alias ai='sudo aura -S'
-alias aia='sudo aura -A'
-alias ar='sudo aura -R'
-alias ao='aura -O'
-alias aor='aura -O -j'
-alias au='sudo aura -Syu'
+# pip
+alias pi='pip install'
+alias pr='pip uninstall'
+
+# installing
+alias i='sudo paru -S'
+alias r='sudo paru -R'
+alias up='sudo paru -Syu'
+
+# installing aur
+alias ia='paru'
+alias sa='paru -Ss'
 
 # builtin
 alias cl='clear'
 alias ls='exa'
 alias srm='sudo rm -rf'
+alias ll='ls -la'
+alias fuck='killall -9'
 
 # vim
 alias v='nvim'
