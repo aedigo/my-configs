@@ -23,6 +23,10 @@ case "$1" in
     delete .config/sway && copy ~/.config/sway/ ~/.my-configs/.config
     save
     ;;
+  fish)
+    delete .config/fish && copy ~/.config/fish/ ~/.my-configs/.config
+    save
+    ;;
   trida)
     copy ~/.config/tridactyl/tridactylrc ~/.my-configs/.config
     save
@@ -32,7 +36,7 @@ case "$1" in
     save
     ;;
   nvim)
-    delete .config/nvim && copy ~/.config/nvim/configs ~/.my-configs/.config/nvim/ && copy ~/.config/nvim/init.vim ~/.my-configs/.config/nvim/
+    delete .config/nvim && copy ~/.config/nvim ~/.my-configs/.config/
     save
     ;;
   picom)

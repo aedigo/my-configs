@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 date=$(date "+%T")
-notify-send.py "$date" -t 1500
+notify-send.sh --replace-file=/tmp/getHours "$date" -t 1500
 
