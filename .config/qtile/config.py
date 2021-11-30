@@ -61,14 +61,14 @@ keys = [
         Key([], 'o', lazy.spawn('whatsapp-nativefier')),
         Key([], 'c', lazy.spawn('killall WhatsApp')),
       ]),
-    Key([mod], 'r', lazy.spawn("dmenu_history -f -i -dim 0.3 -sb '#282a36' -nb '#44475a' -sf '#f8f8f2' -nf '#8be9fd' -fn FantasqueSansMono-12:light")),
+    Key([mod], 'r', lazy.spawn('dmenu_history -f -i -dim 0.3 -sb "#282a36" -nb "#44475a" -sf "#f8f8f2" -nf "#8be9fd" -fn FantasqueSansMono-12:light')),
+    Key([mod], 'v', lazy.spawn('vwhere')),
 
     # Scripts
     Key([mod, sft], 'e', lazy.spawn('layout')),
-    Key([altMod, sft], 's', lazy.spawn('scrot -p -q 100 /home/aedigo/Documents/Pictures/%Y-%m-%d-%T-screenshot.png')),
+    Key([altMod, sft], 's', lazy.spawn('scrot -p -q 100 /home/aedigo/.Pictures/%Y-%m-%d-%T-screenshot.png')),
     Key([mod, sft], 'u', lazy.spawn('volume up')),
     Key([mod, sft], 'd', lazy.spawn('volume down')),
-    Key([mod, sft], 'm', lazy.spawn('volume mute')),
     Key([mod, ctrl], 't', lazy.spawn('getHours')),
     Key([mod, ctrl], 'l', lazy.spawn('lockIt')),
     KeyChord([mod, sft], 'p', [
@@ -78,9 +78,8 @@ keys = [
         ]),
 
     # Terminal Based Apps
-    Key([mod, sft], 'r', lazy.spawn(term + " -e ttrv")),
-    Key([altMod], 'n', lazy.spawn(term + " -e n")),
-    Key([mod], 'v', lazy.spawn(term + ' -e nvim /home/aedigo/.vimwiki/index.md')),
+    Key([altMod], 'n', lazy.spawn(term + " -t nnn -e nnn")),
+    #Key([mod], 'v', lazy.spawn(term + ' -e nvim /home/aedigo/.vimwiki/index.md')),
     Key([mod, sft], 't', lazy.spawn(term + ' -e bpytop')),
 
     # Others
@@ -99,7 +98,8 @@ for i in groups:
 
 groups.append(
     ScratchPad("scratchpad", [
-        DropDown("term", "alacritty -t scratch", opacity=0.8, height=0.7),
+        DropDown("term", "alacritty -t scratch", height=0.7,
+            on_focus_lost_hide=False),
         ]),
 )
 
@@ -133,17 +133,16 @@ def widgets():
     widget.Spacer(
         background=colors[0],
     ),
-    widget.GenPollText(
-      update_interval=1,
-      func=lambda:subprocess.check_output("/home/aedigo/.bin/home_size").decode("utf-8"),
-      background=colors[0],
-      foreground=colors[1],
+    widget.DF(
+        background=colors[0],
+        visible_on_warn=False,
+        format='{uf}{m}'
     ),
-    widget.GenPollText(
-      update_interval=1,
-      func=lambda:subprocess.check_output("/home/aedigo/.bin/root_size").decode("utf-8"),
-      background=colors[0],
-      foreground=colors[1],
+    widget.DF(
+        background=colors[0],
+        visible_on_warn=False,
+        format='{uf}{m}',
+        partition='/home'
     ),
     widget.Sep(
       background=colors[0],
@@ -212,12 +211,12 @@ mouse = [
 ]
 
 follow_mouse_focus = True
-auto_fullscreen = False
+auto_fullscreen = True
 focus_on_window_activation = "smart"
 auto_minimize = True
 reconfigure_screens = True
 bring_front_click = False
-cursor_warp = False
+cursor_warp = True
 wmname = "LG3D"
 
 floating_layout = layout.Floating(
@@ -225,8 +224,11 @@ floating_layout = layout.Floating(
     max_border_width=0,
     fullscreen_border_width=0,
     float_rules=[
-      Match(wm_class='Steam'),
+      *layout.Floating.default_float_rules,
       Match(wm_class='pavucontrol'),
+      Match(wm_class='gvim'),
+      Match(title='nnn'),
+      Match(wm_class='mb_warband_linux'),
       Match(wm_class='whatsapp-nativefier-d40211'),
       ])
 
