@@ -19,7 +19,6 @@ static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char *volup[]          = { "volume", "up", NULL};
 static const char *voldw[]          = { "volume", "down", NULL};
-static const char *layout[]         = { "layout", NULL};
 static const char *qutebrowser[]    = { "qutebrowser", NULL };
 static const char *pymor[]    = { "pymor -p 20 -l 3", NULL };
 static const char *colors[][3]      = {
