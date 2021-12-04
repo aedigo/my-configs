@@ -11,8 +11,8 @@ static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int focusonwheel       = 0;
-static const char *fonts[]          = { "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "FantasqueSansMono Nerd Font:size=10" };
+static const char dmenufont[]       = "FantasqueSansMono-12:light";
 static const char col_gray1[]       = "#282a36";
 static const char col_gray2[]       = "#f8f8f2";
 static const char col_gray3[]       = "#a89984";
@@ -55,7 +55,7 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1,        50,50,500,500,        5 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1,        50,50,500,500,        5 },
-	{ NULL,		    "spterm",		NULL,		    SPTAG(0),		  1,			     -1,        50,50,500,500,        5},
+	{ NULL,		    "spterm",		NULL,		    SPTAG(0),		  1,			     -1,        250,250,600,150,        5},
 	{ NULL,		    "spfm",		NULL,		    SPTAG(0),		  1,			     -1,        50,50,500,500,        5},
 };
 
@@ -68,7 +68,7 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 #include "fibonacci.c"
 static Layout layouts[] = {
 	/* symbol               function */
- 	{ "[\\]",               dwindle },
+ 	{ "",               dwindle },
 	{ "><>",                monocle },
 };
 
@@ -86,7 +86,7 @@ static Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_history", "-f", "-i", "-dim", "0.3", "-sb", "#282a36", "-nb", "#44475a", "-nf", "#8be9fd", "-sf", "#f8f8f2", "-fn", "FantasqueSansMono-12:light", NULL };
+static const char *dmenucmd[] = { "dmenu_history", "-f", "-i", "-dim", "0.3", "-sb", "#282a36", "-nb", "#44475a", "-nf", "#8be9fd", "-sf", "#f8f8f2", "-fn", dmenufont, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 
@@ -104,7 +104,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_u,      spawn,          {.v = volup } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = voldw } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = qutebrowser } },
-	{ MODKEY,                       XK_p,      spawn,          {.v = pymor } },
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = pymor } },
 	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
 	{ MODKEY,            			      XK_u,	     togglescratch,  {.ui = 1 } },
