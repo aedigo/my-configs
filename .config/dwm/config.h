@@ -10,6 +10,7 @@ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display 
 static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+static const int focusonwheel       = 0;
 static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#282a36";
@@ -97,21 +98,19 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      spawn,          {.v = termcmd } },
 	{ ALT_MODKEY,                   XK_t,      spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_n,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_p,      focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,            			      XK_y,  	   togglescratch,  {.ui = 0 } },
 	{ MODKEY|ShiftMask,             XK_u,      spawn,          {.v = volup } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = voldw } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = qutebrowser } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = pymor } },
-	{ MODKEY|ShiftMask,             XK_n,      movestack,      {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_p,      movestack,      {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
 	{ MODKEY,            			      XK_u,	     togglescratch,  {.ui = 1 } },
 	{ MODKEY,            			      XK_x,	     togglescratch,  {.ui = 2 } },
-	{ MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_o,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_o,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_i,      setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_b,      view,           {0} },
 	{ MODKEY,                       XK_c,      killclient,     {0} },
@@ -130,14 +129,15 @@ static Key keys[] = {
 	TAGKEYS(                        XK_s,                      1)
 	TAGKEYS(                        XK_d,                      2)
 	TAGKEYS(                        XK_f,                      3)
-	TAGKEYS(                        XK_h,                      4)
-	TAGKEYS(                        XK_j,                      5)
-	TAGKEYS(                        XK_k,                      6)
-	TAGKEYS(                        XK_l,                      7)
+	TAGKEYS(                        XK_u,                      4)
+	TAGKEYS(                        XK_i,                      5)
+	TAGKEYS(                        XK_o,                      6)
+	TAGKEYS(                        XK_p,                      7)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
 /* button definitions */
+
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
