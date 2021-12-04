@@ -19,8 +19,8 @@ static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char *volup[]          = { "volume", "up", NULL};
 static const char *voldw[]          = { "volume", "down", NULL};
-static const char *layout[]         = { "layout", NULL};
 static const char *qutebrowser[]    = { "qutebrowser", NULL };
+static const char *pymor[]    = { "pymor -p 20 -l 3", NULL };
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray1 },
@@ -54,9 +54,8 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1,        50,50,500,500,        5 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1,        50,50,500,500,        5 },
-	{ NULL,		    "spterm",		NULL,		    SPTAG(0),		  1,			     -1 },
-	{ NULL,		    "spfm",		  NULL,	    	SPTAG(1),		  1,			     -1 },
-	{ NULL,		    "keepassxc",NULL,		    SPTAG(2),		  0,			     -1 },
+	{ NULL,		    "spterm",		NULL,		    SPTAG(0),		  1,			     -1,        50,50,500,500,        5},
+	{ NULL,		    "spfm",		NULL,		    SPTAG(0),		  1,			     -1,        50,50,500,500,        5},
 };
 
 /* layout(s) */
@@ -90,6 +89,7 @@ static const char *dmenucmd[] = { "dmenu_history", "-f", "-i", "-dim", "0.3", "-
 static const char *termcmd[]  = { "st", NULL };
 
 
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
@@ -102,11 +102,12 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_u,      spawn,          {.v = volup } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = voldw } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = qutebrowser } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = pymor } },
 	{ MODKEY,            			      XK_u,	     togglescratch,  {.ui = 1 } },
 	{ MODKEY,            			      XK_x,	     togglescratch,  {.ui = 2 } },
 	{ MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_o,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_d,      setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_o,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_i,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_b,      view,           {0} },

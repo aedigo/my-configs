@@ -90,6 +90,7 @@ static const char *termcmd[]  = { "st", NULL };
 
 
 
+#include "movestack.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
@@ -103,6 +104,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = voldw } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = qutebrowser } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = pymor } },
+	{ MODKEY|ShiftMask,             XK_n,      movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_p,      movestack,      {.i = -1 } },
 	{ MODKEY,            			      XK_u,	     togglescratch,  {.ui = 1 } },
 	{ MODKEY,            			      XK_x,	     togglescratch,  {.ui = 2 } },
 	{ MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = +1 } },
