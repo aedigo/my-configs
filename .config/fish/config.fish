@@ -5,7 +5,7 @@ set -U fish_greeting ""
  # Start X at login
 if status is-login
     if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
-        exec startx /usr/bin/qtile start
+        exec startx
     end
 end
 # aliases
@@ -19,13 +19,9 @@ alias pi='pip install'
 alias pr='pip uninstall'
 
 # installing
-alias i='sudo paru -S'
-alias r='sudo paru -R'
-alias up='sudo paru -Syu'
-
-# installing aur
-alias ia='paru'
-alias sa='paru -Ss'
+alias i='paru'
+alias r='paru -Rs'
+alias up='paru -Syu'
 
 # builtin
 alias cl='clear'
@@ -50,3 +46,4 @@ alias qc='emacs ~/.config/qtile/README.org'
 
 # arch
 alias gm='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias steamApp='xinit /usr/bin/steam -- :1 vt$XDG_VTNR'
