@@ -1,52 +1,21 @@
 #!/bin/sh
 
-userresources=$HOME/.Xresources
-usermodmap=$HOME/.Xmodmap
-sysresources=/etc/X11/xinit/.Xresources
-sysmodmap=/etc/X11/xinit/.Xmodmap
+# compositor
+picom -b &
 
-# merge in defaults and keymaps
+# keyboard
+setxkbmap -layout br nodeadkeys
 
-if [ -f $sysresources ]; then
+# audio
+/usr/bin/pipewire &
+/usr/bin/pipewire-pulse &
+/usr/bin/pipewire-media-session &
 
-    xrdb -merge $sysresources
+# statusbar loop
+while true; do
+  dwm-bar 
+  sleep 1
+done &
 
-fi
-
-if [ -f $sysmodmap ]; then
-    xmodmap $sysmodmap
-fi
-
-if [ -f "$userresources" ]; then
-
-    xrdb -merge "$userresources"
-
-fi
-
-if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap"
-fi
-
-# start some nice programs
-
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
- for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x "$f" ] && . "$f"
- done
- unset f
-fi
-
-# Background
-nitrogen --restore &
-
-# Compositor
-picom &
-
-# Exec wm
-exec qtile
-
-# Network
-nm-applet &
-
-# Lockscreen 
-xautolock -time 3 -locker "i3lock -k -i ~/Documents/Wallpapers/Sea_horizon.jpg"
+# wm
+exec startdwm
