@@ -1,14 +1,5 @@
-import dracula.draw
-
 # Load existing settings made via :set
 config.load_autoconfig()
-
-dracula.draw.blood(c, {
-    'spacing': {
-        'vertical': 6,
-        'horizontal': 8
-    }
-})
 
 # Background color for webpages if unset (or empty to use the theme's color).
 c.colors.webpage.bg = 'black'
