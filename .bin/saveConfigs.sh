@@ -19,12 +19,16 @@ function delete() {
 }
 
 case "$1" in
+  xinitrc)
+    delete .config/xinitrc; copy ~/.xinitrc ~/.my-configs/
+    save
+    ;;
   sway)
     delete .config/sway && copy ~/.config/sway/ ~/.my-configs/.config
     save
     ;;
   fish)
-    delete .config/fish && copy ~/.config/fish/ ~/.my-configs/.config
+    delete .config/fish; copy ~/.config/fish/ ~/.my-configs/.config
     save
     ;;
   trida)
@@ -36,7 +40,7 @@ case "$1" in
     save
     ;;
   nvim)
-    delete .config/nvim && copy ~/.config/nvim ~/.my-configs/.config/
+    delete .config/nvim; copy ~/.config/nvim ~/.my-configs/.config/
     save
     ;;
   picom)
@@ -44,7 +48,7 @@ case "$1" in
     save
     ;;
   st)
-    copy ~/.config/st ~/.my-configs/.config
+    delete .st; copy ~/.st ~/.my-configs/
     save
     ;;
   mpv)
