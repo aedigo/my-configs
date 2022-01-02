@@ -21,7 +21,7 @@ static const char col_cyan[]        = "#005577";
 static const char *volup[]          = { "volume", "up", NULL};
 static const char *voldw[]          = { "volume", "down", NULL};
 static const char *qutebrowser[]    = { "qutebrowser", NULL };
-static const char *pymor[]    = { "pymor -p 20 -l 3", NULL };
+
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray1 },
@@ -54,7 +54,7 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 /*First arg only serves to match against key in rules*/
-static const char *scratchpadcmd[] = {"s", "alacritty", "-t", "scratchpad", NULL}; 
+static const char *scratchpadcmd[] = {"s", "st", "-t", "scratchpad", "-c", "scratchpad", NULL}; 
 
 #include "fibonacci.c"
 static Layout layouts[] = {
@@ -77,8 +77,10 @@ static Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_history", "-f", "-i", "-dim", "0.3", "-sb", "#282a36", "-nb", "#44475a", "-nf", "#8be9fd", "-sf", "#f8f8f2", "-fn", dmenufont, NULL };
-static const char *termcmd[]  = { "alacritty", NULL };
+static const char *dmenucmd[] = { "dmenu_run_history", "-f", "-i", "-dim", "0.3", "-sb", "#282a36", "-nb", "#44475a", "-nf", "#8be9fd", "-sf", "#f8f8f2", "-fn", dmenufont, NULL };
+static const char *termcmd[]  = { "st", NULL };
+static const char *closepopus[] = { "dunstctl", "close", NULL };
+static const char *pymor[] = { "pymor", "-p", "20", "-l", "2", NULL };
 
 
 
@@ -86,6 +88,7 @@ static const char *termcmd[]  = { "alacritty", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
+	{ ShiftMask,                    XK_space,  spawn,          {.v = closepopus } },
 	{ MODKEY,                       XK_t,      spawn,          {.v = termcmd } },
 	{ ALT_MODKEY,                   XK_t,      spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
