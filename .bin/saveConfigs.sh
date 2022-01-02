@@ -71,6 +71,10 @@ case "$1" in
     delete .bin && copy ~/.bin ~/.my-configs/
     save
     ;;
+  dwm)
+    delete .dwm && copy ~/.dwm ~/.my-configs/
+    save
+    ;;
   zsh)
     copy ~/.zshrc ~/.my-configs/
     copy ~/.oh-my-zsh/aliases.zsh ~/.my-configs/.oh-my-zsh/

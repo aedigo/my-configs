@@ -1,0 +1,2 @@
+#!/bin/bash
+doas keyd && setxkbmap -layout br nodeadkeys && xmodmap ~/.Xmodmap

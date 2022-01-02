@@ -27,9 +27,9 @@ if [ "$MUTE" == "[off]" ]; then
     ICON=audio-volume-muted
 fi
 
-notify-send.sh $VOLUME% \
-  --replace-file=/tmp/volumenotification \
+notify-send.py $VOLUME% \
+  --replaces-process volume \
   -u low \
-  -a 'volume' \
+  -a volume \
   -i /usr/share/icons/Adwaita/32x32/legacy/$ICON.png
 
