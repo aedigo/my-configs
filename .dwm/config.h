@@ -81,6 +81,7 @@ static const char *dmenucmd[] = { "dmenu_run_history", "-f", "-i", "-dim", "0.3"
 static const char *termcmd[]  = { "st", NULL };
 static const char *closepopus[] = { "dunstctl", "close", NULL };
 static const char *pymor[] = { "pymor", "-p", "20", "-l", "2", NULL };
+static const char *gotop[] = { "st", "-c", "gotop", "-e", "gotop", NULL };
 
 
 
@@ -88,8 +89,9 @@ static const char *pymor[] = { "pymor", "-p", "20", "-l", "2", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
-	{ ShiftMask,                    XK_space,  spawn,          {.v = closepopus } },
+	{ MODKEY|ShiftMask,             XK_space,  spawn,          {.v = closepopus } },
 	{ MODKEY,                       XK_t,      spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_t,      spawn,          {.v = gotop } },
 	{ ALT_MODKEY,                   XK_t,      spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
