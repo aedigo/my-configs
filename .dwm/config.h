@@ -30,6 +30,8 @@ static const char *colors[][3]      = {
 };
 static const char *volup[] = { "volume.sh", "up", NULL };
 static const char *voldw[] = { "volume.sh", "down", NULL };
+static const char *lock[] = { "slock", NULL };
+static const char *browser[] = { "firefox", NULL };
 
 typedef struct {
        const char *name;
@@ -55,6 +57,7 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
         { "Gimp",     NULL,       NULL,       0,            1,           -1,        50,50,500,500,        5 },
         { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1,        50,50,500,500,        5 },
+        { "Safeeyes",  NULL,       NULL,      1 << 8,       1,           -1,        50,50,500,500,        5 },
 
         { NULL,       "spterm",   NULL,       SPTAG(0),     1,           -1, 	    150,50,800,200},
         { NULL,       "spfm",     NULL,       SPTAG(1),     1,           -1 },
@@ -69,7 +72,6 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 };
 
@@ -79,7 +81,7 @@ static const Layout layouts[] = {
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY2|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+	{ MODKEY2,                      KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
@@ -94,12 +96,14 @@ static const char *termcmd[]  = { "st", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,             		XK_t, 	   spawn,          {.v = termcmd } },
+	{ MODKEY,             		      XK_t, 	   spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_k,      spawn,          {.v = volup } },
-        { MODKEY|ShiftMask,             XK_j,      spawn,          {.v = voldw } },
+	{ MODKEY|ShiftMask,             XK_j,      spawn,          {.v = voldw } },
+	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = lock } },
+	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_u,      togglescratch,  {.ui = 0 } },
-        { MODKEY,                       XK_y,      togglescratch,  {.ui = 1 } },
+	{ MODKEY,                       XK_y,      togglescratch,  {.ui = 1 } },
 	{ MODKEY,                       XK_n,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_p,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      setmfact,       {.f = -0.05} },
@@ -123,12 +127,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY|ControlMask,           XK_f,  	   focusmaster,    {0} },
 	{ MODKEY,                       XK_r,      view,           {0} },
-	{ MODKEY,             		XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_1,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_2,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY,             		      XK_c,      killclient,     {0} },
+	{ MODKEY,                       XK_f,      setlayout,      {0} },
+	{ MODKEY|ShiftMask,             XK_f,      togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },

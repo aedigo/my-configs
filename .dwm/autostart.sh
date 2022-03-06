@@ -7,3 +7,4 @@ xmodmap ~/.Xmodmap &
 unclutter &
 jamesdsp -t &
 run_xidlehook &
+safeeyes &
