@@ -5,8 +5,9 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=16:antialias=true:autohint=true";
-static int borderpx = 0;
+static char *font = "FantasqueSansMono Nerd Font:pixelsize=16:antialias=true:autohint=true";
+static int borderpx = 2;
+
 /*
  * What program is execed by st depends of these precedence rules:
  * 1: program passed with -e
@@ -20,12 +21,14 @@ char *utmp = NULL;
 /* scroll program: to enable use a string like "scroll" */
 char *scroll = NULL;
 char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
+
 /* identification sequence returned in DA and DECID */
 char *vtiden = "\033[?6c";
 
 /* Kerning / character bounding-box multipliers */
 static float cwscale = 1.0;
 static float chscale = 1.0;
+
 /*
  * word delimiter string
  *
@@ -92,39 +95,32 @@ unsigned int tabspaces = 8;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-
-  /* 8 normal colors */
-  [0] = "#000000", /* black   */
-  [1] = "#ff5555", /* red     */
-  [2] = "#50fa7b", /* green   */
-  [3] = "#f1fa8c", /* yellow  */
-  [4] = "#bd93f9", /* blue    */
-  [5] = "#ff79c6", /* magenta */
-  [6] = "#8be9fd", /* cyan    */
-  [7] = "#bbbbbb", /* white   */
-
-  /* 8 bright colors */
-  [8]  = "#44475a", /* black   */
-  [9]  = "#ff5555", /* red     */
-  [10] = "#50fa7b", /* green   */
-  [11] = "#f1fa8c", /* yellow  */
-  [12] = "#bd93f9", /* blue    */
-  [13] = "#ff79c6", /* magenta */
-  [14] = "#8be9fd", /* cyan    */
-  [15] = "#ffffff", /* white   */
-
-  /* special colors */
-  [256] = "#282a36", /* background */
-  [257] = "#f8f8f2", /* foreground */
+       [0] = "#282828", /* hard contrast: #1d2021 / soft contrast: #32302f */
+       [1] = "#cc241d", /* red     */
+       [2] = "#98971a", /* green   */
+       [3] = "#d79921", /* yellow  */
+       [4] = "#458588", /* blue    */
+       [5] = "#b16286", /* magenta */
+       [6] = "#689d6a", /* cyan    */
+       [7] = "#a89984", /* white   */
+       [8]  = "#928374", /* black   */
+       [9]  = "#fb4934", /* red     */
+       [10] = "#b8bb26", /* green   */
+       [11] = "#fabd2f", /* yellow  */
+       [12] = "#83a598", /* blue    */
+       [13] = "#d3869b", /* magenta */
+       [14] = "#8ec07c", /* cyan    */
+       [15] = "#ebdbb2", /* white   */
 };
+
 
 /*
  * Default colors (colorname index)
  * foreground, background, cursor
  */
-unsigned int defaultfg = 257;
-unsigned int defaultbg = 256;
-static unsigned int defaultcs = 257;
+unsigned int defaultfg = 15;
+unsigned int defaultbg = 0;
+unsigned int defaultcs = 15;
 static unsigned int defaultrcs = 257;
 unsigned int const currentBg = 6, buffSize = 2048;
 /// Enable double / triple click yanking / selection of word / line.
@@ -142,13 +138,6 @@ Glyph styleSearch = {' ', ATTR_ITALIC | ATTR_BOLD_FAINT, 7, 16};
 Glyph style[] = {{' ',ATTR_ITALIC|ATTR_FAINT,15,16}, {' ',ATTR_ITALIC,232,11},
                  {' ', ATTR_ITALIC, 232, 4}, {' ', ATTR_ITALIC, 232, 12}};
 
-/*
- * Colors used, when the specific fg == defaultfg. So in reverse mode this
- * will reverse too. Another logic would only make the simple feature too
- * complex.
- */
-unsigned int defaultitalic = 7;
-unsigned int defaultunderline = 7;
 /*
  * Default shape of cursor
  * 2: Block ("█")
@@ -216,10 +205,9 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-	{ TERMMOD,              XK_N,           normalMode,     {.i =  0} },
-	{ TERMMOD,              XK_T,           newterm,        {.i =  0} },
-	{ TERMMOD,              XK_K,           kscrollup,      {.i = -1} },
-	{ TERMMOD,              XK_J,           kscrolldown,    {.i = -1} },
+	{ MODKEY,               XK_c,           normalMode,     {.i =  0} },
+	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
+	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
 };
 
 /*

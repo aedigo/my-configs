@@ -16,7 +16,7 @@ index 8bf998e..e2cda07 100644
  {
 -	int x = e->xbutton.x - borderpx;
 +	int x = e->xbutton.x - win.hborderpx;
- 	LIMIT(x, 0, win.tw - 1);
+ 	LIMIT(, 0, win.tw - 1);
  	return x / win.cw;
  }
 @@ -339,7 +340,7 @@ evcol(XEvent *e)
@@ -115,7 +115,7 @@ index 8bf998e..e2cda07 100644
  			break;
  		case 5: /* Blinking bar */
  		case 6: /* Steady bar */
- 			XftDrawRect(xw.draw &drawcol,
+ 			XftDrawRect(xw.draw, &drawcol,
 -					borderpx + cx * win.cw,
 -					borderpx + cy * win.ch,
 +					win.hborderpx + cx * win.cw,

@@ -164,7 +164,6 @@ typedef struct {
 } STREscape;
 
 static void execsh(char *, char **);
-static char *getcwd_by_pid(pid_t pid);
 static void stty(char **);
 static void sigchld(int);
 static void ttywriteraw(const char *, size_t);
@@ -597,10 +596,10 @@ selected(int x, int y)
 		return BETWEEN(y, sel.nb.y, sel.ne.y)
 		    && BETWEEN(x, sel.nb.x, sel.ne.x);
 
-	return ((sel.nb.y > sel.ne.y) ? OUT(y, sel.nb.y, sel.ne.y)
-	                              : BETWEEN(y, sel.nb.y, sel.ne.y)) &&
-	       (y != sel.nb.y || x >= sel.nb.x) &&
-	       (y != sel.ne.y || x <= sel.ne.x);
+        return ((sel.nb.y > sel.ne.y) ? OUT(y, sel.nb.y, sel.ne.y)
+                                     : BETWEEN(y, sel.nb.y, sel.ne.y)) &&
+              (y != sel.nb.y || x >= sel.nb.x) &&
+              (y != sel.ne.y || x <= sel.ne.x);
 }
 
 char *
@@ -614,31 +613,30 @@ getsel(void)
 		return NULL;
 
 	int const start = sel.swap ? sel.oe.y : sel.ob.y, h = rows();
-  int endy = (sel.swap ? sel.ob.y : sel.oe.y);
-	for (; endy < start; endy += h);
-	Line * const cbuf = IS_SET(MODE_ALTSCREEN) ? term.line : buf;
-	bufsize = (term.col+1) * (endy-start+1 ) * UTF_SIZ;
-	assert(bufsize > 0);
+	int endy = (sel.swap ? sel.ob.y : sel.oe.y);
+        for (; endy < start; endy += h);
+        Line * const cbuf = IS_SET(MODE_ALTSCREEN) ? term.line : buf;
+        bufsize = (term.col+1) * (endy-start+1 ) * UTF_SIZ;
+        assert(bufsize > 0);
 	ptr = str = xmalloc(bufsize);
 
 	/* append every set & selected glyph to the selection */
 	for (y = start; y <= endy; y++) {
-		yy = y % h;
+               yy = y % h;
 
 		if (sel.type == SEL_RECTANGULAR) {
 			gp = &cbuf[yy][sel.nb.x];
 			lastx = sel.ne.x;
 		} else {
 			gp = &cbuf[yy][start == y ? sel.nb.x : 0];
-			lastx = (endy == y) ? sel.ne.x : term.col-1;
+                        lastx = (endy == y) ? sel.ne.x : term.col-1;
 		}
-		last = &cbuf[yy][lastx];
-		if (!(cbuf[yy][term.col - 1].mode & ATTR_WRAP))
-			while (last > gp && last->u == ' ') --last;
+		 last = &cbuf[yy][lastx];
+               if (!(cbuf[yy][term.col - 1].mode & ATTR_WRAP))
+                       while (last > gp && last->u == ' ') --last;
 
 		for ( ; gp <= last; ++gp) {
 			if (gp->mode & ATTR_WDUMMY) continue;
-
 			ptr += utf8encode(gp->u, ptr);
 		}
 
@@ -867,7 +865,7 @@ void
 ttywrite(const char *s, size_t n, int may_echo)
 {
 	const char *next;
-	Arg arg = (Arg) { .i = term.scr };
+	Arg arg = (Arg) { .i =term.scr };
 
 	kscrolldown(&arg);
 
@@ -1077,37 +1075,6 @@ tswapscreen(void)
 	term.alt = tmp;
 	term.mode ^= MODE_ALTSCREEN;
 	tfulldirt();
-}
-
-void
-newterm(const Arg* a)
-{
-	int res;
-	switch (fork()) {
-	case -1:
-		die("fork failed: %s\n", strerror(errno));
-		break;
-	case 0:
-		switch (fork()) {
-		case -1:
-			die("fork failed: %s\n", strerror(errno));
-			break;
-		case 0:
-			res = chdir(getcwd_by_pid(pid));
-			execlp("st", "./st", NULL);
-			break;
-		default:
-			exit(0);
-		}
-	default:
-		wait(NULL);
-	}
-}
-
-static char *getcwd_by_pid(pid_t pid) {
-	char buf[32];
-	snprintf(buf, sizeof buf, "/proc/%d/cwd", pid);
-	return realpath(buf, NULL);
 }
 
 void
@@ -1946,6 +1913,42 @@ csireset(void)
 }
 
 void
+osc4_color_response(int num)
+{
+	int n;
+	char buf[32];
+	unsigned char r, g, b;
+
+	if (xgetcolor(num, &r, &g, &b)) {
+		fprintf(stderr, "erresc: failed to fetch osc4 color %d\n", num);
+		return;
+	}
+
+	n = snprintf(buf, sizeof buf, "\033]4;%d;rgb:%02x%02x/%02x%02x/%02x%02x\007",
+		     num, r, r, g, g, b, b);
+
+	ttywrite(buf, n, 1);
+}
+
+void
+osc_color_response(int index, int num)
+{
+	int n;
+	char buf[32];
+	unsigned char r, g, b;
+
+	if (xgetcolor(index, &r, &g, &b)) {
+		fprintf(stderr, "erresc: failed to fetch osc color %d\n", index);
+		return;
+	}
+
+	n = snprintf(buf, sizeof buf, "\033]%d;rgb:%02x%02x/%02x%02x/%02x%02x\007",
+		     num, r, r, g, g, b, b);
+
+	ttywrite(buf, n, 1);
+}
+
+void
 strhandle(void)
 {
 	char *p = NULL, *dec;
@@ -1983,14 +1986,56 @@ strhandle(void)
 				}
 			}
 			return;
+		case 10:
+			if (narg < 2)
+				break;
+
+			p = strescseq.args[1];
+
+			if (!strcmp(p, "?"))
+				osc_color_response(defaultfg, 10);
+			else if (xsetcolorname(defaultfg, p))
+				fprintf(stderr, "erresc: invalid foreground color: %s\n", p);
+			else
+				tfulldirt();
+			return;
+		case 11:
+			if (narg < 2)
+				break;
+
+			p = strescseq.args[1];
+
+			if (!strcmp(p, "?"))
+				osc_color_response(defaultbg, 11);
+			else if (xsetcolorname(defaultbg, p))
+				fprintf(stderr, "erresc: invalid background color: %s\n", p);
+			else
+				tfulldirt();
+			return;
+		case 12:
+			if (narg < 2)
+				break;
+
+			p = strescseq.args[1];
+
+			if (!strcmp(p, "?"))
+				osc_color_response(defaultcs, 12);
+			else if (xsetcolorname(defaultcs, p))
+				fprintf(stderr, "erresc: invalid cursor color: %s\n", p);
+			else
+				tfulldirt();
+			return;
 		case 4: /* color set */
 			if (narg < 3)
 				break;
 			p = strescseq.args[2];
 			/* FALLTHROUGH */
-		case 104: /* color reset, here p = NULL */
+		case 104: /* color reset */
 			j = (narg > 1) ? atoi(strescseq.args[1]) : -1;
-			if (xsetcolorname(j, p)) {
+
+			if (p && !strcmp(p, "?"))
+				osc4_color_response(j);
+			else if (xsetcolorname(j, p)) {
 				if (par == 104 && narg <= 1)
 					return; /* color reset without parameter */
 				fprintf(stderr, "erresc: invalid color j=%d, p=%s\n",
@@ -2000,7 +2045,7 @@ strhandle(void)
 				 * TODO if defaultbg color is changed, borders
 				 * are dirty
 				 */
-				redraw();
+				tfulldirt();
 			}
 			return;
 		}
@@ -2530,6 +2575,10 @@ check_control_code:
 	if (width == 2) {
 		gp->mode |= ATTR_WIDE;
 		if (term.c.x+1 < term.col) {
+			if (gp[1].mode == ATTR_WIDE && term.c.x+2 < term.col) {
+				gp[2].u = ' ';
+				gp[2].mode &= ~ATTR_WDUMMY;
+			}
 			gp[1].u = '\0';
 			gp[1].mode = ATTR_WDUMMY;
 		}
@@ -2578,9 +2627,9 @@ tresize(int col, int row)
 {
 	int i, j;
 	int const colSet = col, alt = IS_SET(MODE_ALTSCREEN), ini = buf == NULL;
-	col = MAX(col, buffCols);
-	row = MIN(row, buffSize);
-	int const minrow = MIN(row, term.row), mincol = MIN(col, buffCols);
+       	col = MAX(col, buffCols);
+       	row = MIN(row, buffSize);
+       	int const minrow = MIN(row, term.row), mincol = MIN(col, buffCols);
 	int *bp;
 	TCursor c;
 
@@ -2611,6 +2660,7 @@ tresize(int col, int row)
 	buf = xrealloc(buf, (buffSize + row) * sizeof(Line));
 	term.alt  = xrealloc(term.alt,  row * sizeof(Line));
 	term.dirty = xrealloc(term.dirty, row * sizeof(*term.dirty));
+	mark = xrealloc(mark, col * row * sizeof(*mark));
 	term.tabs = xrealloc(term.tabs, col * sizeof(*term.tabs));
 
 	for (i = 0; i < HISTSIZE; i++) {
@@ -2621,7 +2671,6 @@ tresize(int col, int row)
 		}
 	}
 
-	mark = xrealloc(mark, col * row * sizeof(*mark));
 	/* resize each row to new width, zero-pad if needed */
 	for (i = 0; i < minrow; i++) {
 		term.alt[i]  = xrealloc(term.alt[i],  col * sizeof(Glyph));
@@ -2632,9 +2681,10 @@ tresize(int col, int row)
 		term.alt[i] = xmalloc(col * sizeof(Glyph));
 	}
 	if (col > buffCols) {
-		bp = term.tabs + buffCols;
+               bp = term.tabs + buffCols;
 
 		memset(bp, 0, sizeof(*term.tabs) * (col - buffCols));
+
 		while (--bp > term.tabs && !*bp)
 			/* nothing */ ;
 		for (bp += tabspaces; bp < term.tabs + col; bp += tabspaces)
@@ -2642,15 +2692,16 @@ tresize(int col, int row)
 	}
 	Glyph g=(Glyph){.bg=term.c.attr.bg, .fg=term.c.attr.fg, .u=' ', .mode=0};
 	for (i = 0; i < buffSize; ++i) {
-		buf[i] = xrealloc(ini ? NULL : buf[i], col*sizeof(Glyph));
-		for (int j = ini ? 0 : buffCols; j < col; ++j) buf[i][j] = g;
+	       buf[i] = xrealloc(ini ? NULL : buf[i], col*sizeof(Glyph));
+	       for (int j = ini ? 0 : buffCols; j < col; ++j) buf[i][j] = g;
 	}
 	for (i = 0; i < row; ++i) buf[buffSize + i] = buf[i];
 	term.line = &buf[*(histOp?&histOff:&insertOff) +=MAX(term.c.y-row+1,0)];
 	memset(mark, 0, col * row * sizeof(*mark));
+
 	/* update terminal size */
 	term.col = colSet;
-	buffCols = col;
+        buffCols = col;
 	term.row = row;
 	if (alt) tswapscreen();
 	/* reset scrolling region */
@@ -2682,15 +2733,15 @@ void
 drawregion(int x1, int y1, int x2, int y2)
 {
 	if (altToggle && histMode && !histOp)
-		memset(term.dirty, 0, sizeof(*term.dirty) * term.row);
-	int const o = !IS_SET(MODE_ALTSCREEN) && histMode && !histOp, h =rows();
+               memset(term.dirty, 0, sizeof(*term.dirty) * term.row);
+        int const o = !IS_SET(MODE_ALTSCREEN) && histMode && !histOp, h =rows();
 	int y;
 
 	for (y = y1; y < y2; y++) {
 		int const oy = o ? (y + insertOff - histOff + h) % h : y;
-		if (!BETWEEN(oy, 0, term.row-1) || !term.dirty[y]) continue;
-		xdrawline(term.line[y], x1, oy, x2);
- 	}
+               	if (!BETWEEN(oy, 0, term.row-1) || !term.dirty[y]) continue;
+               	xdrawline(term.line[y], x1, oy, x2);
+	}
 	memset(&term.dirty[y1], 0, sizeof(*term.dirty) * (y2 - y1));
 }
 
@@ -2715,7 +2766,8 @@ draw(void)
 	if (!histMode)
 	if (term.scr == 0)
 		xdrawcursor(cx, term.c.y, term.line[term.c.y][cx],
-				term.ocx, term.ocy, term.line[term.ocy][term.ocx]);
+				term.ocx, term.ocy, term.line[term.ocy][term.ocx],
+                       		term.line[term.ocy], term.col);
 	term.ocx = cx;
 	term.ocy = term.c.y;
 	xfinishdraw();
@@ -2729,4 +2781,3 @@ redraw(void)
 	tfulldirt();
 	draw();
 }
-
