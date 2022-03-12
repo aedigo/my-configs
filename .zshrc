@@ -3,8 +3,9 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
-export EDITOR=/usr/bin/nvim
-export VISUAL=/usr/bin/nvim
+export EDITOR=/usr/bin/vim
+export VISUAL=/usr/bin/vim
+export XDG_RUNTIME_DIR=/home/aedigo/.pipewire
 setopt autocd beep extendedglob nomatch
 bindkey -v
 # End of lines configured by zsh-newuser-install
@@ -12,9 +13,7 @@ bindkey -v
 zstyle :compinstall filename '/home/aedigo/.zshrc'
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/doc/pkgfile/command-not-found.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.aliases.zsh
 
 bindkey -M viins 'jk' vi-cmd-mode
 
@@ -25,6 +24,8 @@ browser=qutebrowser
 
 # Global aliases
 alias -g l="| less"
+
+alias sc='$EDiTOR ~/.zshrc'
 
 # git
 alias gc='git clone'
@@ -44,9 +45,11 @@ alias sse='sudo systemctl enable'
 alias sgmc='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias lsm="exa -al --color=always --group-directories-first"
 alias ls="exa"
-alias up='yay'
+alias up='sudo xbps-install -Su'
 alias im='yay -S'
-alias i='yay'
+alias i='sudo xbps-install'
+alias r='sudo xbps-remove'
+alias orphans='sudo xbps-remove -o'
 
 # python
 alias pyi='pip install'
