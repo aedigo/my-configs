@@ -1,5 +1,7 @@
---- config.def.h
-+++ config.def.h
+diff --git a/config.def.h b/config.def.h
+index 877afab..6a1699f 100644
+--- a/config.def.h
++++ b/config.def.h
 @@ -84,44 +84,49 @@ static unsigned int tabspaces = 8;
  
  /* Terminal colors (16 first used in escape sequence) */
@@ -80,3 +82,4 @@
   * Default shape of cursor
   * 2: Block ("â–ˆ")
   * 4: Underline ("_")
+
