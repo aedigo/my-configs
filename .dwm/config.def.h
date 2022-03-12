@@ -18,7 +18,7 @@ static const int topbar             = 1;     /* 0 means bottom bar */
 static const int focusonwheel       = 0;
 static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
-static const char col_gray1[]       = "#282828";
+static const char col_gray1[]       = "#282a36";
 static const char col_gray2[]       = "#504945";
 static const char col_gray3[]       = "#bdae93";
 static const char col_gray4[]       = "#ebdbb2";
@@ -33,6 +33,9 @@ static const char *voldw[] = { "volume.sh", "down", NULL };
 static const char *lock[] = { "slock", NULL };
 static const char *browser[] = { "firefox", NULL };
 static const char *vimwiki[] = { "st", "-n", "vimwiki", "t", "vimwiki", "-e", "nvim /home/aedigo/.vimwiki.index.md", NULL };
+static const char *gotop[] = { "st", "-n", "gotop", "t", "gotop", "-e", "gotop", NULL };
+static const char *pymor[] = { "pymor","-p", "20", "-l", "3", NULL };
+static const char *flm[] = { "st", "-n", "filemanager", "t", "filemanager", "-e", "sfm", NULL };
 
 typedef struct {
        const char *name;
@@ -48,7 +51,7 @@ static Sp scratchpads[] = {
 
 
 /* tagging */
-static const char *tags[] = { "g", "h", "j", "k", "l" };
+static const char *tags[] = { "a", "s", "d", "f", "g" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -60,7 +63,7 @@ static const Rule rules[] = {
         { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1,        50,50,500,500,        5 },
         { "Safeeyes",  NULL,       NULL,      1 << 8,       1,           -1,        50,50,1500,1500,        5 },
 
-        { NULL,       "spterm",   NULL,       SPTAG(0),     1,           -1, 	    150,50,800,200},
+        { NULL,       "spterm",   NULL,       SPTAG(0),     1,           -1, 	    150,50,800,300},
         { NULL,       "spfm",     NULL,       SPTAG(1),     1,           -1 },
 };
 
@@ -77,8 +80,8 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
-#define MODKEY2 Mod4Mask
+#define MODKEY Mod4Mask
+#define MODKEY2 Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -91,13 +94,17 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "st", "-A 100", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY2|ShiftMask,            XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,             		      XK_t, 	   spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_k,      spawn,          {.v = volup } },
+	{ MODKEY,                       XK_m,      spawn,          {.v = flm } },
+	{ MODKEY|ShiftMask,             XK_t,      spawn,          {.v = gotop } },
+	{ MODKEY|ShiftMask,             XK_g,      spawn,          {.v = pymor } },
 	{ MODKEY|ShiftMask,             XK_j,      spawn,          {.v = voldw } },
 	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = lock } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
@@ -136,11 +143,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	TAGKEYS(                        XK_g,                      0)
-	TAGKEYS(                        XK_h,                      1)
-	TAGKEYS(                        XK_j,                      2)
-	TAGKEYS(                        XK_k,                      3)
-	TAGKEYS(                        XK_l,                      4)
+	TAGKEYS(                        XK_a,                      0)
+	TAGKEYS(                        XK_s,                      1)
+	TAGKEYS(                        XK_d,                      2)
+	TAGKEYS(                        XK_f,                      3)
+	TAGKEYS(                        XK_g,                      4)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
