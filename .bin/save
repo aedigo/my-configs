@@ -43,6 +43,10 @@ case "$1" in
     delete .config/nvim; copy ~/.config/nvim ~/.my-configs/.config/
     save
     ;;
+  vim)
+    delete .vimrc; copy ~/.vimrc ~/.my-configs/
+    save
+   ;;
   picom)
     copy ~/.config/picom ~/.my-configs/.config
     save
