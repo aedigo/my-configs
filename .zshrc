@@ -3,9 +3,9 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
-export XDG_RUNTIME_DIR=/home/aedigo/.pipewire
 setopt autocd beep extendedglob nomatch
 bindkey -v
 # End of lines configured by zsh-newuser-install
@@ -24,8 +24,6 @@ browser=qutebrowser
 
 # Global aliases
 alias -g l="| less"
-
-alias sc='$EDiTOR ~/.zshrc'
 
 # git
 alias gc='git clone'
@@ -84,9 +82,8 @@ alias pbcopy='xclip -selection clipboard'
 alias fds='firefox-developer-edition --search '
 
 # zsh
-alias sc='nvim ~/.zshrc'
+alias sc='vim ~/.zshrc'
 alias sz='source ~/.zshrc'
-alias sca='nvim ~/.oh-my-zsh/aliases.zsh'
 
 # cpupower
 alias boost="sudo cpupower frequency-set -g performance"
@@ -101,10 +98,11 @@ alias v='nvim'
 alias vimwiki='nvim ~/.vimwki/index.wiki'
 
 # Anki
-alias ave='anki-vim English'
-alias avp='anki-vim Portuguese'
-alias avm='anki-vim Math'
-alias avt='anki-vim Tech'
+alias ae='canki.sh English'
+alias ap='canki.sh Portuguese'
+alias am='canki.sh Math'
+alias aa='canki.sh Pixel'
+alias ag='canki.sh Godot'
 
 # task warrior
 alias tn='task next'
@@ -200,8 +198,31 @@ autoload -U colors && colors
 PROMPT='%{$fg[red]%}%~ %{$fg[white]%}$(git_branch_name) 
 '
 
+ if [ "$TERM" = "linux" ]; then
+     printf %b '\e[40m' '\e[8]' # set default background to color 0 'dracula-bg'
+     printf %b '\e[37m' '\e[8]' # set default foreground to color 7 'dracula-fg'
+     printf %b '\e]P0282a36'    # redefine 'black'          as 'dracula-bg'
+     printf %b '\e]P86272a4'    # redefine 'bright-black'   as 'dracula-comment'
+     printf %b '\e]P1ff5555'    # redefine 'red'            as 'dracula-red'
+     printf %b '\e]P9ff7777'    # redefine 'bright-red'     as '#ff7777'
+     printf %b '\e]P250fa7b'    # redefine 'green'          as 'dracula-green'
+     printf %b '\e]PA70fa9b'    # redefine 'bright-green'   as '#70fa9b'
+     printf %b '\e]P3f1fa8c'    # redefine 'brown'          as 'dracula-yellow'
+     printf %b '\e]PBffb86c'    # redefine 'bright-brown'   as 'dracula-orange'
+     printf %b '\e]P4bd93f9'    # redefine 'blue'           as 'dracula-purple'
+     printf %b '\e]PCcfa9ff'    # redefine 'bright-blue'    as '#cfa9ff'
+     printf %b '\e]P5ff79c6'    # redefine 'magenta'        as 'dracula-pink'
+     printf %b '\e]PDff88e8'    # redefine 'bright-magenta' as '#ff88e8'
+     printf %b '\e]P68be9fd'    # redefine 'cyan'           as 'dracula-cyan'
+     printf %b '\e]PE97e2ff'    # redefine 'bright-cyan'    as '#97e2ff'
+     printf %b '\e]P7f8f8f2'    # redefine 'white'          as 'dracula-fg'
+     printf %b '\e]PFffffff'    # redefine 'bright-white'   as '#ffffff'
+     clear
+ fi
+
 autoload -Uz compinit
 
 compinit
 # End of lines added by compinstall
+
 
