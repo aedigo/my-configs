@@ -43,11 +43,11 @@ alias sse='sudo systemctl enable'
 alias sgmc='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias lsm="exa -al --color=always --group-directories-first"
 alias ls="exa"
-alias up='sudo xbps-install -Su'
+alias up='doas xbps-install -Su'
 alias im='yay -S'
-alias i='sudo xbps-install'
-alias r='sudo xbps-remove'
-alias orphans='sudo xbps-remove -o'
+alias i='doas xbps-install'
+alias r='doas xbps-remove'
+alias orphans='doas xbps-remove -o'
 
 # python
 alias pyi='pip install'

@@ -53,3 +53,4 @@ gaps outer 6
 smart_borders on
 
 include @sysconfdir@/sway/config.d/*
+exec waybar
