@@ -1,0 +1,49 @@
+sud=sudo
+
+alias sgm='$sud grub-mkconfig -o /boot/grub/grub.cfg'
+alias swac='nvim ~/.config/sway/config'
+alias swaco='nvim ~/.config/sway/config.d/'
+alias getId='swaymsg -t get_tree'
+
+# arch
+alias search='pacman -Ss'
+alias lsm="exa -al --color=always --group-directories-first"
+alias ls="exa"
+alias up='doas xbps-install -Su'
+alias im='yay -S'
+alias i='yay'
+alias r='yay -Rs'
+alias orphans='doas xbps-remove -o'
+
+# python
+alias pyi='pip install'
+alias pyr='pip uninstall'
+
+# simple commands
+alias cl='clear'
+
+# make
+alias smi='sudo rm config.h; make; sudo make install'
+
+# xclip
+alias pbcopy='xclip -selection clipboard'
+
+# zsh
+alias sc='vim ~/.zshrc'
+alias sz='source ~/.zshrc'
+
+# cpupower
+alias boost="sudo cpupower frequency-set -g performance"
+alias powersave="sudo cpupower frequency-set -g powersave"
+
+# terminal apps
+alias sv='sudo -e'
+alias v='vim'
+alias vimwiki='nvim ~/.vimwki/index.wiki'
+
+# Anki
+alias ae='canki.sh English'
+alias ap='canki.sh Portuguese'
+alias am='canki.sh Math'
+alias aa='canki.sh Pixel'
+alias ag='canki.sh Godot'
