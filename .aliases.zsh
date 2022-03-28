@@ -47,3 +47,12 @@ alias ap='canki.sh Portuguese'
 alias am='canki.sh Math'
 alias aa='canki.sh Pixel'
 alias ag='canki.sh Godot'
+
+# translate shell
+alias t="trans -sp -brief en:pt-br"
+alias tb="trans -p -brief pt-br:en"
+
+# translate shell
+translate() {
+  trans -brief $1:$2 $3
+}
