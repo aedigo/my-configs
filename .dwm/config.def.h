@@ -42,11 +42,13 @@ typedef struct {
        const void *cmd;
 } Sp;
 const char *spcmd1[] = {"st", "-n", "spterm", "-g", "50x34", NULL };
-const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "nnn", NULL };
+const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "sfm", NULL };
+const char *spcmd3[] = {"st", "-n", "btop", "-g", "144x41", "-e", "btop", NULL };
 static Sp scratchpads[] = {
        /* name          cmd  */
        {"spterm",      spcmd1},
-       {"spfm",    spcmd2},
+       {"spfm",        spcmd2},
+       {"btop",        spcmd3},
 };
 
 
@@ -64,7 +66,8 @@ static const Rule rules[] = {
         { "Safeeyes",  NULL,       NULL,      1 << 8,       1,           -1,        50,50,1500,1500,        5 },
 
         { NULL,       "spterm",   NULL,       SPTAG(0),     1,           -1, 	    150,50,800,300},
-        { NULL,       "spfm",     NULL,       SPTAG(1),     1,           -1 },
+        { NULL,       "spfm",     NULL,       SPTAG(1),     1,           -1, 	    150,50,800,600},
+        { NULL,       "btop",     NULL,       SPTAG(2),     1,           -1, 	    50,50,800,600},
 };
 
 /* layout(s) */
@@ -102,15 +105,14 @@ static Key keys[] = {
 	{ MODKEY2|ShiftMask,            XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,             		      XK_t, 	   spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_k,      spawn,          {.v = volup } },
-	{ MODKEY,                       XK_m,      spawn,          {.v = flm } },
-	{ MODKEY|ShiftMask,             XK_t,      spawn,          {.v = gotop } },
 	{ MODKEY|ShiftMask,             XK_g,      spawn,          {.v = pymor } },
 	{ MODKEY|ShiftMask,             XK_j,      spawn,          {.v = voldw } },
 	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = lock } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_u,      togglescratch,  {.ui = 0 } },
-	{ MODKEY,                       XK_y,      togglescratch,  {.ui = 1 } },
+	{ MODKEY|ShiftMask,             XK_m,      togglescratch,  {.ui = 1 } },
+	{ MODKEY|ShiftMask,             XK_t,      togglescratch,  {.ui = 2 } },
 	{ MODKEY,                       XK_n,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_p,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      setmfact,       {.f = -0.05} },
