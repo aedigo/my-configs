@@ -32,10 +32,7 @@ static const char *volup[] = { "volume.sh", "up", NULL };
 static const char *voldw[] = { "volume.sh", "down", NULL };
 static const char *lock[] = { "slock", NULL };
 static const char *browser[] = { "firefox", NULL };
-static const char *vimwiki[] = { "st", "-n", "vimwiki", "t", "vimwiki", "-e", "nvim /home/aedigo/.vimwiki.index.md", NULL };
-static const char *gotop[] = { "st", "-n", "gotop", "t", "gotop", "-e", "gotop", NULL };
 static const char *pymor[] = { "pymor","-p", "20", "-l", "3", NULL };
-static const char *flm[] = { "st", "-n", "filemanager", "t", "filemanager", "-e", "sfm", NULL };
 
 typedef struct {
        const char *name;
@@ -53,7 +50,7 @@ static Sp scratchpads[] = {
 
 
 /* tagging */
-static const char *tags[] = { "a", "s", "d", "f", "g" };
+static const char *tags[] = { "a", "s", "d", "f", "h", "j", "k", "l" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -104,9 +101,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY2|ShiftMask,            XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,             		      XK_t, 	   spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_k,      spawn,          {.v = volup } },
+	{ MODKEY|ShiftMask,             XK_u,      spawn,          {.v = volup } },
 	{ MODKEY|ShiftMask,             XK_g,      spawn,          {.v = pymor } },
-	{ MODKEY|ShiftMask,             XK_j,      spawn,          {.v = voldw } },
+	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = voldw } },
 	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = lock } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
@@ -117,14 +114,14 @@ static Key keys[] = {
 	{ MODKEY,                       XK_p,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_m,      setmfact,       {.f = +0.05} },
-	{ MODKEY|Mod4Mask,              XK_h,      incrgaps,       {.i = +1 } },
-	{ MODKEY|Mod4Mask,              XK_l,      incrgaps,       {.i = -1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_h,      incrogaps,      {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_l,      incrogaps,      {.i = -1 } },
-	{ MODKEY|Mod4Mask|ControlMask,  XK_h,      incrigaps,      {.i = +1 } },
-	{ MODKEY|Mod4Mask|ControlMask,  XK_l,      incrigaps,      {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_0,      togglegaps,     {0} },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
+	{ MODKEY,                       XK_1,      incrgaps,       {.i = +1 } },
+	{ MODKEY,                       XK_2,      incrgaps,       {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_1,      incrogaps,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_2,      incrogaps,      {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_1,      incrigaps,      {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_2,      incrigaps,      {.i = -1 } },
+	{ MODKEY,                       XK_0,      togglegaps,     {0} },
+	{ MODKEY|ShiftMask,             XK_0,      defaultgaps,    {0} },
 	{ MODKEY,                       XK_y,      incrihgaps,     {.i = +1 } },
 	{ MODKEY,                       XK_o,      incrihgaps,     {.i = -1 } },
 	{ MODKEY|ControlMask,           XK_y,      incrivgaps,     {.i = +1 } },
@@ -149,7 +146,10 @@ static Key keys[] = {
 	TAGKEYS(                        XK_s,                      1)
 	TAGKEYS(                        XK_d,                      2)
 	TAGKEYS(                        XK_f,                      3)
-	TAGKEYS(                        XK_g,                      4)
+	TAGKEYS(                        XK_h,                      4)
+	TAGKEYS(                        XK_j,                      5)
+	TAGKEYS(                        XK_k,                      6)
+	TAGKEYS(                        XK_l,                      7)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
