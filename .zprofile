@@ -1,5 +1,3 @@
 # If running from tty1 start sway
-if [ "$(tty)" = "/dev/tty1" ]; then
-  exec dbus-run-session sway
-fi
+[[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx -- vt1 &> /dev/null) ]]
 
