@@ -31,7 +31,7 @@ static const char *colors[][3]      = {
 static const char *volup[] = { "volume.sh", "up", NULL };
 static const char *voldw[] = { "volume.sh", "down", NULL };
 static const char *lock[] = { "slock", NULL };
-static const char *browser[] = { "firefox", NULL };
+static const char *browser[] = { "qutebrowser", NULL };
 static const char *pymor[] = { "pymor","-p", "20", "-l", "3", NULL };
 
 typedef struct {
@@ -80,7 +80,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod4Mask
+#define MODKEY Mod3Mask
 #define MODKEY2 Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
@@ -134,7 +134,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_f,  	   focusmaster,    {0} },
 	{ MODKEY,                       XK_r,      view,           {0} },
 	{ MODKEY,             		      XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_f,      setlayout,      {0} },
+	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_f,      togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
