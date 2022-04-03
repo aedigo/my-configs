@@ -16,8 +16,8 @@ static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;     /* 0 means no bar */
 static const int topbar             = 1;     /* 0 means bottom bar */
 static const int focusonwheel       = 0;
-static const char *fonts[]          = { "FantasqueSansMono Nerd Font:size=12" };
-static const char dmenufont[]       = "FantasqueSansMono Nerd Font:size=12";
+static const char *fonts[]          = { "Caskaydia Cove Nerd Font:size=12" };
+static const char dmenufont[]       = "Caskaydia Cove Nerd Font:size=12";
 static const char col_gray1[]       = "#282a36";
 static const char col_gray2[]       = "#504945";
 static const char col_gray3[]       = "#bdae93";
@@ -58,10 +58,10 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
-        { "Gimp",     NULL,       NULL,       0,            1,           -1,        50,50,500,500,        5 },
-        { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1,        50,50,500,500,        5 },
-        { "Safeeyes",  NULL,       NULL,      1 << 8,       1,           -1,        50,50,1500,1500,        5 },
-
+        { "Gimp",     NULL,       NULL,       0,            1,           -1,      50,50,500,500,        5 },
+        { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1,      50,50,500,500,        5 },
+        { "Safeeyes", NULL,       NULL,       1 << 8,       1,           -1,      50,50,1500,1500,      5 },
+        { "aws",      "aws",      "aws",      0,            1,           -1,      500,100,550,550,          5 },
         { NULL,       "spterm",   NULL,       SPTAG(0),     1,           -1, 	    150,50,800,300},
         { NULL,       "spfm",     NULL,       SPTAG(1),     1,           -1, 	    150,50,800,600},
         { NULL,       "btop",     NULL,       SPTAG(2),     1,           -1, 	    50,50,800,600},
@@ -98,7 +98,7 @@ static const char *termcmd[]  = { "st", "-A 100", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
 	{ MODKEY2|ShiftMask,            XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,             		      XK_t, 	   spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_u,      spawn,          {.v = volup } },
@@ -132,7 +132,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_o,      incrovgaps,     {.i = -1 } },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY|ControlMask,           XK_f,  	   focusmaster,    {0} },
-	{ MODKEY,                       XK_r,      view,           {0} },
+	{ MODKEY,                       XK_b,      view,           {0} },
 	{ MODKEY,             		      XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_f,      togglefloating, {0} },
