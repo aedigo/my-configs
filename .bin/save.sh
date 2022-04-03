@@ -17,7 +17,6 @@ save() {
     copy $home/.config/$1 $path/$2
   else 
     copy $home/$1 $path/$2
-    echo oi
   fi
   git add . ;
   git commit -m 'new changes!';
