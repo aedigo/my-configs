@@ -33,6 +33,7 @@ static const char *voldw[] = { "volume.sh", "down", NULL };
 static const char *lock[] = { "slock", NULL };
 static const char *browser[] = { "qutebrowser", NULL };
 static const char *pymor[] = { "pymor","-p", "20", "-l", "3", NULL };
+static const char *closeup[] = { "dunstctl", "close-all", NULL };
 
 typedef struct {
        const char *name;
@@ -102,10 +103,11 @@ static Key keys[] = {
 	{ MODKEY2|ShiftMask,            XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,             		      XK_t, 	   spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_u,      spawn,          {.v = volup } },
-	{ MODKEY|ShiftMask,             XK_g,      spawn,          {.v = pymor } },
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = pymor } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = voldw } },
 	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = lock } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
+	{ ShiftMask,                    XK_space,  spawn,          {.v = closeup } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_u,      togglescratch,  {.ui = 0 } },
 	{ MODKEY|ShiftMask,             XK_m,      togglescratch,  {.ui = 1 } },
