@@ -15,8 +15,8 @@ xidlehook \
     'xrandr --output VGA-1 --gamma 1.0:0.88:0.76 --brightness 0.85;' \
   `# Undim & lock after 10 more seconds` \
   --timer 10 \
-    'xrandr --output VGA-1 --gamma 1.0:0.88:0.76 --brightness 0.85; slock' \
-    '' \
+    'xrandr --output VGA-1 --gamma 1.0:0.88:0.76 --brightness 0.85; xset -display :0.0 dpms force off; slock;' \
+    'xset -display :0.0 dpms force on' \
   `# Finally, suspend an hour after it locks` \
   --timer 3600 \
     'loginctl hibernate' \
