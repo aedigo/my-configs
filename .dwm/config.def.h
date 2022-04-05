@@ -58,11 +58,11 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
+	/*    class      instance    title       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
         { "Gimp",     NULL,       NULL,       0,            1,           -1,      50,50,500,500,        5 },
         { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1,      50,50,500,500,        5 },
-        { "Safeeyes", NULL,       NULL,       1 << 8,       1,           -1,      50,50,1500,1500,      5 },
-        { "aws",      "aws",      "aws",      0,            1,           -1,      500,100,550,550,          5 },
+        { "aws",      "aws",      "aws",      0,            1,           -1,      500,100,600,600,      5 },
+        { "Safeeyes", "Safe Eyes", "Safe Eyes", 0,            1,           -1,      500,100,600,600,      5 },
         { NULL,       "spterm",   NULL,       SPTAG(0),     1,           -1, 	    150,50,800,300},
         { NULL,       "spfm",     NULL,       SPTAG(1),     1,           -1, 	    150,50,800,600},
         { NULL,       "btop",     NULL,       SPTAG(2),     1,           -1, 	    50,50,800,600},
