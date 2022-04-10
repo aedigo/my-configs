@@ -34,6 +34,7 @@ static const char *lock[] = { "slock", NULL };
 static const char *browser[] = { "qutebrowser", NULL };
 static const char *pymor[] = { "pymor","-p", "20", "-l", "3", NULL };
 static const char *closeup[] = { "dunstctl", "close-all", NULL };
+static const char *zap[] = { "whatsapp-for-linux", NULL };
 
 typedef struct {
        const char *name;
@@ -62,7 +63,8 @@ static const Rule rules[] = {
         { "Gimp",     NULL,       NULL,       0,            1,           -1,      50,50,500,500,        5 },
         { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1,      50,50,500,500,        5 },
         { "aws",      "aws",      "aws",      0,            1,           -1,      500,100,600,600,      5 },
-        { "Safeeyes", "Safe Eyes", "Safe Eyes", 0,            1,           -1,      500,100,600,600,      5 },
+        { "Whatsapp-for-linux",   NULL,       "WhatsApp for Linux",         0,            1,           -1,      200,100,1000,600,      5 },
+        { "Safeeyes", "Safe Eyes", "Safe Eyes", 0,          1,           -1,      500,100,600,600,      5 },
         { NULL,       "spterm",   NULL,       SPTAG(0),     1,           -1, 	    150,50,800,300},
         { NULL,       "spfm",     NULL,       SPTAG(1),     1,           -1, 	    150,50,800,600},
         { NULL,       "btop",     NULL,       SPTAG(2),     1,           -1, 	    50,50,800,600},
@@ -108,6 +110,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = lock } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
 	{ ShiftMask,                    XK_space,  spawn,          {.v = closeup } },
+	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = zap } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_u,      togglescratch,  {.ui = 0 } },
 	{ MODKEY|ShiftMask,             XK_m,      togglescratch,  {.ui = 1 } },
