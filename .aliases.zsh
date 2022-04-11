@@ -9,7 +9,7 @@ alias getId='swaymsg -t get_tree'
 alias search='pacman -Ss'
 alias lsm="exa -al --color=always --group-directories-first"
 alias ls="exa"
-alias up='doas xbps-install -Su'
+alias up='yay && gopreload-batch-refresh.sh'
 alias im='yay -S'
 alias i='yay'
 alias r='yay -Rs'
@@ -56,3 +56,13 @@ alias tb="trans -p -brief pt-br:en"
 translate() {
   trans -brief $1:$2 $3
 }
+
+# easyeffects
+music() {
+  easyeffects -l 'Bass Boosted'
+}
+
+audio() {
+  easyeffects -l 'Advanced Auto Gain'
+}
+
