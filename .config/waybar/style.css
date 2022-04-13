@@ -110,8 +110,8 @@ window#waybar.chromium {
 }
 
 #disk {
-    background-color: #ff5555;
-    color: #f8f8f2;
+    background-color: #f8f8f2 ;
+    color: #44475a ;
 }
 
 #pulseaudio {
@@ -153,7 +153,6 @@ window#waybar.chromium {
 }
 
 #idle_inhibitor {
-    background-color: #6272a4;
     color: #f8f8f2;
 }
 
