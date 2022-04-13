@@ -1,101 +1,164 @@
 * {
-    border: none;
-    border-radius: 0;
-    font-family: "Ubuntu Nerd Font";
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
-    min-height: 0;
 }
 
 window#waybar {
-    background: transparent;
-    color: white;
+    background-color: #282a36;
+    color: #f8f8f2;
+    transition-property: background-color;
+    transition-duration: .5s;
 }
 
-#window {
-    font-weight: bold;
-    font-family: "Ubuntu";
+window#waybar.hidden {
+    opacity: 0.2;
 }
+
 /*
-#workspaces {
-    padding: 0 5px;
+window#waybar.empty {
+    background-color: transparent;
+}
+window#waybar.solo {
+    background-color: #FFFFFF;
 }
 */
 
+window#waybar.termite {
+    background-color: #3F3F3F;
+}
+
+window#waybar.chromium {
+    background-color: #000000;
+    border: none;
+}
+
 #workspaces button {
     padding: 0 5px;
-    background: transparent;
-    color: white;
-    border-top: 2px solid transparent;
+    background-color: transparent;
+    color: #ffffff;
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -3px transparent;
+    /* Avoid rounded borders under each workspace name */
+    border: none;
+    border-radius: 0;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button:hover {
+    background: #bd93f9;
+    color: #282a36;
+    box-shadow: inset 0 -3px #bd93f9;
 }
 
 #workspaces button.focused {
-    color: #c9545d;
-    border-top: 2px solid #c9545d;
+    background-color: #44475a;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
 }
 
 #mode {
-    background: #64727D;
-    border-bottom: 3px solid white;
+    background-color: #64727D;
+    border-bottom: 3px solid #ffffff;
 }
 
-#clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode {
-    padding: 0 3px;
-    margin: 0 2px;
+#clock,
+#cpu,
+#memory,
+#disk,
+#pulseaudio,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#mpd {
+    padding: 0 10px;
+    color: #ffffff;
+}
+
+#window,
+#workspaces {
+    margin: 0 4px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
 }
 
 #clock {
-    font-weight: bold;
-}
-
-#battery {
-}
-
-#battery icon {
-    color: red;
-}
-
-#battery.charging {
-}
-
-@keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: black;
-    }
-}
-
-#battery.warning:not(.charging) {
-    color: white;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+    background-color: #ffb86c;
+    color: #282a36;
 }
 
 #cpu {
+    background-color: #8be9fd;
+    color: #282a36;
 }
 
 #memory {
+    background-color: #50fa7b;
+    color: #282a36;
 }
 
-#network {
-}
-
-#network.disconnected {
-    background: #f53c3c;
+#disk {
+    background-color: #ff5555;
+    color: #f8f8f2;
 }
 
 #pulseaudio {
+    background-color: #f1fa8c;
+    color: #282a36;
 }
 
 #pulseaudio.muted {
+    background-color: #90b1b1;
+    color: #2a5c45;
 }
 
-#custom-spotify {
-    color: rgb(102, 220, 105);
+#custom-media {
+    background-color: #66cc99;
+    color: #2a5c45;
+    min-width: 100px;
+}
+
+#custom-media.custom-spotify {
+    background-color: #66cc99;
+}
+
+#custom-media.custom-vlc {
+    background-color: #ffa000;
 }
 
 #tray {
+    background-color: #ff79c6;
+    color: #f8f8f2;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #eb4d4b;
+}
+
+#idle_inhibitor {
+    background-color: #6272a4;
+    color: #f8f8f2;
+}
+
+#idle_inhibitor.activated {
+    background-color: #ecf0f1;
+    color: #2d3436;
 }
 
