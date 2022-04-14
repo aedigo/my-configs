@@ -1,7 +1,6 @@
 #!/bin/bash
-waybar &
 swaybg -c '#282a36' -m fill &
-wlsunset -t 3000 &
+wlsunset -T 5000 &
 dunst &
 pipewire &
 pipewire-pulse &

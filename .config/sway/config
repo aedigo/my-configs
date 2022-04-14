@@ -7,7 +7,7 @@ set $ctrl Control
 set $down j
 set $fg #fbf1c7
 set $left h
-set $menu "dmenu-wl_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
+set $menu "kickoff"
 set $mod Mod4
 set $opacity 0.8
 set $right l
