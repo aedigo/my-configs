@@ -6,6 +6,7 @@ SAVEHIST=1000
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
+export XDG_CURRENT_DESKTOP=Unity
 setopt autocd beep extendedglob nomatch
 
 bindkey -v
@@ -16,6 +17,7 @@ zstyle :compinstall filename '/home/aedigo/.zshrc'
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.aliases.zsh
+source ~/.sysadm-void.zsh
 
 bindkey -M viins 'jk' vi-cmd-mode
 
@@ -39,9 +41,8 @@ function git_branch_name()
 setopt prompt_subst
 
 # Config for prompt. PS1 synonym.
-autoload -U colors && colors
+autoload -Uz compinit colors && colors
 #PS1="%{$fg[red]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg[yellow]%}%~ %{$reset_color%}%% "
-
 
 PROMPT='%{$fg[red]%}%~ %{$fg[white]%}$(git_branch_name) 
 '
@@ -67,8 +68,6 @@ PROMPT='%{$fg[red]%}%~ %{$fg[white]%}$(git_branch_name)
      printf %b '\e]PFffffff'    # redefine 'bright-white'   as '#ffffff'
      clear
  fi
-
-autoload -Uz compinit
 
 compinit
 # End of lines added by compinstall
