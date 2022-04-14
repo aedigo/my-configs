@@ -31,7 +31,7 @@ exec swayidle -w \
          before-sleep 'swaylock -f -c 282828 -l' 
 
 exec swayidle -w \
-        timeout 1800 'systemctl hibernate'
+        timeout 1800 'loginctl hibernate'
 
 default_border pixel 1
 # class                 border  bground text    indicator child_border
