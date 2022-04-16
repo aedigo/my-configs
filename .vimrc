@@ -4,6 +4,7 @@ set softtabstop=0 noexpandtab
 set shiftwidth=2
 set tabstop=2 softtabstop=2 expandtab shiftwidth=2 smarttab
 let g:dracula_colorterm = 0
+filetype plugin on
 syntax on
 packadd! dracula
 syntax enable
