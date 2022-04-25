@@ -35,3 +35,7 @@ map gd :bd<cr>
 
 " this will make 'jj' act like esc
 imap jk <Esc>
+
+" vimwiki configuration
+let g:vimwiki_list = [{'path': '~/.vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
