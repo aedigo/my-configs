@@ -12,8 +12,12 @@
 
 # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
 riverctl map normal Super T spawn foot
+riverctl spawn 'foot -a float'
+riverctl hide-cursor timeout 4000
 
-riverctl hide-cursor timeout 5000
+riverctl spawn yambar
+
+riverctl map normal Super U spawn /usr/bin/guake-toggle
 
 # Super+Q to close the focused view
 riverctl map normal Super C close
@@ -102,7 +106,7 @@ riverctl map normal Super 0 set-focused-tags $all_tags
 riverctl map normal Super+Shift 0 set-view-tags $all_tags
 
 # Super+Space to toggle float
-riverctl map normal Super Space toggle-float
+riverctl map normal Super+Shift Space toggle-float
 
 # Super+F to toggle fullscreen
 riverctl map normal Super space toggle-fullscreen
