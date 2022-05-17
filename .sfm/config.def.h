@@ -50,7 +50,7 @@ static const char root[]   = "/";
 /* software */
 static const char *mpv[]          = { "mpv", "--fullscreen" };
 static const char *sxiv[]         = { "sxiv" };
-static const char *mupdf[]        = { "mupdf", "-I" };
+static const char *mupdf[]        = { "zathura" };
 static const char *libreoffice[]  = { "libreoffice" };
 static const char *gimp[]         = { "gimp" };
 static const char *r2[]           = { "r2", "-c", "vv" };
