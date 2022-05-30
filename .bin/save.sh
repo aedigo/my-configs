@@ -22,6 +22,8 @@ delete() {
   rm -rf "$@" 
 }
 
+echo "${@: -1}"
+
 save() {
   cd $path
   if [[ $3 = 'cg' ]] 
