@@ -7,7 +7,7 @@ function setLayout() {
 }
 
 notify() {
-  notify-send.py -u low -a 'keyboard-layout' --replaces-process 'key-layout' -i /usr/share/icons/Adwaita/32x32/legacy/preferences-desktop-keyboard-shortcuts.png $1 
+  notify-send.sh -u low -a 'keyboard-layout' -R '/tmp/key-layout' -i /usr/share/icons/Adwaita/32x32/legacy/preferences-desktop-keyboard-shortcuts.png $1 
 }
 
 if [[ $usbkdb = 'br' ]]
