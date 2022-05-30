@@ -33,6 +33,7 @@ static const char *voldw[] = { "volume.sh", "down", NULL };
 static const char *lock[] = { "slock", NULL };
 static const char *browser[] = { "qutebrowser", NULL };
 static const char *pymor[] = { "pymor","-p", "20", "-l", "3", NULL };
+static const char *klayout[] = { "layout.sh", NULL };
 static const char *closeup[] = { "dunstctl", "close-all", NULL };
 static const char *vimwiki[] = { "st", "-c", "vimwiki", "-t", "vimwiki", "-n", "vimwiki", "nvim", "~/.vimwiki/index.md", NULL };
 static const char *zap[] = { "whatsapp-for-linux", NULL };
@@ -59,15 +60,16 @@ static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
+   *
+#        { "Steam",    "Steam",    "Steam",    1 << 7,       0,           -1,      0,0,1360,768,      0 },
 	 */
 	/*    class      instance    title       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
         { "Gimp",     NULL,       NULL,       0,            1,           -1,      50,50,500,500,        5 },
-        { "Firefox",  NULL,       NULL,       1 << 2,       0,           -1,      50,50,500,500,        5 },
+        { "Firefox",  NULL,       NULL,       1 << 0,       0,           -1,      50,50,500,500,        5 },
         { "aws",      "aws",      "aws",      0,            1,           -1,      500,100,600,600,      5 },
         { "Whatsapp-for-linux",   NULL,       "WhatsApp for Linux",         0,            1,           -1,      200,100,1000,600,      5 },
         { "Safeeyes", "safeeyes", "SafeEyes-0", 0,          1,           -1,      500,100,1360,768,      0 },
         { "Safeeyes", "safeeyes", "Safe Eyes",  0,          1,           -1,      450,100,800,600,      5 },
-        { "Steam",    "Steam",    "Steam",    1 << 7,       1,           -1,      0,0,1360,768,      0 },
         { "Zathura",  "org.pwmt.zathura",    "37242476-Web-Dev-Syllabus.pdf",    0,       1,           -1,      500,100,800,600,      0 },
         { "vimwiki",  "vimwiki",    "vimwiki",    0,        1,           -1,      300,100,800,400,      0 },
         { NULL,       "spterm",   NULL,       SPTAG(0),     1,           -1, 	    0,0,1200,300, 0},
@@ -114,6 +116,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = voldw } },
 	{ MODKEY|ControlMask,           XK_l,      spawn,          {.v = lock } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
+	{ MODKEY,                       XK_e,      spawn,          {.v = klayout } },
 	{ ShiftMask,                    XK_space,  spawn,          {.v = closeup } },
 	{ MODKEY,                       XK_v,      spawn,          {.v = vimwiki } },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = zap } },
