@@ -22,7 +22,12 @@ delete() {
   rm -rf "$@" 
 }
 
-echo "${@: -1}"
+in_config=$(echo "${@: -1}")
+if [[ $in_config = 'cg' ]]; then
+  if [[ $# -lt 3 ]]; then
+    echo 'Need 3 arguments'
+  fi
+fi
 
 save() {
   cd $path
