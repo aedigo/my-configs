@@ -6,7 +6,7 @@
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
-    "modules-right": ["idle_inhibitor", "pulseaudio", "cpu", "memory", "disk", "tray", "clock"],
+    "modules-right": ["idle_inhibitor", "custom/volume", "cpu", "memory", "disk", "tray", "clock"],
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
@@ -30,32 +30,9 @@
     "memory": {
         "format": "{}% "
     },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon}",
-        "format-muted": " {format_source}",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol"
-    },
-    "custom/media": {
-        "format": "{icon} {}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    "custom/volume": {
+        "exec": "~/.config/waybar/scripts/volume.sh",
+        "restart-interval": 1,
     },
    "disk": {
         "interval": 30,
