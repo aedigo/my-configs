@@ -1,2 +1,0 @@
-#!/bin/sh
-XKB_DEFAULT_LAYOUT="br(nodeadkeys)" river

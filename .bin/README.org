@@ -1,3 +1,0 @@
-#+TITLE: Scripts
-
-* This are all the scripts I use.

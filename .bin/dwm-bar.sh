@@ -6,7 +6,7 @@ normal_root="^c#ffb86c^"
 normal_home="^c#bd93f9^"
 normal_date="^c#ff79c6^"
 urgent="^c#ff5555^"
-alarming="^c#f1fa8c"
+alarming="^c#f1fa8c^"
 
 volume=$(pamixer --get-volume)
 root=$(df -h | awk '{ if ($6 == "/") print $4 }')
@@ -21,12 +21,14 @@ cpu_per_int=$(printf "%.0f\n" "$cpu")
 
 status=""
 
-if [[ $volume -ge 40 ]]; then
-  status+="  $urgent$volume% "
+if [[ $volume -ge 45 ]]; then
+  status+="   $urgent$volume% "
 elif [[ $volume -le 10 ]]; then
-  status+="  $urgent$volume% "
+  status+="   $urgent$volume% "
+elif [[ $volume -ge 35 ]]; then
+  status+="   $alarming$volume% "
 else
-  status+="  $normal$volume% "
+  status+="   $normal$volume% "
 fi
 
 if [[ $cpu_per_int -ge 80 ]]; then
@@ -53,4 +55,4 @@ fi
 
 status+="$normal_home$home "
 status+="$normal_date$date "
-xsetroot -name "$status "
+xsetroot -name "$status"

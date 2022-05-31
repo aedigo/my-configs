@@ -19,5 +19,5 @@ xidlehook \
     'xset -display :0.0 dpms force on' \
   `# Finally, suspend an hour after it locks` \
   --timer 3600 \
-    'loginctl hibernate' \
+    'systemctl hibernate' \
     ''
