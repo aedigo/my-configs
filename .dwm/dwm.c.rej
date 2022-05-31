@@ -1,16 +1,14 @@
 --- dwm.c
 +++ dwm.c
-@@ -1282,6 +1282,13 @@ resizeclient(Client *c, int x, int y, int w, int h)
- 	c->oldw = c->w; c->w = wc.width = w;
- 	c->oldh = c->h; c->h = wc.height = h;
- 	wc.border_width = c->bw;
-+	if (((nexttiled(c->mon->clients) == c && !nexttiled(c->next))
-+	    || &monocle == c->mon->lt[c->mon->sellt]->arrange)
-+	    && !c->isfullscreen && !c->isfloating) {
-+		c->w = wc.width += c->bw * 2;
-+		c->h = wc.height += c->bw * 2;
-+		wc.border_width = 0;
-+	}
- 	XConfigureWindow(dpy, c->win, CWX|CWY|CWWidth|CWHeight|CWBorderWidth, &wc);
- 	configure(c);
- 	XSync(dpy, False);
+@@ -235,11 +233,7 @@ static int xerrorstart(Display *dpy, XErrorEvent *ee);
+ static void zoom(const Arg *arg);
+ 
+ /* variables */
+-static const char autostartblocksh[] = "autostart_blocking.sh";
+-static const char autostartsh[] = "autostart.sh";
+ static const char broken[] = "broken";
+-static const char dwmdir[] = "dwm";
+-static const char localshare[] = ".local/share";
+ static char stext[256];
+ static int screen;
+ static int sw, sh;           /* X display screen geometry width, height */
