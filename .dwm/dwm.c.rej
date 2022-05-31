@@ -1,16 +1,30 @@
 --- dwm.c
 +++ dwm.c
-@@ -1282,6 +1282,13 @@ resizeclient(Client *c, int x, int y, int w, int h)
- 	c->oldw = c->w; c->w = wc.width = w;
- 	c->oldh = c->h; c->h = wc.height = h;
- 	wc.border_width = c->bw;
-+	if (((nexttiled(c->mon->clients) == c && !nexttiled(c->next))
-+	    || &monocle == c->mon->lt[c->mon->sellt]->arrange)
-+	    && !c->isfullscreen && !c->isfloating) {
-+		c->w = wc.width += c->bw * 2;
-+		c->h = wc.height += c->bw * 2;
-+		wc.border_width = 0;
-+	}
- 	XConfigureWindow(dpy, c->win, CWX|CWY|CWWidth|CWHeight|CWBorderWidth, &wc);
- 	configure(c);
- 	XSync(dpy, False);
+@@ -163,6 +163,7 @@ static void detachstack(Client *c);
+ static Monitor *dirtomon(int dir);
+ static void drawbar(Monitor *m);
+ static void drawbars(void);
++static int drawstatusbar(Monitor *m, int bh, char* text);
+ static void enternotify(XEvent *e);
+ static void expose(XEvent *e);
+ static void focus(Client *c);
+@@ -237,7 +238,7 @@ static void zoom(const Arg *arg);
+ 
+ /* variables */
+ static const char broken[] = "broken";
+-static char stext[256];
++static char stext[1024];
+ static int screen;
+ static int sw, sh;           /* X display screen geometry width, height */
+ static int bh, blw = 0;      /* bar geometry */
+@@ -815,9 +924,7 @@ drawbar(Monitor *m)
+ 
+ 	/* draw status first so it can be overdrawn by tags later */
+ 	if (m == selmon) { /* status is only drawn on selected monitor */
+-		drw_setscheme(drw, scheme[SchemeNorm]);
+-		tw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
+-		drw_text(drw, m->ww - tw, 0, tw, bh, 0, stext, 0);
++		tw = m->ww - drawstatusbar(m, bh, stext);
+ 	}
+ 
+ 	for (c = m->clients; c; c = c->next) {
