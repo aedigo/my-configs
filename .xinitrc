@@ -6,16 +6,11 @@ picom -b &
 # keyboard
 setxkbmap -layout br nodeadkeys
 
-# audio
-/usr/bin/pipewire &
-/usr/bin/pipewire-pulse &
-/usr/bin/pipewire-media-session &
-
 # statusbar loop
 while true; do
-  dwm-bar 
+  dwm-bar.sh 
   sleep 1
 done &
 
 # wm
-exec startdwm
+bash ~/.dwm/autostart.sh; exec startdwm.sh
