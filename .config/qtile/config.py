@@ -5,16 +5,21 @@ from libqtile.lazy import lazy
 from typing import List  # noqa: F401
 
 mod = 'mod3'
-altMod = 'mod4'
-term = 'alacritty'
-alt_term = 'st'
-browser = 'qutebrowser'
+altMod = 'mod1'
+term = 'st -A 100'
+alt_term = 'st -A 100'
+browser = 'firefox'
 sft = 'shift'
 ctrl = 'control'
 dracula = [
     '282a36',
     'f8f8f2',
     'a89984',
+    'bd93f9',
+    '50fa7b',
+    '8be9fd',
+    'ffb86c',
+    'ff79c6',
     ]
 colors = dracula
 
@@ -61,14 +66,14 @@ keys = [
         Key([], 'o', lazy.spawn('whatsapp-nativefier')),
         Key([], 'c', lazy.spawn('killall WhatsApp')),
       ]),
-    Key([mod], 'r', lazy.spawn('dmenu_history -f -i -dim 0.3 -sb "#282a36" -nb "#44475a" -sf "#f8f8f2" -nf "#8be9fd" -fn FantasqueSansMono-12:light')),
+    Key([mod], 'r', lazy.spawn('dmenu_run_history')),
     Key([mod], 'v', lazy.spawn('vwhere')),
 
     # Scripts
     Key([mod, sft], 'e', lazy.spawn('layout')),
     Key([altMod, sft], 's', lazy.spawn('scrot -p -q 100 /home/aedigo/.Pictures/%Y-%m-%d-%T-screenshot.png')),
-    Key([mod, sft], 'u', lazy.spawn('volume up')),
-    Key([mod, sft], 'd', lazy.spawn('volume down')),
+    Key([mod, sft], 'u', lazy.spawn('volume.sh up')),
+    Key([mod, sft], 'd', lazy.spawn('volume.sh down')),
     Key([mod, ctrl], 't', lazy.spawn('getHours')),
     Key([mod, ctrl], 'l', lazy.spawn('lockIt')),
     KeyChord([mod, sft], 'p', [
@@ -78,9 +83,9 @@ keys = [
         ]),
 
     # Terminal Based Apps
-    Key([altMod], 'n', lazy.spawn(term + " -t nnn -e nnn")),
+    Key([altMod], 'n', lazy.spawn(term + " -t fm -e sfm")),
     #Key([mod], 'v', lazy.spawn(term + ' -e nvim /home/aedigo/.vimwiki/index.md')),
-    Key([mod, sft], 't', lazy.spawn(term + ' -e bpytop')),
+    Key([mod, sft], 't', lazy.spawn(term + ' -e btop')),
 
     # Others
     Key([mod], 'b', lazy.function(latest_group)),
@@ -98,20 +103,13 @@ for i in groups:
 
 groups.append(
     ScratchPad("scratchpad", [
-        DropDown("term", "alacritty -t scratch", height=0.7,
+        DropDown("term", "st -t scratch", height=0.7,
             on_focus_lost_hide=False),
         ]),
 )
 
 layouts = [
-  layout.MonadTall(
-    border_width=1,
-    border_focus=colors[1],
-    border_normal=colors[0],
-    margin=2,
-    single_border_width=0,
-    single_margin=0,
-  ),
+  layout.Zoomy(),
   layout.Max(),
 ]
 
@@ -133,13 +131,19 @@ def widgets():
     widget.Spacer(
         background=colors[0],
     ),
+    widget.PulseVolume(
+        background=colors[0],
+        foreground=colors[3],
+    ),
     widget.DF(
         background=colors[0],
+        foreground=colors[4],
         visible_on_warn=False,
         format='{uf}{m}'
     ),
     widget.DF(
         background=colors[0],
+        foreground=colors[5],
         visible_on_warn=False,
         format='{uf}{m}',
         partition='/home'
@@ -152,7 +156,7 @@ def widgets():
     widget.CPU(
       format='{load_percent}%',
       background=colors[0],
-      foreground=colors[1],
+      foreground=colors[6],
     ),
     widget.Sep(
       background=colors[0],
@@ -161,6 +165,7 @@ def widgets():
     ),
     widget.Memory(
       background=colors[0],
+      foreground=colors[7],
       format='{MemUsed: .0f}{mm}',
     ),
     widget.Sep(
@@ -186,8 +191,8 @@ def widgets():
   return widgetLists;
 
 widget_defaults = dict(
-    font='sans',
-    fontsize=12,
+    font='Caskaydia Cove Nerd Font',
+    fontsize=14,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
@@ -216,7 +221,7 @@ focus_on_window_activation = "smart"
 auto_minimize = True
 reconfigure_screens = True
 bring_front_click = False
-cursor_warp = True
+cursor_warp = False
 wmname = "LG3D"
 
 floating_layout = layout.Floating(
@@ -227,9 +232,10 @@ floating_layout = layout.Floating(
       *layout.Floating.default_float_rules,
       Match(wm_class='pavucontrol'),
       Match(wm_class='gvim'),
-      Match(title='nnn'),
+      Match(title='fm'),
       Match(wm_class='mb_warband_linux'),
       Match(wm_class='whatsapp-nativefier-d40211'),
+      Match(wm_class='qBittorrent'),
       ])
 
 @hook.subscribe.startup_once

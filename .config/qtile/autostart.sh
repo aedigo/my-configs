@@ -1,13 +1,11 @@
-#!/bin/bash
-night_mode 1500 &
-safeeyes &
-hsetroot -solid "#282a36" &
-emacs --daemon &
-#startServer &
-whatsapp-nativefier &
+#!/bin/sh
+
+hsetroot -solid '#282a36' &
+xrandr --output VGA-1 --gamma 1.0:0.88:0.60 --brightness 0.95 &
+easyeffects --gapplication-service &
 dunst &
-lock_watch &
-setxkbmap -layout br nodeadkeys &
 xmodmap ~/.Xmodmap &
-picom &
 unclutter &
+run_xidlehook &
+safeeyes &
+alacritty &
