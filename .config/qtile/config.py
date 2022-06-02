@@ -215,7 +215,7 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front())
 ]
 
-follow_mouse_focus = True
+follow_mouse_focus = False
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 auto_minimize = True
@@ -236,6 +236,7 @@ floating_layout = layout.Floating(
       Match(wm_class='mb_warband_linux'),
       Match(wm_class='whatsapp-nativefier-d40211'),
       Match(wm_class='qBittorrent'),
+      Match(wm_class='Whatsapp-for-linux'),
       ])
 
 @hook.subscribe.startup_once
@@ -243,6 +244,10 @@ def autostart():
   home = os.path.expanduser('~')
   subprocess.Popen([home + '/.config/qtile/autostart.sh'])
 
-@hook.subscribe.startup
-def startup():
-    top.show(False)
+@hook.subscribe.client_new
+def func(c):
+    if c.get_wm_class()[1] == "firefox":
+        c.togroup("a")
+    elif c.name == "Steam":
+        c.togroup("l")
+
