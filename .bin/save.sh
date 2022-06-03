@@ -14,7 +14,6 @@ if [[ $1 = '--help' ]]; then
 fi
 
 copy() {
-  echo $1 $2
   cp $1 $2 -a
 }
 
