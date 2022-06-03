@@ -54,7 +54,7 @@ keys = [
     # System
     Key([mod, ctrl], 'q', lazy.shutdown()),
     Key([altMod, sft], 'p', lazy.spawn('reboot')),
-    Key([altMod, sft], 'l', lazy.spawn('lock-screen')),
+    Key([altMod, sft], 'l', lazy.spawn('lock-screen.sh')),
 
     # Terminal
     Key([mod], 't', lazy.spawn(term)),
@@ -70,7 +70,7 @@ keys = [
     Key([mod], 'v', lazy.spawn('vwhere')),
 
     # Scripts
-    Key([mod, sft], 'e', lazy.spawn('layout')),
+    Key([mod, sft], 'e', lazy.spawn('layout.sh')),
     Key([altMod, sft], 's', lazy.spawn('scrot -p -q 100 /home/aedigo/.Pictures/%Y-%m-%d-%T-screenshot.png')),
     Key([mod, sft], 'u', lazy.spawn('volume.sh up')),
     Key([mod, sft], 'd', lazy.spawn('volume.sh down')),
@@ -158,11 +158,6 @@ def widgets():
       background=colors[0],
       foreground=colors[6],
     ),
-    widget.Sep(
-      background=colors[0],
-      foreground=colors[0],
-      linewidth=0,
-    ),
     widget.Memory(
       background=colors[0],
       foreground=colors[7],
@@ -237,6 +232,9 @@ floating_layout = layout.Floating(
       Match(wm_class='whatsapp-nativefier-d40211'),
       Match(wm_class='qBittorrent'),
       Match(wm_class='Whatsapp-for-linux'),
+      Match(wm_class='Safeeyes'),
+      Match(wm_class='Bottles'),
+      Match(wm_class='YouTube Music'),
       ])
 
 @hook.subscribe.startup_once
@@ -250,4 +248,6 @@ def func(c):
         c.togroup("a")
     elif c.name == "Steam":
         c.togroup("l")
+    elif c.get_wm_class == "qutebrowser":
+        c.togroup("a")
 
