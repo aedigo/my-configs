@@ -8,4 +8,5 @@ xmodmap ~/.Xmodmap &
 unclutter &
 run_xidlehook &
 safeeyes &
-alacritty &
+xcape -e 'Control_L=Escape' &
+
