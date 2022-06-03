@@ -84,7 +84,7 @@ keys = [
 
     # Terminal Based Apps
     Key([altMod], 'n', lazy.spawn(term + " -t fm -e sfm")),
-    #Key([mod], 'v', lazy.spawn(term + ' -e nvim /home/aedigo/.vimwiki/index.md')),
+    Key([mod], 'v', lazy.spawn(term + ' -c vimwiki -e nvim /home/aedigo/.vimwiki/index.md')),
     Key([mod, sft], 't', lazy.spawn(term + ' -e btop')),
 
     # Others
@@ -135,11 +135,21 @@ def widgets():
         background=colors[0],
         foreground=colors[3],
     ),
+    widget.Sep(
+      background=colors[0],
+      foreground=colors[0],
+      linewidth=6,
+    ),
     widget.DF(
         background=colors[0],
         foreground=colors[4],
         visible_on_warn=False,
         format='{uf}{m}'
+    ),
+    widget.Sep(
+      background=colors[0],
+      foreground=colors[0],
+      linewidth=6,
     ),
     widget.DF(
         background=colors[0],
@@ -151,7 +161,7 @@ def widgets():
     widget.Sep(
       background=colors[0],
       foreground=colors[0],
-      linewidth=0,
+      linewidth=6,
     ),
     widget.CPU(
       format='{load_percent}%',
@@ -235,6 +245,7 @@ floating_layout = layout.Floating(
       Match(wm_class='Safeeyes'),
       Match(wm_class='Bottles'),
       Match(wm_class='YouTube Music'),
+      Match(wm_class='vimwiki'),
       ])
 
 @hook.subscribe.startup_once
