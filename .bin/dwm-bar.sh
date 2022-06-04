@@ -46,11 +46,11 @@ else
 fi
 
 if [[ $root_int -le 10 ]]; then
-  status+="$alarming$root_int% "
+  status+="$alarming$root_int""g " 
 elif [[ $root_int -le 7 ]]; then 
-  status+="$urgent$root_int% "
+  status+="$urgent$root_int""g " 
 else
-  status+="$normal_root$root_int% "
+  status+="$normal_root$root_int""g " 
 fi
 
 status+="$normal_home$home "
