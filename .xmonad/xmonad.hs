@@ -109,10 +109,9 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 myStartupHook :: X ()
 myStartupHook = do
-    spawnOnce "picom"
-    spawnOnce "nm-applet"
     spawnOnce "safeeyes"
     spawn     "dunst"
+    spawn     "~/.bin/trayer.sh %"
 
     setWMName "LG3D"
 
@@ -271,11 +270,10 @@ myManageHook = composeAll
      , className =? "notification"    --> doFloat
      , className =? "pinentry-gtk-2"  --> doFloat
      , className =? "splash"          --> doFloat
-     , className =? "toolbar"         --> doFloat
      , className =? "Yad"             --> doCenterFloat
      , title =? "Oracle VM VirtualBox Manager"  --> doFloat
      , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 0 )
-     , className =? "Brave-browser"   --> doShift ( myWorkspaces !! 0 )
+     , title =? "qutebrowser"     --> doShift ( myWorkspaces !! 0 )
      , className =? "mpv"             --> doFloat
      , className =? "Gimp"            --> doShift ( myWorkspaces !! 8 )
      , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
@@ -293,7 +291,7 @@ myKeys =
         , ("M-S-q", io exitSuccess ) -- Quits xmonad
 
     -- KB_GROUP Run Prompt
-        , ("M-r", spawn "dmenu_run") -- Dmenu
+        , ("M-r", spawn "dmenu_run_history") -- Dmenu
 
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-t", spawn (myTerminal ++ " -A 100"))
@@ -301,6 +299,7 @@ myKeys =
         , ("M-M1-h", spawn (myTerminal ++ " -e btop"))
         , ("M-S-d", spawn "/home/aedigo/.bin/volume.sh down")
         , ("M-S-u", spawn "/home/aedigo/.bin/volume.sh up")
+        , ("M-S-t", spawn "pymor -p 20 -l 3")
 
     -- KB_GROUP Kill windows
         , ("M-c", kill1)     -- Kill the currently focused client
@@ -311,7 +310,7 @@ myKeys =
 
     -- KB_GROUP Floating windows
         , ("M-f", sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
-        , ("M-S-t", withFocused $ windows . W.sink)  -- Push floating window back to tile
+        , ("M-S-o", withFocused $ windows . W.sink)  -- Push floating window back to tile
         , ("M-C-t", sinkAll)                       -- Push ALL floating windows to tile
 
     -- KB_GROUP Increase/decrease spacing (gaps)
