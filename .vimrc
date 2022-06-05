@@ -12,6 +12,7 @@ set colorcolumn=85
 set hlsearch
 set number
 set relativenumber
+set tabstop=2 shiftwidth=2 expandtab
 
 let g:netrw_banner=0
 let g:netrw_browser_split=4
@@ -40,6 +41,7 @@ inoremap <silent> ,n <C-x><C-n>
 inoremap <silent> ,o <C-x><C-o>
 inoremap <silent> ,t <C-x><C-]>
 inoremap <silent> ,u <C-x><C-u>
+noremap <C-L> <C-W><C-L>
 
 " this will let me go back/foward or delete a buffer
 noremap gn :bn<cr>
