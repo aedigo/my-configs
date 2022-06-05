@@ -1,41 +1,42 @@
-set nocompatible
-set hidden hls showcmd ruler incsearch laststatus=2
-set softtabstop=0 noexpandtab
-set shiftwidth=2
-set tabstop=2 softtabstop=2 expandtab shiftwidth=2 smarttab
-let g:dracula_colorterm = 0
-filetype plugin on
 syntax on
-packadd! dracula
-syntax enable
-colorscheme dracula
 
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<cr> {<cr>}<esc>o
-inoremap {;<cr> {<cr>};<esc>o
-
-" this allows me to have both relative and absolute numbers when moving around in visual mode
+" set path+=**
+setlocal path=.,,src/**,public/**
 set number
+set wildmenu
+set wildcharm=<C-z>
+set wildignore=*/node_modules/*,*/target/*,*/tmp/*
+set noshowmode
+" this is for lightline plugin
+set laststatus=2
+
+let g:netrw_banner=0
+let g:netrw_browser_split=4
+let g:netrw_altv=1
+let g:netrw_liststyle=3
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+let g:lightline = {
+      \ 'colorscheme': 'dracula',
+      \ }
+
+" mappings
+" non-recursive
+noremap <C-p> :find *
+noremap nt :tabn<cr>
+noremap pt :tabp<cr>
+noremap dt :tabd<cr>
+noremap <C-n> :edit .<cr>
+nnoremap ,html :-1read $HOME/.vim/.boilerplate.html<CR>6jwf>a
+
+" this will let me go back/foward or delete a buffer
+noremap gn :bn<cr>
+noremap gp :bp<cr>
+noremap gd :bd<cr>
+
+" this set the line number to be both relative and absolute
 augroup numbertoggle
 autocmd!
 autocmd bufenter,focusgained,insertleave,winenter * if &nu && mode() != "i" | set rnu   | endif
 autocmd bufleave,focuslost,insertenter,winleave   * if &nu                  | set nornu | endif
 augroup end
-
-
-vnoremap <c-c> :w !xclip -i -sel c<cr><cr>
-" this will let me go back/foward or delete a buffer
-map gn :bn<cr>
-map gp :bp<cr>
-map gd :bd<cr>
-
-" this will make 'jj' act like esc
-imap jk <Esc>
-
-" vimwiki configuration
-let g:vimwiki_list = [{'path': '~/.vimwiki/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
