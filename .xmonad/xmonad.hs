@@ -78,7 +78,7 @@ import XMonad.Util.SpawnOnce
       -- SolarizedDark
       -- SolarizedLight
       -- TomorrowNight
-import Colors.DoomOne
+import Colors.Dracula
 
 myFont :: String
 myFont = "xft:Caskaydia Cove Nerd Font:regular:size=12:antialias=true:hinting=true"
@@ -111,6 +111,8 @@ myStartupHook :: X ()
 myStartupHook = do
     spawnOnce "picom"
     spawnOnce "nm-applet"
+    spawnOnce "safeeyes"
+    spawn     "dunst"
 
     setWMName "LG3D"
 
@@ -272,9 +274,9 @@ myManageHook = composeAll
      , className =? "toolbar"         --> doFloat
      , className =? "Yad"             --> doCenterFloat
      , title =? "Oracle VM VirtualBox Manager"  --> doFloat
-     , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 1 )
-     , className =? "Brave-browser"   --> doShift ( myWorkspaces !! 1 )
-     , className =? "mpv"             --> doShift ( myWorkspaces !! 7 )
+     , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 0 )
+     , className =? "Brave-browser"   --> doShift ( myWorkspaces !! 0 )
+     , className =? "mpv"             --> doFloat
      , className =? "Gimp"            --> doShift ( myWorkspaces !! 8 )
      , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
@@ -296,7 +298,9 @@ myKeys =
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-t", spawn (myTerminal ++ " -A 100"))
         , ("M-w", spawn (myBrowser))
-        , ("M-M1-h", spawn (myTerminal ++ " -e htop"))
+        , ("M-M1-h", spawn (myTerminal ++ " -e btop"))
+        , ("M-S-d", spawn "/home/aedigo/.bin/volume.sh down")
+        , ("M-S-u", spawn "/home/aedigo/.bin/volume.sh up")
 
     -- KB_GROUP Kill windows
         , ("M-c", kill1)     -- Kill the currently focused client
