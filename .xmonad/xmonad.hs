@@ -111,7 +111,10 @@ myStartupHook :: X ()
 myStartupHook = do
     spawnOnce "safeeyes"
     spawn     "dunst"
-    spawn     "~/.bin/trayer.sh %"
+    spawn     "~/.bin/trayer.sh &"
+    spawn     "~/.bin/run_xidlehook &"
+    spawn     "xcape -e 'Control_L=Escape' &"
+
 
     setWMName "LG3D"
 
