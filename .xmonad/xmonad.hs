@@ -78,7 +78,7 @@ import XMonad.Util.SpawnOnce
       -- SolarizedDark
       -- SolarizedLight
       -- TomorrowNight
-import Colors.Dracula
+import Colors.GruvboxDark
 
 myFont :: String
 myFont = "xft:Caskaydia Cove Nerd Font:regular:size=12:antialias=true:hinting=true"
@@ -115,7 +115,6 @@ myStartupHook = do
     spawn     "~/.bin/run_xidlehook &"
     spawn     "xcape -e 'Control_L=Escape' &"
 
-
     setWMName "LG3D"
 
 myColorizer :: Window -> Bool -> X (String, String)
@@ -127,7 +126,9 @@ myColorizer = colorRangeFromClassName
                   (0x28,0x2c,0x34) -- active fg
 
 myScratchPads :: [NamedScratchpad]
-myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm ]
+myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
+                , NS "filemanager" spawnFm findFm manageFm
+                ]
   where
     spawnTerm  = myTerminal ++ " -t scratchpad"
     findTerm   = title =? "scratchpad"
@@ -137,6 +138,15 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm ]
                  w = 0.9
                  t = 0.95 -h
                  l = 0.95 -w
+    spawnFm  = myTerminal ++ " -t fm -e sfm"
+    findFm   = title =? "fm"
+    manageFm = customFloating $ W.RationalRect l t w h
+               where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 -h
+                 l = 0.95 -w
+
 
 --Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
@@ -277,7 +287,8 @@ myManageHook = composeAll
      , title =? "Oracle VM VirtualBox Manager"  --> doFloat
      , title =? "Mozilla Firefox"     --> doShift ( myWorkspaces !! 0 )
      , title =? "qutebrowser"     --> doShift ( myWorkspaces !! 0 )
-     , className =? "mpv"             --> doFloat
+     , className =? "mpv"             --> doCenterFloat
+     , className =? "fm"             --> doCenterFloat
      , className =? "Gimp"            --> doShift ( myWorkspaces !! 8 )
      , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
@@ -297,12 +308,14 @@ myKeys =
         , ("M-r", spawn "dmenu_run_history") -- Dmenu
 
     -- KB_GROUP Useful programs to have a keybinding for launch
-        , ("M-t", spawn (myTerminal ++ " -A 100"))
+        , ("M-t", spawn $ myTerminal ++ " -A 100")
         , ("M-w", spawn (myBrowser))
         , ("M-M1-h", spawn (myTerminal ++ " -e btop"))
         , ("M-S-d", spawn "/home/aedigo/.bin/volume.sh down")
         , ("M-S-u", spawn "/home/aedigo/.bin/volume.sh up")
         , ("M-S-t", spawn "pymor -p 20 -l 3")
+        , ("M-S-f", spawn $ myTerminal ++ " -A 100 -c fm -e sfm")
+        , ("M-S-c", spawn "dunstctl close-all")
 
     -- KB_GROUP Kill windows
         , ("M-c", kill1)     -- Kill the currently focused client
@@ -366,6 +379,7 @@ myKeys =
     -- When you toggle them to show, it brings them to your current workspace.
     -- Toggle them to hide and it sends them back to hidden workspace (NSP).
         , ("M-u", namedScratchpadAction myScratchPads "terminal")
+        , ("M-s m", namedScratchpadAction myScratchPads "filemanager")
 
     -- KB_GROUP Emacs (SUPER-e followed by a key)
         ]
