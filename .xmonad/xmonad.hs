@@ -307,7 +307,7 @@ myKeys =
     -- KB_GROUP Run Prompt
         , ("M-r", spawn "dmenu_run_history") -- Dmenu
 
-        , ("M-z", toggleWS)
+        , ("M-b", toggleWS)
 
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-t", spawn $ myTerminal ++ " -A 100")
@@ -425,7 +425,7 @@ main = do
                 -- Hidden workspaces (no windows)
               , ppHiddenNoWindows = xmobarColor color05 ""  . clickable
                 -- Title of active window
-              , ppTitle = xmobarColor color16 "" . shorten 60
+              , ppTitle = xmobarColor color16 "" . shorten 0
                 -- Separator character
               , ppSep =  "<fc=" ++ color09 ++ "> <fn=1>|</fn> </fc>"
                 -- Urgent workspace
@@ -433,6 +433,7 @@ main = do
                 -- Adding # of windows on current workspace to the bar
               , ppExtras  = [windowCount]
                 -- order of things in xmobar
-              , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+              -- , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+              , ppOrder = \(ws : l : _ : _ ) -> [ws]
               }
         } `additionalKeysP` myKeys
