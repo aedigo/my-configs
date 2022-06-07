@@ -1,5 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =5
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/home/aedigo/.web/portifolio/qr-code-component-main'
+let g:netrw_dirhist_8='/home/aedigo/Downloads'
+let g:netrw_dirhist_7='/home/aedigo'
+let g:netrw_dirhist_6='/home/aedigo/.web/portifolio/qr-code-component-main'
 let g:netrw_dirhist_5='/home/aedigo/.web/portifolio/qr-code-component-main/src/sass'
 let g:netrw_dirhist_4='/home/aedigo/.web/portifolio/qr-code-component-main/src'
 let g:netrw_dirhist_3='/home/aedigo/.web/portifolio/qr-code-component-main'
