@@ -109,11 +109,11 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 myStartupHook :: X ()
 myStartupHook = do
-    spawnOnce "safeeyes"
-    spawnOnce "dunst"
-    spawnOnce "~/.bin/trayer.sh &"
-    spawnOnce "~/.bin/run_xidlehook &"
-    spawnOnce "xcape -e 'Control_L=Escape' &"
+    spawn      "safeeyes &"
+    spawn      "dunst &"
+    spawn      "~/.bin/trayer.sh &"
+    spawn      "~/.bin/run_xidlehook &"
+    spawn      "xcape -e 'Control_L=Escape' &"
 
     setWMName "LG3D"
 
@@ -315,6 +315,7 @@ myKeys =
         , ("M-M1-h", spawn (myTerminal ++ " -e btop"))
         , ("M-S-d", spawn "/home/aedigo/.bin/volume.sh down")
         , ("M-S-u", spawn "/home/aedigo/.bin/volume.sh up")
+        , ("M-s l", spawn "/home/aedigo/.bin/layout.sh")
         , ("M-S-t", spawn "pymor -p 20 -l 3")
         , ("M-S-f", spawn $ myTerminal ++ " -A 100 -c fm -e sfm")
         , ("M-S-c", spawn "dunstctl close-all")
