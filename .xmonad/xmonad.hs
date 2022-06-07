@@ -7,7 +7,7 @@ import qualified XMonad.StackSet as W
 
     -- Actions
 import XMonad.Actions.CopyWindow (kill1)
-import XMonad.Actions.CycleWS (Direction1D(..), moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
+import XMonad.Actions.CycleWS (Direction1D(..), moveTo, toggleWS, shiftTo, WSType(..), nextScreen, prevScreen)
 import XMonad.Actions.GridSelect
 import XMonad.Actions.MouseResize
 import XMonad.Actions.Promote
@@ -110,10 +110,10 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 myStartupHook :: X ()
 myStartupHook = do
     spawnOnce "safeeyes"
-    spawn     "dunst"
-    spawn     "~/.bin/trayer.sh &"
-    spawn     "~/.bin/run_xidlehook &"
-    spawn     "xcape -e 'Control_L=Escape' &"
+    spawnOnce "dunst"
+    spawnOnce "~/.bin/trayer.sh &"
+    spawnOnce "~/.bin/run_xidlehook &"
+    spawnOnce "xcape -e 'Control_L=Escape' &"
 
     setWMName "LG3D"
 
@@ -306,6 +306,8 @@ myKeys =
 
     -- KB_GROUP Run Prompt
         , ("M-r", spawn "dmenu_run_history") -- Dmenu
+
+        , ("M-z", toggleWS)
 
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-t", spawn $ myTerminal ++ " -A 100")
