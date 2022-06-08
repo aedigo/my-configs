@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# compositor
+picom -b &
+
+# keyboard
+setxkbmap -layout br nodeadkeys
+# trayer --edge top --align right --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 0x2f343f --widthtype request --height 24;
+# wm
+xsetroot -cursor_name left_ptr; hsetroot -solid '#282828'; xmodmap ~/.Xmodmap; exec xmonad
